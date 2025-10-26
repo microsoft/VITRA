@@ -1,0 +1,2235 @@
+<!DOCTYPE html>
+<html lang="en"> 
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="Scalable Vision-Language-Action Model Pretraining for Robotic Manipulation with Real-Life Human Activity Videos">
+  <meta name="keywords" content="VLA,Robotics,Dexterous Hand">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scalable Vision-Language-Action Model Pretraining for Robotic Manipulation with Real-Life Human Activity Videos</title>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="./static/js/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title"><span
+                style="font-family: 'Courier New', Courier, monospace; font-size: 115%;"><span style="font-size: 120%;">V</span>ITRA</span>:<br><span
+                style="font-size:2.22rem;">Scalable Vision-Language-Action Model Pretraining for Robotic Manipulation with Real-Life Human Activity Videos
+              </span></h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                Qixiu Li<sup>*†,1,2</sup>,
+              </span>
+              <span class="author-block">
+                Yu Deng<sup>*,2</sup>,
+              </span>
+              <span class="author-block">
+                Yaobo Liang<sup>*,2</sup>,
+              </span>
+              <span class="author-block">
+                Lin Luo<sup>*,2</sup>,
+              </span>
+              <br>
+              <span class="author-block">
+                Lei Zhou<sup>†,2</sup>,
+              </span>
+              <span class="author-block">
+                Chengtang Yao<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Lingqi Zeng<sup>†,2</sup>,
+              </span>
+              <span class="author-block">
+                Zhiyuan Feng<sup>†,1,2</sup>,
+              </span>
+              <span class="author-block">
+                Huizhi Liang<sup>†,1,2</sup>,
+              </span>
+              <span class="author-block">
+                Sicheng Xu<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Yizhong Zhang<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Xi Chen<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Hao Chen<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Lily Sun<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Dong Chen<sup>2</sup>,
+              </span>
+              <span class="author-block">
+                Jiaolong Yang<sup>‡,2</sup>,
+              </span>
+              <span class="author-block">
+                Baining Guo<sup>2</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <font size="-0.4"><sup>*</sup>Equal contribution &nbsp;</font>
+              </span>
+              <span class="author-block">
+                <font size="-0.4"><sup>†</sup>Interns at Microsoft Research &nbsp;</font>
+              </span>
+              <span class="author-block">
+                <font size="-0.4"><sup>‡</sup>Project lead. Email: {jiaoyan}@microsoft.com</font>
+              </span><br>
+
+
+              <span class="author-block"><sup>1</sup>Tsinghua University&nbsp;</span>
+              <span class="author-block"><sup>2</sup>Microsoft Research Asia&nbsp;</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="./vitra_paper.pdf" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="./vitra_paper.pdf" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/microsoft/VITRA/" class="external-link button is-normal is-rounded is-dark"  target="_blank">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <!-- Model Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/microsoft/VITRA/" class="external-link button is-normal is-rounded is-dark"  target="_blank">
+                    <span class="icon">
+                      🤗
+                    </span>
+                    <span>Model</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://github.com/microsoft/VITRA/" class="external-link button is-normal is-rounded is-dark"  target="_blank">
+                    <span class="icon">
+                      🗄️
+                    </span>
+                    <span>Data</span>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <img src="static/images/teaser.jpg" alt="Overview of DexVLA framework and training data pipeline" />
+        <br>
+        <div class="content has-text-justified">
+          <p>
+            <span
+                style="font-size: 115%;"><span style="font-size: 130%;">V</span>ITRA</span>
+            is a novel approach for pretraining robotic manipulation Vision-Language-Action (VLA) models using a large corpus of unscripted real-life video recordings of human hand activities. 
+            Treating human hand as dexterous robot end-effector, we show that "in-the-wild" egocentric human videos without any annotations can be transformed into data formats fully aligned with existing robotic  V-L-A training data in terms of task granularity and labels.  
+            This is achieved by the development of a fully-automated holistic human activity analysis approach for arbitrary human hand videos. This approach can generate atomic-level hand activity segments and their language descriptions, each accompanied with framewise 3D hand motion and camera motion. We process a large volume of egocentric videos and create a hand-VLA training dataset containing 1M episodes and 26M frames. This training data covers a wide range of objects and concepts, dexterous manipulation tasks, and environment variations in real life, vastly exceeding the coverage of existing robot data.
+            We design a dexterous hand VLA model architecture and pretrain the model on this dataset. The model exhibits strong zero-shot capabilities on completely unseen real-world observations. Additionally, fine-tuning it on a small amount of real robot action data significantly improves task success rates and generalization to novel objects in real robotic experiments. We also demonstrate the appealing scaling behavior of the model's task performance with respect to pretraining data scale.
+            We believe this work lays a solid foundation for scalable VLA pretraining, advancing robots toward truly generalizable embodied intelligence.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+<section class="section" style="background-color:#f8f6fb;padding:3rem 0;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title" style="margin-top: 0.5em;margin-bottom:1.5rem;text-align:left;">Transforming Human Hand Video to VLA Data</h2>
+    <p>
+        Existing robotic manipulation V-L-A data typically comprise simple, short-horizon tasks (<em>e.g.,</em> <em>"pick up the sponge on table"</em>, <em>"wipe the stove with cloth"</em> ), which can be composed to long-horizon tasks by a high-level planner.
+        Each data episode comprises a language instruction, a video frame sequence, and frame-aligned 3D action chunks of the end-effector in the robot or camera coordinate system. 
+        Our approach analyzes an unscripted human video and generates V-L-A data in such format, treating the two human hands as the end-effector.
+    </p>
+    <!-- <video id="teaser" autoplay muted loop playsinline style="width: 100%; max-width: 3200px; height: auto; border-radius: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); margin: 20px auto; display: block;"> -->
+
+    <video id="teaser" controls autoplay muted loop playsinline style="width: 100%; max-width: 3200px; height: auto; border-radius: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); margin: 20px auto; display: block;">
+        <source src="./Video/overview.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+      <br>
+    <h4 class="title is-4 section-title" style="margin-bottom:1.5rem;text-align:left;font-size:1.3rem !important;">Visualization of our hand V-L-A data</h4>
+    </p>
+    The left part in each case visualizes the reconstructed 3D hands for individual frames. The middle part shows the hand action trajectory from the current frame to the end of the episode, with a color gradient from purple to yellow indicating the temporal progression throughout the episode. The rightmost part depicts the hand's 3D trajectory projected into the camera coordinate system at the first frame.
+    </p>
+    <br>
+    <div class="video-text-description" id="video_text_data" style="text-align:center;margin-bottom:1.5rem;padding:10px 20px;min-height:40px;">
+    <span class="video-text-content" style="font-size:1.3rem;font-weight:700;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic;display:inline-block;line-height:1.8;font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;letter-spacing:0.5px;text-shadow:0 2px 4px rgba(0,0,0,0.05);">Left hand: Pick up the wooden sticks.<br>Right hand: Pick up and gather the wooden pieces.</span>
+    </div>
+    
+    <div class="video-wrapper">
+      <div class="video-loading-overlay" id="loading_data" style="display: none;">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Video Loading...</div>
+      </div>
+      <video id="video_data" controls autoplay muted playsinline loop>
+        <source src="Video/Data/Ego4D_18a3840b-7463-43c4-9aa9-b1d8e486fa84_ep_001351.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="carousel-wrapper">
+      <button class="nav-btn prev-btn" data-section="data">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      
+      <div class="thumb-viewport">
+        <div class="thumb-container" id="thumbs_data">
+          <img src="static/images/thumbs/Ego4D_18a3840b-7463-43c4-9aa9-b1d8e486fa84_ep_001351.jpg" data-video="Video/Data/Ego4D_18a3840b-7463-43c4-9aa9-b1d8e486fa84_ep_001351.mp4" data-text="Left hand: Pick up the wooden sticks.<br>Right hand: Pick up and gather the wooden pieces." data-target="video_data" alt="Ego4D_18a3840b-7463-43c4-9aa9-b1d8e486fa84_ep_001351">
+          <img src="static/images/thumbs/Ego4D_002d2729-df71-438d-8396-5895b349e8fd_ep_000442.jpg" data-video="Video/Data/Ego4D_002d2729-df71-438d-8396-5895b349e8fd_ep_000442.mp4" data-text="Left hand: Place the cutting board onto the countertop.<br>Right hand: Slide the cutting board to the left on the countertop." data-target="video_data" alt="Ego4D_002d2729-df71-438d-8396-5895b349e8fd_ep_000442">
+          <img src="static/images/thumbs/Ego4D_01d793c6-e235-4af1-8a1d-c70dcf0c8654_ep_000039.jpg" data-video="Video/Data/Ego4D_01d793c6-e235-4af1-8a1d-c70dcf0c8654_ep_000039.mp4" data-text="Left hand: None.<br>Right hand: Release the wooden strip." data-target="video_data" alt="Ego4D_01d793c6-e235-4af1-8a1d-c70dcf0c8654_ep_000039">
+          <img src="static/images/thumbs/Ego4D_03cc49c3-a7d1-445b-9a2a-545c4fae6843_ep_000026.jpg" data-video="Video/Data/Ego4D_03cc49c3-a7d1-445b-9a2a-545c4fae6843_ep_000026.mp4" data-text="Left hand: None.<br>Right hand: Pick up the spray bottle." data-target="video_data" alt="Ego4D_03cc49c3-a7d1-445b-9a2a-545c4fae6843_ep_000026">
+          <img src="static/images/thumbs/Ego4D_0a02a1ed-a327-4753-b270-e95298984b96_ep_000465.jpg" data-video="Video/Data/Ego4D_0a02a1ed-a327-4753-b270-e95298984b96_ep_000465.mp4" data-text="Left hand: Slide the wooden stick across the table.<br>Right hand: None." data-target="video_data" alt="Ego4D_0a02a1ed-a327-4753-b270-e95298984b96_ep_000465">
+          <img src="static/images/thumbs/Ego4D_0a40e971-02a4-45f3-aa46-b20bfef1f8e1_ep_001092.jpg" data-video="Video/Data/Ego4D_0a40e971-02a4-45f3-aa46-b20bfef1f8e1_ep_001092.mp4" data-text="Left hand: None.<br>Right hand: Pull up the plant from the soil using the right hand." data-target="video_data" alt="Ego4D_0a40e971-02a4-45f3-aa46-b20bfef1f8e1_ep_001092">
+          <img src="static/images/thumbs/Ego4D_0b0c7c26-8f38-4a22-8a9e-b99e4ae334fc_ep_000182.jpg" data-video="Video/Data/Ego4D_0b0c7c26-8f38-4a22-8a9e-b99e4ae334fc_ep_000182.mp4" data-text="Left hand: None.<br>Right hand: Sweep the ground with a broom." data-target="video_data" alt="Ego4D_0b0c7c26-8f38-4a22-8a9e-b99e4ae334fc_ep_000182">
+          <img src="static/images/thumbs/Ego4D_0cd3698b-9f75-4a43-a8b3-a3bd25b9dc52_ep_000771.jpg" data-video="Video/Data/Ego4D_0cd3698b-9f75-4a43-a8b3-a3bd25b9dc52_ep_000771.mp4" data-text="Left hand: Smooth the wet concrete surface with a trowel.<br>Right hand: None." data-target="video_data" alt="Ego4D_0cd3698b-9f75-4a43-a8b3-a3bd25b9dc52_ep_000771">
+          <img src="static/images/thumbs/Ego4D_0cd3698b-9f75-4a43-a8b3-a3bd25b9dc52_ep_000960.jpg" data-video="Video/Data/Ego4D_0cd3698b-9f75-4a43-a8b3-a3bd25b9dc52_ep_000960.mp4" data-text="Left hand: Pull the wooden rod along the surface of the wet concrete.<br>Right hand: None." data-target="video_data" alt="Ego4D_0cd3698b-9f75-4a43-a8b3-a3bd25b9dc52_ep_000960">
+          <img src="static/images/thumbs/Ego4D_0de39e75-fb19-47d4-818d-fff874b05ab9_ep_000349.jpg" data-video="Video/Data/Ego4D_0de39e75-fb19-47d4-818d-fff874b05ab9_ep_000349.mp4" data-text="Left hand: Push the mop forward across the floor.<br>Right hand: None." data-target="video_data" alt="Ego4D_0de39e75-fb19-47d4-818d-fff874b05ab9_ep_000349">
+          <img src="static/images/thumbs/Ego4D_17b62651-e5e3-4d06-8911-86becc7f7ac3_ep_000053.jpg" data-video="Video/Data/Ego4D_17b62651-e5e3-4d06-8911-86becc7f7ac3_ep_000053.mp4" data-text="Left hand: None.<br>Right hand: Paint a vertical line along the wall corner using a paintbrush." data-target="video_data" alt="Ego4D_17b62651-e5e3-4d06-8911-86becc7f7ac3_ep_000053">
+          <img src="static/images/thumbs/Ego4D_18a2984e-01d1-41f1-8c0e-2b314c8c233f_ep_000177.jpg" data-video="Video/Data/Ego4D_18a2984e-01d1-41f1-8c0e-2b314c8c233f_ep_000177.mp4" data-text="Left hand: None.<br>Right hand: Pick up the t-shirt." data-target="video_data" alt="Ego4D_18a2984e-01d1-41f1-8c0e-2b314c8c233f_ep_000177">
+          <img src="static/images/thumbs/Ego4D_18a3840b-7463-43c4-9aa9-b1d8e486fa84_ep_001016.jpg" data-video="Video/Data/Ego4D_18a3840b-7463-43c4-9aa9-b1d8e486fa84_ep_001016.mp4" data-text="Left hand: Grasp the brass hose connector.<br>Right hand: None." data-target="video_data" alt="Ego4D_18a3840b-7463-43c4-9aa9-b1d8e486fa84_ep_001016">
+          <img src="static/images/thumbs/Ego4D_19db1542-5537-46cd-82d1-7f72e356a2a9_ep_000513.jpg" data-video="Video/Data/Ego4D_19db1542-5537-46cd-82d1-7f72e356a2a9_ep_000513.mp4" data-text="Left hand: Pick up the green book from the top of the stack.<br>Right hand: Pick up the top book from the stack and place it onto the adjacent pile." data-target="video_data" alt="Ego4D_19db1542-5537-46cd-82d1-7f72e356a2a9_ep_000513">
+          <img src="static/images/thumbs/Ego4D_1b1279dc-dfae-4e3a-aa46-acc48776e402_ep_000266.jpg" data-video="Video/Data/Ego4D_1b1279dc-dfae-4e3a-aa46-acc48776e402_ep_000266.mp4" data-text="Left hand: None.<br>Right hand: Wipe the stove surface with a blue cloth." data-target="video_data" alt="Ego4D_1b1279dc-dfae-4e3a-aa46-acc48776e402_ep_000266">
+          <img src="static/images/thumbs/Ego4D_1b204c9b-30da-47cc-b793-8813169e72c7_ep_000040.jpg" data-video="Video/Data/Ego4D_1b204c9b-30da-47cc-b793-8813169e72c7_ep_000040.mp4" data-text="Left hand: None.<br>Right hand: Crack the egg and release its contents into the measuring jug." data-target="video_data" alt="Ego4D_1b204c9b-30da-47cc-b793-8813169e72c7_ep_000040">
+          <img src="static/images/thumbs/Ego4D_1d8b1b3c-b8f3-4a3d-9137-65b4b15dd343_ep_000047.jpg" data-video="Video/Data/Ego4D_1d8b1b3c-b8f3-4a3d-9137-65b4b15dd343_ep_000047.mp4" data-text="Left hand: None.<br>Right hand: Chop the base of the woody cluster with the knife." data-target="video_data" alt="Ego4D_1d8b1b3c-b8f3-4a3d-9137-65b4b15dd343_ep_000047">
+          <img src="static/images/thumbs/Ego4D_1d95a5e3-3030-41e5-8bf8-a2233984f7e2_ep_001554.jpg" data-video="Video/Data/Ego4D_1d95a5e3-3030-41e5-8bf8-a2233984f7e2_ep_001554.mp4" data-text="Left hand: Roll the dough with a rolling pin.<br>Right hand: Roll the dough using a rolling pin." data-target="video_data" alt="Ego4D_1d95a5e3-3030-41e5-8bf8-a2233984f7e2_ep_001554">
+          <img src="static/images/thumbs/Ego4D_1dc26044-e6a9-4e02-9707-968fe77a4f93_ep_000015.jpg" data-video="Video/Data/Ego4D_1dc26044-e6a9-4e02-9707-968fe77a4f93_ep_000015.mp4" data-text="Left hand: Place the sugarcane piece onto the ground.<br>Right hand: Place the green stalk onto the ground." data-target="video_data" alt="Ego4D_1dc26044-e6a9-4e02-9707-968fe77a4f93_ep_000015">
+          <img src="static/images/thumbs/Ego4D_1ea95f25-81f9-46b1-b7a1-c4ca58251c6f_ep_000017.jpg" data-video="Video/Data/Ego4D_1ea95f25-81f9-46b1-b7a1-c4ca58251c6f_ep_000017.mp4" data-text="Left hand: Grip and stabilize the wooden board.<br>Right hand: Sand the wooden board with a power sander." data-target="video_data" alt="Ego4D_1ea95f25-81f9-46b1-b7a1-c4ca58251c6f_ep_000017">
+          <img src="static/images/thumbs/Ego4D_1ece4937-dc98-4d2a-ba7a-82504528157d_ep_000130.jpg" data-video="Video/Data/Ego4D_1ece4937-dc98-4d2a-ba7a-82504528157d_ep_000130.mp4" data-text="Left hand: Pick up the transparent grinder and hold it above the pan.<br>Right hand: None." data-target="video_data" alt="Ego4D_1ece4937-dc98-4d2a-ba7a-82504528157d_ep_000130">
+          <img src="static/images/thumbs/Ego4D_1f6e0f73-25ad-4f0e-b9c4-36dee6647aee_ep_000302.jpg" data-video="Video/Data/Ego4D_1f6e0f73-25ad-4f0e-b9c4-36dee6647aee_ep_000302.mp4" data-text="Left hand: None.<br>Right hand: Glide the iron across the garment." data-target="video_data" alt="Ego4D_1f6e0f73-25ad-4f0e-b9c4-36dee6647aee_ep_000302">
+          <img src="static/images/thumbs/Ego4D_2bd5c29e-ef5c-451c-aa2e-961d4257de9b_ep_000433.jpg" data-video="Video/Data/Ego4D_2bd5c29e-ef5c-451c-aa2e-961d4257de9b_ep_000433.mp4" data-text="Left hand: None.<br>Right hand: Pick up the vacuum hose handle." data-target="video_data" alt="Ego4D_2bd5c29e-ef5c-451c-aa2e-961d4257de9b_ep_000433">
+          <img src="static/images/thumbs/Ego4D_2c7fc799-1d40-49da-b5a2-213bac8ea420_ep_000020.jpg" data-video="Video/Data/Ego4D_2c7fc799-1d40-49da-b5a2-213bac8ea420_ep_000020.mp4" data-text="Left hand: Grasp the pink plastic container.<br>Right hand: Pick up the pink plastic container from the drying rack." data-target="video_data" alt="Ego4D_2c7fc799-1d40-49da-b5a2-213bac8ea420_ep_000020">
+          <img src="static/images/thumbs/Ego4D_2c7fc799-1d40-49da-b5a2-213bac8ea420_ep_000295.jpg" data-video="Video/Data/Ego4D_2c7fc799-1d40-49da-b5a2-213bac8ea420_ep_000295.mp4" data-text="Left hand: None.<br>Right hand: Slide the spray bottle leftward across the countertop." data-target="video_data" alt="Ego4D_2c7fc799-1d40-49da-b5a2-213bac8ea420_ep_000295">
+          <img src="static/images/thumbs/Ego4D_2d29b45a-169b-453f-8050-98ec147b0ccf_ep_000096.jpg" data-video="Video/Data/Ego4D_2d29b45a-169b-453f-8050-98ec147b0ccf_ep_000096.mp4" data-text="Left hand: None.<br>Right hand: Pick up the tape measure." data-target="video_data" alt="Ego4D_2d29b45a-169b-453f-8050-98ec147b0ccf_ep_000096">
+          <img src="static/images/thumbs/Ego4D_2d29b45a-169b-453f-8050-98ec147b0ccf_ep_000558.jpg" data-video="Video/Data/Ego4D_2d29b45a-169b-453f-8050-98ec147b0ccf_ep_000558.mp4" data-text="Left hand: Pick up the white board.<br>Right hand: None." data-target="video_data" alt="Ego4D_2d29b45a-169b-453f-8050-98ec147b0ccf_ep_000558">
+          <img src="static/images/thumbs/Ego4D_2f9e8979-a4c2-4856-a148-85365f6028b5_ep_000109.jpg" data-video="Video/Data/Ego4D_2f9e8979-a4c2-4856-a148-85365f6028b5_ep_000109.mp4" data-text="Left hand: None.<br>Right hand: Place the brick onto the mortar in the row." data-target="video_data" alt="Ego4D_2f9e8979-a4c2-4856-a148-85365f6028b5_ep_000109">
+          <img src="static/images/thumbs/Ego4D_2ff3fee9-1073-4201-b0c5-2cb0292e4d00_ep_000163.jpg" data-video="Video/Data/Ego4D_2ff3fee9-1073-4201-b0c5-2cb0292e4d00_ep_000163.mp4" data-text="Left hand: Place the plate with food into the microwave.<br>Right hand: Remove the pink plate from the microwave." data-target="video_data" alt="Ego4D_2ff3fee9-1073-4201-b0c5-2cb0292e4d00_ep_000163">
+          <img src="static/images/thumbs/Ego4D_35c31ba5-2b1a-40da-a5cc-e098465759b8_ep_000105.jpg" data-video="Video/Data/Ego4D_35c31ba5-2b1a-40da-a5cc-e098465759b8_ep_000105.mp4" data-text="Left hand: None.<br>Right hand: Place the blue spray bottle on the windowsill." data-target="video_data" alt="Ego4D_35c31ba5-2b1a-40da-a5cc-e098465759b8_ep_000105">
+          <img src="static/images/thumbs/Ego4D_37d183ce-ba64-4ad2-8a54-ae2fb791fd38_ep_000034.jpg" data-video="Video/Data/Ego4D_37d183ce-ba64-4ad2-8a54-ae2fb791fd38_ep_000034.mp4" data-text="Left hand: None.<br>Right hand: Pick up the metal slotted spatula from the bowl." data-target="video_data" alt="Ego4D_37d183ce-ba64-4ad2-8a54-ae2fb791fd38_ep_000034">
+          <img src="static/images/thumbs/Ego4D_37e18a34-1494-46bb-b5f4-239aa31ee2ea_ep_000026.jpg" data-video="Video/Data/Ego4D_37e18a34-1494-46bb-b5f4-239aa31ee2ea_ep_000026.mp4" data-text="Left hand: None.<br>Right hand: Place the plate with bread into the oven." data-target="video_data" alt="Ego4D_37e18a34-1494-46bb-b5f4-239aa31ee2ea_ep_000026">
+          <img src="static/images/thumbs/Ego4D_38f872c3-7300-4c7c-a2be-614ddb415ce7_ep_000150.jpg" data-video="Video/Data/Ego4D_38f872c3-7300-4c7c-a2be-614ddb415ce7_ep_000150.mp4" data-text="Left hand: None.<br>Right hand: Scrub the windowsill and wall with a handheld brush." data-target="video_data" alt="Ego4D_38f872c3-7300-4c7c-a2be-614ddb415ce7_ep_000150">
+          <img src="static/images/thumbs/Ego4D_3be3b4b0-bba1-4f79-84a0-6dcaee0e64e0_ep_000105.jpg" data-video="Video/Data/Ego4D_3be3b4b0-bba1-4f79-84a0-6dcaee0e64e0_ep_000105.mp4" data-text="Left hand: None.<br>Right hand: Grasp the plant stem with the right hand." data-target="video_data" alt="Ego4D_3be3b4b0-bba1-4f79-84a0-6dcaee0e64e0_ep_000105">
+          <img src="static/images/thumbs/Ego4D_3c0dffd0-e38e-4643-bc48-d513943dc20b_ep_000085.jpg" data-video="Video/Data/Ego4D_3c0dffd0-e38e-4643-bc48-d513943dc20b_ep_000085.mp4" data-text="Left hand: Pick up and steady the measuring cup.<br>Right hand: Grasp the blue cloth on the sink edge." data-target="video_data" alt="Ego4D_3c0dffd0-e38e-4643-bc48-d513943dc20b_ep_000085">
+          <img src="static/images/thumbs/Ego4D_3d035e35-2bd5-4359-9744-7c035460088f_ep_001625.jpg" data-video="Video/Data/Ego4D_3d035e35-2bd5-4359-9744-7c035460088f_ep_001625.mp4" data-text="Left hand: Smooth the wall surface with a hand float.<br>Right hand: None." data-target="video_data" alt="Ego4D_3d035e35-2bd5-4359-9744-7c035460088f_ep_001625">
+          <img src="static/images/thumbs/Ego4D_3ee7070a-fe81-49a9-97a2-902268af9985_ep_000069.jpg" data-video="Video/Data/Ego4D_3ee7070a-fe81-49a9-97a2-902268af9985_ep_000069.mp4" data-text="Left hand: Hold the onion.<br>Right hand: Turn the faucet handle." data-target="video_data" alt="Ego4D_3ee7070a-fe81-49a9-97a2-902268af9985_ep_000069">
+          <img src="static/images/thumbs/Ego4D_3fa897ac-3489-46a4-9e24-e84ce88e9607_ep_000013.jpg" data-video="Video/Data/Ego4D_3fa897ac-3489-46a4-9e24-e84ce88e9607_ep_000013.mp4" data-text="Left hand: None.<br>Right hand: Pull the compartment handle to open the door." data-target="video_data" alt="Ego4D_3fa897ac-3489-46a4-9e24-e84ce88e9607_ep_000013">
+          <img src="static/images/thumbs/Ego4D_42d548dc-bb10-427f-a1fe-468f31bc0de5_ep_000038.jpg" data-video="Video/Data/Ego4D_42d548dc-bb10-427f-a1fe-468f31bc0de5_ep_000038.mp4" data-text="Left hand: Drop the cut mango piece into the bowl.<br>Right hand: Move the knife from the cutting board into the bowl." data-target="video_data" alt="Ego4D_42d548dc-bb10-427f-a1fe-468f31bc0de5_ep_000038">
+          <img src="static/images/thumbs/Ego4D_4b63760e-3016-4a13-ad93-c9487a433a4c_ep_000046.jpg" data-video="Video/Data/Ego4D_4b63760e-3016-4a13-ad93-c9487a433a4c_ep_000046.mp4" data-text="Left hand: None.<br>Right hand: Dip the paintbrush into the water jar, load it with paint from the palette, and blot it on the paper towel." data-target="video_data" alt="Ego4D_4b63760e-3016-4a13-ad93-c9487a433a4c_ep_000046">
+          <img src="static/images/thumbs/Ego4D_4c57dedb-267e-4d35-8be3-a6d4a3e2b7c4_ep_000133.jpg" data-video="Video/Data/Ego4D_4c57dedb-267e-4d35-8be3-a6d4a3e2b7c4_ep_000133.mp4" data-text="Left hand: None.<br>Right hand: Scoop a handful of wet concrete from the wheelbarrow." data-target="video_data" alt="Ego4D_4c57dedb-267e-4d35-8be3-a6d4a3e2b7c4_ep_000133">
+          <img src="static/images/thumbs/Ego4D_4cac8e34-cac1-408c-85a0-b42bd3e550d7_ep_000579.jpg" data-video="Video/Data/Ego4D_4cac8e34-cac1-408c-85a0-b42bd3e550d7_ep_000579.mp4" data-text="Left hand: Pull and release the fabric.<br>Right hand: Lift and release the white cloth." data-target="video_data" alt="Ego4D_4cac8e34-cac1-408c-85a0-b42bd3e550d7_ep_000579">
+          <img src="static/images/thumbs/Ego4D_4e55f2de-d0ce-4d72-ac0b-6e0ef70b0067_ep_000108.jpg" data-video="Video/Data/Ego4D_4e55f2de-d0ce-4d72-ac0b-6e0ef70b0067_ep_000108.mp4" data-text="Left hand: None.<br>Right hand: Place the small metallic object onto the workbench." data-target="video_data" alt="Ego4D_4e55f2de-d0ce-4d72-ac0b-6e0ef70b0067_ep_000108">
+          <img src="static/images/thumbs/Ego4D_5aacbf62-3948-45bc-9a41-3470296da1bb_ep_000144.jpg" data-video="Video/Data/Ego4D_5aacbf62-3948-45bc-9a41-3470296da1bb_ep_000144.mp4" data-text="Left hand: Carry the pieces of wood away from the saw.<br>Right hand: None." data-target="video_data" alt="Ego4D_5aacbf62-3948-45bc-9a41-3470296da1bb_ep_000144">
+          <img src="static/images/thumbs/Ego4D_5aacbf62-3948-45bc-9a41-3470296da1bb_ep_000250.jpg" data-video="Video/Data/Ego4D_5aacbf62-3948-45bc-9a41-3470296da1bb_ep_000250.mp4" data-text="Left hand: Place the wooden block into the slot.<br>Right hand: None." data-target="video_data" alt="Ego4D_5aacbf62-3948-45bc-9a41-3470296da1bb_ep_000250">
+          <img src="static/images/thumbs/Ego4D_5afe1e42-d44f-4c1d-bfd1-84de861b4492_ep_000047.jpg" data-video="Video/Data/Ego4D_5afe1e42-d44f-4c1d-bfd1-84de861b4492_ep_000047.mp4" data-text="Left hand: None.<br>Right hand: Pick up a blue and striped piece of clothing from the laundry basket." data-target="video_data" alt="Ego4D_5afe1e42-d44f-4c1d-bfd1-84de861b4492_ep_000047">
+          <img src="static/images/thumbs/Ego4D_5d9261fb-7d80-4cb0-b601-38c17fbf6f75_ep_001815.jpg" data-video="Video/Data/Ego4D_5d9261fb-7d80-4cb0-b601-38c17fbf6f75_ep_001815.mp4" data-text="Left hand: Hold the pot lid with the left hand.<br>Right hand: Remove the lid from the pot." data-target="video_data" alt="Ego4D_5d9261fb-7d80-4cb0-b601-38c17fbf6f75_ep_001815">
+          <img src="static/images/thumbs/Ego4D_5d9261fb-7d80-4cb0-b601-38c17fbf6f75_ep_001827.jpg" data-video="Video/Data/Ego4D_5d9261fb-7d80-4cb0-b601-38c17fbf6f75_ep_001827.mp4" data-text="Left hand: None.<br>Right hand: Stir the food in the pan with a spoon." data-target="video_data" alt="Ego4D_5d9261fb-7d80-4cb0-b601-38c17fbf6f75_ep_001827">
+          <img src="static/images/thumbs/Ego4D_6a513338-0c76-418f-b842-e89547decacf_ep_000137.jpg" data-video="Video/Data/Ego4D_6a513338-0c76-418f-b842-e89547decacf_ep_000137.mp4" data-text="Left hand: None.<br>Right hand: Paint the wooden railing with a brush." data-target="video_data" alt="Ego4D_6a513338-0c76-418f-b842-e89547decacf_ep_000137">
+          <img src="static/images/thumbs/Ego4D_6ad19348-15b0-4411-b544-8a3fac59dd21_ep_000723.jpg" data-video="Video/Data/Ego4D_6ad19348-15b0-4411-b544-8a3fac59dd21_ep_000723.mp4" data-text="Left hand: Turn a page of the book with the left hand.<br>Right hand: None." data-target="video_data" alt="Ego4D_6ad19348-15b0-4411-b544-8a3fac59dd21_ep_000723">
+          <img src="static/images/thumbs/Ego4D_6b91041f-bd60-4738-8305-46b144ce725d_ep_000141.jpg" data-video="Video/Data/Ego4D_6b91041f-bd60-4738-8305-46b144ce725d_ep_000141.mp4" data-text="Left hand: Pick up the pliers.<br>Right hand: None." data-target="video_data" alt="Ego4D_6b91041f-bd60-4738-8305-46b144ce725d_ep_000141">
+          <img src="static/images/thumbs/Ego4D_6e3f9af6-0acf-45b0-91d2-ccd0e114edcc_ep_000164.jpg" data-video="Video/Data/Ego4D_6e3f9af6-0acf-45b0-91d2-ccd0e114edcc_ep_000164.mp4" data-text="Left hand: None.<br>Right hand: Insert the right hand into the bowl of granules." data-target="video_data" alt="Ego4D_6e3f9af6-0acf-45b0-91d2-ccd0e114edcc_ep_000164">
+          <img src="static/images/thumbs/Ego4D_6e8d8309-821a-4b0a-8e3f-6cd74f59cb44_ep_000073.jpg" data-video="Video/Data/Ego4D_6e8d8309-821a-4b0a-8e3f-6cd74f59cb44_ep_000073.mp4" data-text="Left hand: None.<br>Right hand: Pick up the black tool from the drawer." data-target="video_data" alt="Ego4D_6e8d8309-821a-4b0a-8e3f-6cd74f59cb44_ep_000073">
+          <img src="static/images/thumbs/Ego4D_7bc2ea44-9168-4379-a17e-5558d4e2fc24_ep_000675.jpg" data-video="Video/Data/Ego4D_7bc2ea44-9168-4379-a17e-5558d4e2fc24_ep_000675.mp4" data-text="Left hand: Press the dishwasher button.<br>Right hand: None." data-target="video_data" alt="Ego4D_7bc2ea44-9168-4379-a17e-5558d4e2fc24_ep_000675">
+          <img src="static/images/thumbs/Ego4D_7c5eb718-99b2-48ac-bb1c-ef0158a6361b_ep_000061.jpg" data-video="Video/Data/Ego4D_7c5eb718-99b2-48ac-bb1c-ef0158a6361b_ep_000061.mp4" data-text="Left hand: None.<br>Right hand: Spread the gray paste across the surface using the right hand." data-target="video_data" alt="Ego4D_7c5eb718-99b2-48ac-bb1c-ef0158a6361b_ep_000061">
+          <img src="static/images/thumbs/Ego4D_7cf19d84-9445-4758-bc03-ee5f0b2e9c8f_ep_000620.jpg" data-video="Video/Data/Ego4D_7cf19d84-9445-4758-bc03-ee5f0b2e9c8f_ep_000620.mp4" data-text="Left hand: Place the glass plate into the sink.<br>Right hand: None." data-target="video_data" alt="Ego4D_7cf19d84-9445-4758-bc03-ee5f0b2e9c8f_ep_000620">
+          <img src="static/images/thumbs/Ego4D_8fa1b5f5-989f-486a-aa5e-3eaca91aee1e_ep_000456.jpg" data-video="Video/Data/Ego4D_8fa1b5f5-989f-486a-aa5e-3eaca91aee1e_ep_000456.mp4" data-text="Left hand: None.<br>Right hand: Slide the right hand along the top rail of the chair." data-target="video_data" alt="Ego4D_8fa1b5f5-989f-486a-aa5e-3eaca91aee1e_ep_000456">
+          <img src="static/images/thumbs/Ego4D_9a473135-6125-4081-9327-6c4afb4348af_ep_000259.jpg" data-video="Video/Data/Ego4D_9a473135-6125-4081-9327-6c4afb4348af_ep_000259.mp4" data-text="Left hand: Pick up the cylindrical object from the red tray.<br>Right hand: Unscrew the red cap from the plastic bottle." data-target="video_data" alt="Ego4D_9a473135-6125-4081-9327-6c4afb4348af_ep_000259">
+          <img src="static/images/thumbs/Ego4D_9ad4f150-15fe-4e1b-b145-331475afbe0c_ep_000378.jpg" data-video="Video/Data/Ego4D_9ad4f150-15fe-4e1b-b145-331475afbe0c_ep_000378.mp4" data-text="Left hand: None.<br>Right hand: Wipe the trim with a yellow sponge." data-target="video_data" alt="Ego4D_9ad4f150-15fe-4e1b-b145-331475afbe0c_ep_000378">
+          <img src="static/images/thumbs/Ego4D_9c05c378-1692-4670-a47f-3e24557cbb1c_ep_000412.jpg" data-video="Video/Data/Ego4D_9c05c378-1692-4670-a47f-3e24557cbb1c_ep_000412.mp4" data-text="Left hand: None.<br>Right hand: Stir the contents of the pot with a spoon." data-target="video_data" alt="Ego4D_9c05c378-1692-4670-a47f-3e24557cbb1c_ep_000412">
+          <img src="static/images/thumbs/Ego4D_9c502ef6-41cd-4037-a6be-216587ee8c3e_ep_000069.jpg" data-video="Video/Data/Ego4D_9c502ef6-41cd-4037-a6be-216587ee8c3e_ep_000069.mp4" data-text="Left hand: Place the black bottle onto the engine.<br>Right hand: Pick up the black plastic bottle from the seat." data-target="video_data" alt="Ego4D_9c502ef6-41cd-4037-a6be-216587ee8c3e_ep_000069">
+          <img src="static/images/thumbs/Ego4D_9c502ef6-41cd-4037-a6be-216587ee8c3e_ep_000347.jpg" data-video="Video/Data/Ego4D_9c502ef6-41cd-4037-a6be-216587ee8c3e_ep_000347.mp4" data-text="Left hand: Pick up the yellow object from inside the red funnel.<br>Right hand: None." data-target="video_data" alt="Ego4D_9c502ef6-41cd-4037-a6be-216587ee8c3e_ep_000347">
+          <img src="static/images/thumbs/Ego4D_9d72fb6b-ba44-45fc-ab70-1588a572ebfe_ep_000565.jpg" data-video="Video/Data/Ego4D_9d72fb6b-ba44-45fc-ab70-1588a572ebfe_ep_000565.mp4" data-text="Left hand: None.<br>Right hand: Lift the miter saw handle." data-target="video_data" alt="Ego4D_9d72fb6b-ba44-45fc-ab70-1588a572ebfe_ep_000565">
+          <img src="static/images/thumbs/Ego4D_9e224525-92eb-4c39-b7dc-61dac1a01611_ep_000146.jpg" data-video="Video/Data/Ego4D_9e224525-92eb-4c39-b7dc-61dac1a01611_ep_000146.mp4" data-text="Left hand: Hold the measuring tape against the wall.<br>Right hand: None." data-target="video_data" alt="Ego4D_9e224525-92eb-4c39-b7dc-61dac1a01611_ep_000146">
+        </div>
+      </div>
+      
+      <button class="nav-btn next-btn" data-section="data">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    
+    <div class="page-indicator">
+      <span class="page-info" id="page_info_data">1 / 1</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background-color:#ffffff;padding-top:0rem;padding-bottom:1rem;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title" style="margin-top: 50px;margin-bottom:20px;">Diversity Analysis</h2>
+    <p>
+        To investigate data diversity, we conduct a detailed analysis of the visual observations and language instructions in our hand V-L-A dataset. We compare the word frequency of language instructions 
+        across different datasets (including <em>ours</em></em>, <em><a href="https://arxiv.org/abs/2505.11709" target="_blank">Egodex</a></em>, <em><a href="https://huggingface.co/datasets/agibot-world/AgiBotWorld-Beta" target="_blank">Agibot World beta</a></em>, <em><a href="https://arxiv.org/abs/2403.12945" target="_blank">DROID</a></em>, <em><a href="https://arxiv.org/abs/2310.08864" target="_blank">OXE</a></em> ), as well as the diversity of DINO features of images.
+    </p>
+    <br>
+    <table width="110%" align="center" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+        <img src="static/images/diversity.png"/>
+        <br>
+        <p class="has-text-centered" style="margin-top: 0.5em;margin-bottom: 1rem;font-style: italic;font-size: 0.9rem;color: #666">(a)~(c): Language instruction statistics across different VLA datasets. (d): t-SNE visualization of image features.</p>
+        </tr>
+    </table>
+    </div>
+</section>
+
+</section>
+<section class="section" style="background-color:#ffffff;padding-top:0rem;padding-bottom:1rem;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title" style="margin-top: 20px;margin-bottom:20px;">Scaling Behavior</h2>
+    <p>
+        We investigate how the scale of pretraining data influences human hand action
+        prediction performance and the performance on real robot. We compare the model trained on the full pretrained dataset with those trained on sub-sampled datasets at different ratios.
+    </p>
+    <br>
+    <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+        <img src="static/images/scaling.png"/>
+        <br>
+        <p class="has-text-centered" style="margin-top: 0.5em;margin-bottom: 1rem;font-style: italic;font-size: 0.9rem;color: #666">The circle size indicates the <strong><em>visual diversity</em></strong> of the pretraining data. (a) Data scaling behavior on the
+    grasping task of zero-shot <strong><em>human hand action prediction</em></strong> in unseen real-life environments. (b) Task success rate on real-robot pick-and-place tasks with <strong><em>seen</em></strong> objects and backgrounds. (c) Task success rate on real-robot pick-and-place tasks with <strong><em>unseen</em></strong> objects and backgrounds.</p>
+        </tr>
+    </table>
+    </div>
+</section>
+
+<section class="section" style="background-color:#fafcff;padding:3rem 0;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title" style="margin-bottom:1.5rem;text-align:left;">Zero-shot Human Hand Action Prediction in Unseen Environments</h2>
+    <p>
+    We evaluate the performance of our pretrained VLA model on human hand action prediction in completely unseen environments.
+    Several visualization examples are presented, where the model infers based on single egocentric images captured from our real-life environments that are not included in the training data.
+    In each video, the hand executes only one complete action chunk. 
+    It is worth noting that a single action chunk does not necessarily complete the entire task, and executing a full chunk at once may lead to a loss of precision; the demonstrations here are provided solely for visualization purposes.
+    </p>
+    <br>
+    <br>
+    <div class="category-switcher" style="margin-bottom:1.5rem;">
+      <button class="category-btn active" data-category="category1" data-section="pretrain">
+        Grasping
+      </button>
+      <button class="category-btn" data-category="category2" data-section="pretrain">
+        Manipulation
+      </button>
+    </div>
+
+    <div class="current-video-name" id="video_name_pretrain" style="margin-bottom:1.5rem;">
+      <span class="video-name-text"></span>
+    </div>
+
+    <div class="video-wrapper">
+      <div class="video-loading-overlay" id="loading_pretrain" style="display: none;">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Video Loading...</div>
+      </div>
+      <video id="video_pretrain" controls autoplay muted playsinline loop>
+        <source src="Video/human_pred_grasp/Grasp%20the%20black%20plug%20on%20the%20wall.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="carousel-wrapper">
+      <button class="nav-btn prev-btn" data-section="pretrain">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      
+      <div class="thumb-viewport">
+        <!-- Category 1 -->
+        <div class="thumb-container category-content active" id="thumbs_pretrain_category1" data-category="category1">
+          <img src="static/images/thumbs/Grasp%20the%20black%20plug%20on%20the%20wall.jpg" data-video="Video/human_pred_grasp/Grasp%20the%20black%20plug%20on%20the%20wall.mp4" data-target="video_pretrain" alt="Grasp the black plug on the wall">
+          <img src="static/images/thumbs/Grasp%20the%20cardboard%20box.jpg" data-video="Video/human_pred_grasp/Grasp%20the%20cardboard%20box.mp4" data-target="video_pretrain" alt="Grasp the cardboard box">
+          <img src="static/images/thumbs/Grasp%20the%20white%20bag%20with%20cat%20picture%20on%20it.jpg" data-video="Video/human_pred_grasp/Grasp%20the%20white%20bag%20with%20cat%20picture%20on%20it.mp4" data-target="video_pretrain" alt="Grasp the white bag with cat picture on it">
+          <img src="static/images/thumbs/Pick%20up%20the%20black%20phone.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20black%20phone.mp4" data-target="video_pretrain" alt="Pick up the black phone">
+          <img src="static/images/thumbs/Pick%20up%20the%20blue%20razor.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20blue%20razor.mp4" data-target="video_pretrain" alt="Pick up the blue razor">
+          <img src="static/images/thumbs/Pick%20up%20the%20green%20sauce%20bottle.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20green%20sauce%20bottle.mp4" data-target="video_pretrain" alt="Pick up the green sauce bottle">
+          <img src="static/images/thumbs/Pick%20up%20the%20grey%20clothes.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20grey%20clothes.mp4" data-target="video_pretrain" alt="Pick up the grey clothes">
+          <img src="static/images/thumbs/Pick%20up%20the%20metal%20basin.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20metal%20basin.mp4" data-target="video_pretrain" alt="Pick up the metal basin">
+          <img src="static/images/thumbs/Pick%20up%20the%20metal%20lunch%20box.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20metal%20lunch%20box.mp4" data-target="video_pretrain" alt="Pick up the metal lunch box">
+          <img src="static/images/thumbs/Pick%20up%20the%20pink%20bucket.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20pink%20bucket.mp4" data-target="video_pretrain" alt="Pick up the pink bucket">
+          <img src="static/images/thumbs/Pick%20up%20the%20plastic%20ruler.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20plastic%20ruler.mp4" data-target="video_pretrain" alt="Pick up the plastic ruler">
+          <img src="static/images/thumbs/Pick%20up%20the%20plate%20in%20the%20microwave%20oven.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20plate%20in%20the%20microwave%20oven.mp4" data-target="video_pretrain" alt="Pick up the plate in the microwave oven">
+          <img src="static/images/thumbs/Pick%20up%20the%20silver%20cup.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20silver%20cup.mp4" data-target="video_pretrain" alt="Pick up the silver cup">
+          <img src="static/images/thumbs/Pick%20up%20the%20soap%20dispenser%20with%20blue%20cap.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20soap%20dispenser%20with%20blue%20cap.mp4" data-target="video_pretrain" alt="Pick up the soap dispenser with blue cap">
+          <img src="static/images/thumbs/Pick%20up%20the%20soap%20with%20heart%20shape%20in%20the%20soap%20dish.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20soap%20with%20heart%20shape%20in%20the%20soap%20dish.mp4" data-target="video_pretrain" alt="Pick up the soap with heart shape in the soap dish">
+          <img src="static/images/thumbs/Pick%20up%20the%20water%20filter.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20water%20filter.mp4" data-target="video_pretrain" alt="Pick up the water filter">
+          <img src="static/images/thumbs/Pick%20up%20the%20white%20clothes%20in%20the%20upper%20drawer.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20white%20clothes%20in%20the%20upper%20drawer.mp4" data-target="video_pretrain" alt="Pick up the white clothes in the upper drawer">
+          <img src="static/images/thumbs/Pick%20up%20the%20white%20doll.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20white%20doll.mp4" data-target="video_pretrain" alt="Pick up the white doll">
+          <img src="static/images/thumbs/Pick%20up%20the%20white%20electric%20kettle.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20white%20electric%20kettle.mp4" data-target="video_pretrain" alt="Pick up the white electric kettle">
+          <img src="static/images/thumbs/Pick%20up%20the%20white%20hat%20on%20the%20bed.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20white%20hat%20on%20the%20bed.mp4" data-target="video_pretrain" alt="Pick up the white hat on the bed">
+          <img src="static/images/thumbs/Pick%20up%20the%20white%20round%20%20bottle%20with%20blue%20cap.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20white%20round%20%20bottle%20with%20blue%20cap.mp4" data-target="video_pretrain" alt="Pick up the white round  bottle with blue cap">
+          <img src="static/images/thumbs/Pick%20up%20the%20yellow%20and%20orange%20jar.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20yellow%20and%20orange%20jar.mp4" data-target="video_pretrain" alt="Pick up the yellow and orange jar">
+          <img src="static/images/thumbs/Pick%20up%20the%20yellow%20dish%20soap%20bottle%20with%20red%20cap.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20yellow%20dish%20soap%20bottle%20with%20red%20cap.mp4" data-target="video_pretrain" alt="Pick up the yellow dish soap bottle with red cap">
+          <img src="static/images/thumbs/Pick%20up%20the%20yellow%20scissors.jpg" data-video="Video/human_pred_grasp/Pick%20up%20the%20yellow%20scissors.mp4" data-target="video_pretrain" alt="Pick up the yellow scissors">
+        </div>
+        
+        <!-- Category 2 -->
+        <div class="thumb-container category-content" id="thumbs_pretrain_category2" data-category="category2">
+          <img src="static/images/thumbs/Close%20the%20laptop%20screen%20down.jpg" data-video="Video/human_pred_manip/Close%20the%20laptop%20screen%20down.mp4" data-target="video_pretrain" alt="Close the laptop screen down">
+          <img src="static/images/thumbs/Cut%20the%20plant%20leaves%20with%20the%20scissors.jpg" data-video="Video/human_pred_manip/Cut%20the%20plant%20leaves%20with%20the%20scissors.mp4" data-target="video_pretrain" alt="Cut the plant leaves with the scissors">
+          <img src="static/images/thumbs/Pour%20the%20water%20into%20the%20pink%20cup.jpg" data-video="Video/human_pred_manip/Pour%20the%20water%20into%20the%20pink%20cup.mp4" data-target="video_pretrain" alt="Pour the water into the pink cup">
+          <img src="static/images/thumbs/Cut%20the%20meat%20with%20the%20knife.jpg" data-video="Video/human_pred_manip/Cut%20the%20meat%20with%20the%20knife.mp4" data-target="video_pretrain" alt="Cut the meat with the knife">
+          <img src="static/images/thumbs/Disconnect%20the%20white%20plug.jpg" data-video="Video/human_pred_manip/Disconnect%20the%20white%20plug.mp4" data-target="video_pretrain" alt="Disconnect the white plug">
+          <img src="static/images/thumbs/Lift%20the%20pan%20from%20the%20stove.jpg" data-video="Video/human_pred_manip/Lift%20the%20pan%20from%20the%20stove.mp4" data-target="video_pretrain" alt="Lift the pan from the stove">
+          <img src="static/images/thumbs/Open%20the%20cabinet%20door.jpg" data-video="Video/human_pred_manip/Open%20the%20cabinet%20door.mp4" data-target="video_pretrain" alt="Open the cabinet door">
+          <img src="static/images/thumbs/Open%20the%20closet%20door.jpg" data-video="Video/human_pred_manip/Open%20the%20closet%20door.mp4" data-target="video_pretrain" alt="Open the closet door">
+          <img src="static/images/thumbs/Open%20the%20oven%20door.jpg" data-video="Video/human_pred_manip/Open%20the%20oven%20door.mp4" data-target="video_pretrain" alt="Open the oven door">
+          <img src="static/images/thumbs/Pick%20the%20towel%20up%20from%20the%20laundry%20basket.jpg" data-video="Video/human_pred_manip/Pick%20the%20towel%20up%20from%20the%20laundry%20basket.mp4" data-target="video_pretrain" alt="Pick the towel up from the laundry basket">
+          <img src="static/images/thumbs/Pick%20up%20the%20food%20from%20the%20bowl%20with%20chopsticks.jpg" data-video="Video/human_pred_manip/Pick%20up%20the%20food%20from%20the%20bowl%20with%20chopsticks.mp4" data-target="video_pretrain" alt="Pick up the food from the bowl with chopsticks">
+          <img src="static/images/thumbs/Mix%20the%20food%20in%20the%20bowl%20with%20chopsticks.jpg" data-video="Video/human_pred_manip/Mix%20the%20food%20in%20the%20bowl%20with%20chopsticks.mp4" data-target="video_pretrain" alt="Mix the food in the bowl with chopsticks">
+          <img src="static/images/thumbs/Pick%20up%20the%20gray%20cup%20from%20the%20cabinet.jpg" data-video="Video/human_pred_manip/Pick%20up%20the%20gray%20cup%20from%20the%20cabinet.mp4" data-target="video_pretrain" alt="Pick up the gray cup from the cabinet">
+          <img src="static/images/thumbs/Pinch%20the%20tissue%20and%20pull%20to%20the%20right..jpg" data-video="Video/human_pred_manip/Pinch%20the%20tissue%20and%20pull%20to%20the%20right..mp4" data-target="video_pretrain" alt="Pinch the tissue and pull to the right.">
+          <img src="static/images/thumbs/Place%20the%20beverage%20on%20the%20tray.jpg" data-video="Video/human_pred_manip/Place%20the%20beverage%20on%20the%20tray.mp4" data-target="video_pretrain" alt="Place the beverage on the tray">
+          <img src="static/images/thumbs/Place%20the%20knife%20into%20the%20wooden%20knife%20holder.jpg" data-video="Video/human_pred_manip/Place%20the%20knife%20into%20the%20wooden%20knife%20holder.mp4" data-target="video_pretrain" alt="Place the knife into the wooden knife holder">
+          <img src="static/images/thumbs/Pour%20the%20water%20from%20the%20glass%20teacup%20into%20the%20plate.jpg" data-video="Video/human_pred_manip/Pour%20the%20water%20from%20the%20glass%20teacup%20into%20the%20plate.mp4" data-target="video_pretrain" alt="Pour the water from the glass teacup into the plate">
+          <img src="static/images/thumbs/Pour%20water%20on%20the%20plant..jpg" data-video="Video/human_pred_manip/Pour%20water%20on%20the%20plant..mp4" data-target="video_pretrain" alt="Pour water on the plant.">
+          <img src="static/images/thumbs/Press%20the%20blue%20liquid%20soap.jpg" data-video="Video/human_pred_manip/Press%20the%20blue%20liquid%20soap.mp4" data-target="video_pretrain" alt="Press the blue liquid soap">
+          <img src="static/images/thumbs/Press%20the%20soap%20dispenser.jpg" data-video="Video/human_pred_manip/Press%20the%20soap%20dispenser.mp4" data-target="video_pretrain" alt="Press the soap dispenser">
+          <img src="static/images/thumbs/Pull%20open%20the%20black%20oven%20door%20by%20its%20handle.jpg" data-video="Video/human_pred_manip/Pull%20open%20the%20black%20oven%20door%20by%20its%20handle.mp4" data-target="video_pretrain" alt="Pull open the black oven door by its handle">
+          <img src="static/images/thumbs/Pull%20open%20the%20drawer.jpg" data-video="Video/human_pred_manip/Pull%20open%20the%20drawer.mp4" data-target="video_pretrain" alt="Pull open the drawer">
+          <img src="static/images/thumbs/Pull%20out%20the%20drawer%20by%20its%20handle.jpg" data-video="Video/human_pred_manip/Pull%20out%20the%20drawer%20by%20its%20handle.mp4" data-target="video_pretrain" alt="Pull out the drawer by its handle">
+          <img src="static/images/thumbs/Pull%20out%20the%20tissue%20from%20the%20box.jpg" data-video="Video/human_pred_manip/Pull%20out%20the%20tissue%20from%20the%20box.mp4" data-target="video_pretrain" alt="Pull out the tissue from the box">
+          <img src="static/images/thumbs/Push%20the%20chair%20toward%20the%20table.jpg" data-video="Video/human_pred_manip/Push%20the%20chair%20toward%20the%20table.mp4" data-target="video_pretrain" alt="Push the chair toward the table">
+          <img src="static/images/thumbs/Put%20the%20drink%20bottle%20in%20the%20trask..jpg" data-video="Video/human_pred_manip/Put%20the%20drink%20bottle%20in%20the%20trask..mp4" data-target="video_pretrain" alt="Put the drink bottle in the trask.">
+          <img src="static/images/thumbs/Scrub%20the%20tile%20floor%20with%20the%20brush.jpg" data-video="Video/human_pred_manip/Scrub%20the%20tile%20floor%20with%20the%20brush.mp4" data-target="video_pretrain" alt="Scrub the tile floor with the brush">
+          <img src="static/images/thumbs/Slide%20open%20the%20door.jpg" data-video="Video/human_pred_manip/Slide%20open%20the%20door.mp4" data-target="video_pretrain" alt="Slide open the door">
+          <img src="static/images/thumbs/Take%20the%20milk%20bottle%20out%20of%20the%20fridge.jpg" data-video="Video/human_pred_manip/Take%20the%20milk%20bottle%20out%20of%20the%20fridge.mp4" data-target="video_pretrain" alt="Take the milk bottle out of the fridge">
+          <img src="static/images/thumbs/Throw%20the%20garlic%20into%20the%20trash%20can.jpg" data-video="Video/human_pred_manip/Throw%20the%20garlic%20into%20the%20trash%20can.mp4" data-target="video_pretrain" alt="Throw the garlic into the trash can">
+          <img src="static/images/thumbs/Wipe%20the%20countertop%20with%20the%20cloth.jpg" data-video="Video/human_pred_manip/Wipe%20the%20countertop%20with%20the%20cloth.mp4" data-target="video_pretrain" alt="Wipe the countertop with the cloth">
+          <img src="static/images/thumbs/Wipe%20the%20range%20hood%20with%20the%20paper%20towel.jpg" data-video="Video/human_pred_manip/Wipe%20the%20range%20hood%20with%20the%20paper%20towel.mp4" data-target="video_pretrain" alt="Wipe the range hood with the paper towel">
+        </div>
+      </div>
+      
+      <button class="nav-btn next-btn" data-section="pretrain">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    
+    <div class="page-indicator">
+      <span class="page-info" id="page_info_pretrain">1 / 1</span>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" style="background-color:#f8f6fb;padding:3rem 0;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title" style="margin-bottom:1.5rem;text-align:left;">Real-World Robot Dexterous Manipulation</h2>
+        <p>
+     After pretraining, the model can be fine-tuned on small-scale robot data for deployment. We consider the human hand
+     action space as a superset of that of the robot hand and align the robot's action space with the human hand's.
+    </p>
+    <br>
+    <br>
+    <!--  -->
+    <div class="robot-category-switcher" style="margin-bottom:1.5rem;">
+      <button class="robot-category-btn active" data-robot-category="seen">
+        Seen Tasks
+      </button>
+      <button class="robot-category-btn" data-robot-category="unseen">
+        Unseen Tasks
+      </button>
+    </div>
+    <!--  -->
+    <div class="robot-content-wrapper" style="position: relative; min-height: 500px;">
+    <br>
+    <!-- Seen -->
+    <div class="robot-content active" id="robot_seen_content">
+      <h3 class="title is-5" style="margin-top: 30px;margin-bottom:20px;font-size:1.2rem !important;">General Pick & Place</h3>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item has-text-centered">
+          <video poster="" id="video-unseen-1" autoplay controls muted loop playsinline style="width:100%; max-width:400px; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/popcorn.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item has-text-centered">
+          <video poster="" id="video-unseen-2" autoplay controls muted loop playsinline style="width:100%; max-width:400px; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/pink_gum_jar.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item has-text-centered">
+          <video poster="" id="video-unseen-3" autoplay controls muted loop playsinline style="width:100%; max-width:400px; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/tomato.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item has-text-centered">
+          <video poster="" id="video-unseen-4" autoplay controls muted loop playsinline style="width:100%; max-width:400px; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/pickcube.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item has-text-centered">
+          <video poster="" id="video-unseen-5" autoplay controls muted loop playsinline style="width:100%; max-width:400px; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/blackboarderaser.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div style="width: 100%; text-align: center; margin-top: 15px; font-style: italic; color: #666;">
+        Examples of the robot executing tasks involving <i>General Pick & Place</i>, driven by our model.
+      </div>
+    <h3 class="title is-4" style="margin-top: 30px;margin-bottom:20px;font-size:1.2rem !important">Functional Grasping</h3>
+      <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0;">
+        <div style="flex: 1; min-width: 300px; max-width: 500px;">
+          <video poster="" id="video-functional-1" autoplay controls muted loop playsinline style="width:100%; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/screwdriver.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div style="flex: 1; min-width: 300px; max-width: 500px;">
+          <video poster="" id="video-functional-2" autoplay controls muted loop playsinline style="width:100%; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/whisk.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div style="flex: 1; min-width: 300px; max-width: 500px;">
+          <video poster="" id="video-functional-3" autoplay controls muted loop playsinline style="width:100%; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/sponge.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div style="width: 100%; text-align: center; margin-top: 15px; font-style: italic; color: #666;">
+        Examples of the robot executing tasks involving <i>Functional Grasping</i>, driven by our model.
+      </div>
+    <h3 class="title is-4" style="margin-top: 30px;margin-bottom:20px;font-size:1.2rem !important">Sequential Tasks</h3>
+      <div id="sequential-carousel" class="carousel results-carousel">
+        <div class="item has-text-centered">
+          <video poster="" id="video-sequential-1" autoplay controls muted loop playsinline style="width:100%; max-width:550px; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/pour_seen.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item has-text-centered">
+          <video poster="" id="video-sequential-2" autoplay controls muted loop playsinline style="width:100%; max-width:550px; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/sweep.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item has-text-centered">
+          <video poster="" id="video-sequential-3" autoplay controls muted loop playsinline style="width:100%; max-width:550px; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/handover.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div style="width: 100%; text-align: center; margin-top: 15px; font-style: italic; color: #666;">
+        Examples of the robot executing tasks following multiple instructions in a row, driven by our model.
+      </div>
+    </div>
+    <!-- Seen -->
+
+    <!-- Unseen  -->
+    <div class="robot-content" id="robot_unseen_content">
+      <h3 class="title is-4" style="margin-top: 30px;margin-bottom:20px;font-size:1.2rem !important">General Pick & Place</h3>
+      <div id="results-carousel-2" class="carousel results-carousel">
+        <div class="item has-text-centered">
+          <video poster="" id="video-unseen-1" autoplay controls muted loop playsinline style="width:100%; max-width:400px; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/towel.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item has-text-centered">
+          <video poster="" id="video-unseen-2" autoplay controls muted loop playsinline style="width:100%; max-width:400px; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/charger.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item has-text-centered">
+          <video poster="" id="video-unseen-3" autoplay controls muted loop playsinline style="width:100%; max-width:400px; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/can.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item has-text-centered">
+          <video poster="" id="video-unseen-4" autoplay controls muted loop playsinline style="width:100%; max-width:400px; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/bottle.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item has-text-centered">
+          <video poster="" id="video-unseen-5" autoplay controls muted loop playsinline style="width:100%; max-width:400px; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/cup.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div style="width: 100%; text-align: center; margin-top: 15px; font-style: italic; color: #666;">
+        Examples of the robot executing tasks involving <i>General Pick & Place</i>, driven by our model.
+      </div>
+      <h3 class="title is-4" style="margin-top: 30px;margin-bottom:20px;font-size:1.2rem !important">Functional Grasping</h3>
+      <div class="functional-grasping-videos" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 15px;">
+        <div style="flex: 1; max-width: 500px; min-width: 300px;">
+          <video poster="" id="video-functional-1" autoplay controls muted loop playsinline style="width:100%; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/spatula.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div style="flex: 1; max-width: 500px; min-width: 300px;">
+          <video poster="" id="video-functional-2" autoplay controls muted loop playsinline style="width:100%; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/pot.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div style="flex: 1; max-width: 500px; min-width: 300px;">
+          <video poster="" id="video-functional-3" autoplay controls muted loop playsinline style="width:100%; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/screwdriver_unseen.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div style="width: 100%; text-align: center; margin-top: 15px; font-style: italic; color: #666;">
+        Examples of the robot executing tasks involving <i>Functional Grasping</i>, driven by our model.
+      </div>
+      <h3 class="title is-4" style="margin-top: 30px;margin-bottom:20px;font-size:1.2rem !important">Sequential Tasks</h3>
+      <div class="functional-grasping-videos" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 15px;">
+        <div style="flex: 1; max-width: 500px; min-width: 300px;">
+          <video poster="" id="video-sequential-1" autoplay controls muted loop playsinline style="width:100%; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/pour_unseen.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div style="flex: 1; max-width: 500px; min-width: 300px;">
+          <video poster="" id="video-sequential-2" autoplay controls muted loop playsinline style="width:100%; border-radius:8px;">
+            <source src="Video/Deploy/webvideo/sweep_disturb.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div style="width: 100%; text-align: center; margin-top: 15px; font-style: italic; color: #666;">
+        Examples of the robot executing tasks following multiple instructions in a row, driven by our model.
+      </div>
+
+    </div>
+    <!-- Unseen -->
+    
+    </div>
+    <br />
+    <br />
+  </div>
+</section>
+
+<section class="section" style="background-color:#ffffff;padding:3rem 0;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title" style="margin-bottom:1.5rem;text-align:left;">Quantitative Experiments</h2>
+
+    <h3 class="title is-4" style="margin-top: 30px;margin-bottom:20px;font-size:1.3rem !important;">Comparison with prior arts and ablations</h3>
+    <p>
+    We evaluate the performance of our VLA model fine-tuned on a small set of real robot trajectories for dexterous manipulation tasks. We compare our approach against: (1) <strong><em><a href="https://arxiv.org/pdf/2412.14803" target="_blank">VPP</a></em></strong>, (2) <strong><em><a href="https://arxiv.org/abs/2410.24164" target="_blank">&pi;<sub>0</a></em></strong> , (3) a model without our V-L-A data pretraining, (4) a model pretrained on our dataset using <strong><em><a href="https://arxiv.org/abs/2410.11758" target="_blank">LAPA</a></em></strong>, and (5) a model pretrained on <strong><em><a href="https://arxiv.org/abs/2310.08864" target="_blank">OXE</a></em></strong>.
+
+    </p>
+    <br>
+    <table width="70%" align="center" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+        <td width="60%">
+        <img src="static/images/seen_exp.png"/>
+        <p class="has-text-centered" style="margin-top: 0.5em;margin-bottom: 1rem;font-style: italic;font-size: 0.9rem;color: #666"> Table 1: Success rates on seen real-world robot dexterous manipulation tasks (in %).</p>
+        </td>
+        </tr>
+    </table>
+    <br/>
+        <br />
+    <table width="80%" align="center" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+        <td width="80%">
+        <img src="static/images/unseen_exp.png"/>
+        <p class="has-text-centered" style="margin-top: 0.5em;margin-bottom: 1rem;font-style: italic;font-size: 0.9rem;color: #666"> Table 2: Success rates on unseen real-world robot dexterous manipulation tasks (in %).</p>
+        </td>
+        </tr>
+    </table>
+    <br/>
+  </div>
+    </section>
+
+    <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre>
+        <code>@article{li2025vitra,
+        title={Scalable Vision-Language-Action Model Pretraining for Robotic Manipulation with Real-Life Human Activity Videos},
+        author={Li, Qixiu and Deng, Yu and Liang, Yaobo and Luo, Lin and Zhou, Lei and Yao, Chengtang and Zeng, Lingqi and Feng, Zhiyuan and Liang, Huizhi and Xu, Sicheng and others},
+        journal={Technical Report},
+        year={2025}
+        }  
+        </code></pre>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p> Website adapted from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> under a <a
+                href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0
+                International</a>
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+<style>
+.carousel, .carousel .item, .carousel-container {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.section-title {
+  font-size: 1.75rem !important;
+}
+
+.category-switcher {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 1.5rem;
+}
+
+.category-btn {
+  padding: 10px 20px;
+  border: 2px solid #667eea;
+  background: white;
+  color: #667eea;
+  border-radius: 25px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.1);
+  width: 220px;
+  text-align: center;
+}
+
+.category-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.category-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+}
+
+.robot-category-switcher {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 1.5rem;
+}
+
+.robot-category-btn {
+  padding: 10px 20px;
+  border: 2px solid #667eea;
+  background: white;
+  color: #667eea;
+  border-radius: 25px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 230px;
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.1);
+}
+
+.robot-category-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.robot-category-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+}
+
+.robot-category-btn[data-robot-category="unseen"]:not(.active) {
+  animation: pulseAttention 2s ease-in-out infinite;
+  position: relative;
+}
+
+.robot-category-btn[data-robot-category="unseen"]:not(.active)::after {
+  content: "✨";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.category-btn[data-category="category2"]:not(.active) {
+  animation: pulseAttention 2s ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes pulseAttention {
+  0%, 100% {
+    box-shadow: 0 2px 15px rgba(102, 126, 234, 0.3);
+    border-color: #667eea;
+  }
+  50% {
+    box-shadow: 0 6px 30px rgba(118, 75, 162, 0.8);
+    border-color: #764ba2;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.3);
+  }
+}
+
+.robot-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.robot-content.active {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.current-video-name {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 0 20px;
+}
+
+.video-name-text {
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  font-style: italic;
+}
+
+.category-content {
+  display: none !important;
+}
+
+.category-content.active {
+  display: grid !important;
+}
+
+.deploy-category-selector {
+  text-align: center;
+}
+
+.deploy-select {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 2px solid #667eea;
+  border-radius: 25px;
+  background: white;
+  color: #667eea;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.1);
+  outline: none;
+  min-width: 250px;
+}
+
+.deploy-select:hover {
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.deploy-select:focus {
+  border-color: #764ba2;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+.deploy-subcategory-switcher {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.subcategory-btn {
+  padding: 8px 25px;
+  border: 2px solid #a8b8f0;
+  background: white;
+  color: #7a8fd9;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(168, 184, 240, 0.15);
+}
+
+.subcategory-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(168, 184, 240, 0.3);
+}
+
+.subcategory-btn.active {
+  background: linear-gradient(135deg, #b8c6f5 0%, #8fa3e8 100%);
+  color: white;
+  border-color: #8fa3e8;
+  box-shadow: 0 4px 15px rgba(143, 163, 232, 0.4);
+}
+
+.deploy-video-grid-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.deploy-video-grid {
+  display: none;
+}
+
+.deploy-video-grid.active {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 2rem;
+}
+
+.video-item {
+  position: relative;
+  width: 100%;
+}
+
+.video-item:nth-child(4),
+.video-item:nth-child(5) {
+  grid-column: span 1;
+}
+
+.deploy-video-grid:has(.video-item:nth-child(4):last-child) .video-item:nth-child(4) {
+  grid-column: 2;
+}
+
+.deploy-video-grid:has(.video-item:nth-child(5)) .video-item:nth-child(4) {
+  grid-column: 2;
+}
+
+.deploy-video-grid:has(.video-item:nth-child(5)) .video-item:nth-child(5) {
+  grid-column: 3;
+}
+
+.video-label {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 8px 15px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+  pointer-events: none;
+}
+
+.video-item video {
+  width: 100%;
+  height: auto;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  display: block;
+  background: #000;
+}
+
+.deploy-content {
+  display: none !important;
+}
+
+.deploy-content.active {
+  display: grid !important;
+}
+
+.video-wrapper {
+  max-width: 1000px;
+  width: 90%;
+  margin: 0 auto 2rem;
+  position: relative;
+  background: transparent;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(5px);
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(102, 126, 234, 0.2);
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 1px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+section:has(#video_data) .video-wrapper {
+  max-width: 1000px;
+  min-height: 220px;
+}
+
+section:has(#video_pretrain) .video-wrapper {
+  max-width: 520px;
+  min-height: 290px;
+}
+
+#video_data {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+#video_pretrain {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.video-wrapper video {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.video-wrapper video.loading {
+  opacity: 0.7;
+}
+
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 70px;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 42%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.nav-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+}
+
+.nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.nav-btn:disabled {
+  background: linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%);
+  cursor: not-allowed;
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.nav-btn:disabled:hover {
+  transform: translateY(-50%) scale(1);
+}
+
+.prev-btn {
+  left: -10px;
+}
+
+.next-btn {
+  right: -10px;
+}
+
+.thumb-viewport {
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+  min-height: 280px;
+  pointer-events: none;
+}
+
+.thumb-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 15px;
+  transition: opacity 0.3s ease;
+  will-change: opacity;
+  pointer-events: none;
+}
+
+.thumb-container img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.thumb-container img:not(.visible) {
+  display: none;
+}
+
+.thumb-container img:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.thumb-container img.selected {
+  outline: 4px solid #667eea;
+  outline-offset: 2px;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+}
+
+.hover-preview {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  transform: translate(-50%, -100%);
+}
+
+.hover-preview.active {
+  opacity: 1;
+}
+
+.hover-preview img {
+  max-width: 400px;
+  max-height: 300px;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border: 3px solid rgba(102, 126, 234, 0.5);
+  object-fit: contain;
+  background: #000;
+}
+
+.hover-preview-info {
+  position: absolute;
+  bottom: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(102, 126, 234, 0.95);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: normal;
+  max-width: 500px;
+  text-align: center;
+  line-height: 1.4;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+.page-indicator {
+  text-align: center;
+  margin-top: -1.0rem;
+}
+
+.page-info {
+  display: inline-block;
+  padding: 8px 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 20px;
+  font-size: 0.95rem;
+  color: #333;
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.4rem !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  .title.is-4 {
+    font-size: 1.1rem !important;
+  }
+  
+
+  .category-switcher {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem !important;
+  }
+  
+  .robot-category-switcher {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem !important;
+  }
+
+  .category-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    width: 85%;
+    max-width: 280px;
+  }
+  
+  .robot-category-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    width: 85%;
+    max-width: 280px;
+  }
+  
+  .video-wrapper {
+    width: 95%;
+    margin-bottom: 1.5rem;
+  }
+  
+  section:has(#video_data) .video-wrapper {
+    min-height: 180px;
+  }
+  
+  section:has(#video_pretrain) .video-wrapper {
+    min-height: 240px;
+  }
+  
+  .video-text-content {
+    padding: 1rem !important;
+  }
+  
+  .video-text-content p {
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  .carousel-wrapper {
+    padding: 0 45px;
+    margin-bottom: 1rem;
+  }
+  
+  .nav-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 15px;
+  }
+  
+  .thumb-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  
+  .thumb-container img {
+    border-radius: 6px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  }
+  
+  .thumb-viewport {
+    min-height: 180px;
+    padding: 8px 0;
+  }
+  
+  .loading-spinner {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .loading-text {
+    font-size: 1rem;
+  }
+  
+  .hover-preview {
+    display: none !important;
+  }
+  
+  .deploy-subcategory-switcher {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  
+  .deploy-subcat-btn {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+  
+  section {
+    padding: 2rem 1rem !important;
+  }
+  
+  .robot-content h3 {
+    font-size: 1.1rem !important;
+    margin-top: 20px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .functional-grasping-videos {
+    gap: 15px !important;
+  }
+  
+  .functional-grasping-videos video {
+    border-radius: 6px !important;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .section-title {
+    font-size: 1.2rem !important;
+  }
+  
+  .title.is-4 {
+    font-size: 1rem !important;
+  }
+  
+  .category-btn {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    width: 90%;
+    max-width: 260px;
+  }
+  
+  .robot-category-btn {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    width: 90%;
+    max-width: 260px;
+  }
+  
+  .video-wrapper {
+    width: 98%;
+  }
+  
+  section:has(#video_data) .video-wrapper {
+    min-height: 150px;
+  }
+  
+  section:has(#video_pretrain) .video-wrapper {
+    min-height: 200px;
+  }
+
+  .video-text-content {
+    padding: 0.8rem !important;
+  }
+  
+  .video-text-content p {
+    font-size: 0.85rem !important;
+  }
+  
+  .carousel-wrapper {
+    padding: 0 40px;
+  }
+  
+  .nav-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+  
+  .thumb-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+  
+  .thumb-container img {
+    border-radius: 4px;
+  }
+  
+  .thumb-viewport {
+    min-height: 140px;
+    padding: 6px 0;
+  }
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+  }
+  
+  .loading-text {
+    font-size: 0.9rem;
+  }
+  
+  /* Deploy section */
+  .deploy-subcat-btn {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+  
+  /* Section padding */
+  section {
+    padding: 1.5rem 0.8rem !important;
+  }
+  
+  /* Robot videos */
+  .robot-content h3 {
+    font-size: 1rem !important;
+    margin-top: 15px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .functional-grasping-videos {
+    gap: 12px !important;
+  }
+  
+  table {
+    font-size: 0.85rem !important;
+  }
+  
+  .results-carousel .item {
+    padding: 0 5px;
+  }
+  
+  .results-carousel video {
+    max-width: 100% !important;
+  }
+}
+</style>
+
+<div class="hover-preview" id="hoverPreview">
+  <img id="hoverPreviewImage" src="" alt="">
+  <div class="hover-preview-info" id="hoverPreviewInfo"></div>
+</div>
+
+<script>
+const SHOW_FILENAME = true;
+const ITEMS_PER_PAGE = 8;
+const sectionStates = {};
+function tryAutoplayVisibleVideos() {
+  document.querySelectorAll('.deploy-video-grid.active video').forEach(v => {
+    v.play().catch(() => {});
+  });
+}
+
+function attachVideoClickHandlers() {
+  document.querySelectorAll('.deploy-video-grid video').forEach(v => {
+    if (!v.dataset._clickBound) {
+      v.addEventListener('click', () => {
+        if (v.paused) {
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
+      v.dataset._clickBound = '1';
+    }
+  });
+}
+
+function initPagination(sectionId) {
+  const container = document.getElementById(`thumbs_${sectionId}`);
+  if (!container) {
+    const container1 = document.getElementById(`thumbs_${sectionId}_category1`);
+    const container2 = document.getElementById(`thumbs_${sectionId}_category2`);
+    
+    if (container1 || container2) {
+      initDeployCategoryPagination(sectionId);
+      return;
+    }
+    
+    const deployContainers = document.querySelectorAll('.deploy-content');
+    if (deployContainers.length > 0) {
+      initDeployMultiPagination(sectionId);
+      return;
+    }
+    
+    return;
+  }
+  
+  const images = Array.from(container.querySelectorAll('img'));
+  const totalPages = Math.ceil(images.length / ITEMS_PER_PAGE);
+  
+  sectionStates[sectionId] = {
+    currentPage: 1,
+    totalPages: totalPages,
+    images: images
+  };
+  
+  updatePage(sectionId, false);
+}
+
+function initDeployMultiPagination(sectionId) {
+  const allContainers = document.querySelectorAll('.deploy-content');
+  allContainers.forEach(container => {
+    const images = Array.from(container.querySelectorAll('img'));
+    images.forEach((img, idx) => {
+      if (idx < ITEMS_PER_PAGE) {
+        img.classList.add('visible');
+      }
+    });
+  });
+}
+
+function initDeployCategoryPagination(sectionId) {
+  const container1 = document.getElementById(`thumbs_${sectionId}_category1`);
+  const container2 = document.getElementById(`thumbs_${sectionId}_category2`);
+  
+  const images1 = container1 ? Array.from(container1.querySelectorAll('img')) : [];
+  const images2 = container2 ? Array.from(container2.querySelectorAll('img')) : [];
+  
+  const totalPages1 = Math.ceil(images1.length / ITEMS_PER_PAGE);
+  const totalPages2 = Math.ceil(images2.length / ITEMS_PER_PAGE);
+  
+  sectionStates[sectionId] = {
+    currentCategory: 'category1',
+    category1: {
+      currentPage: 1,
+      totalPages: totalPages1,
+      images: images1
+    },
+    category2: {
+      currentPage: 1,
+      totalPages: totalPages2,
+      images: images2
+    }
+  };
+  
+  updateDeployPage(sectionId, false);
+  
+  if (images1.length > 0) {
+    const firstImg = images1[0];
+    const firstVideo = firstImg.dataset.video;
+    const firstText = firstImg.dataset.text || '';
+    if (firstVideo) {
+      updateFolderName(sectionId, firstVideo);
+      updateVideoText(sectionId, firstText);
+    }
+  }
+}
+
+function updatePage(sectionId, animate = true) {
+  const state = sectionStates[sectionId];
+  if (!state) return;
+  
+  if (state.category1 !== undefined) {
+    updateDeployPage(sectionId, animate);
+    return;
+  }
+  
+  const container = document.getElementById(`thumbs_${sectionId}`);
+  const start = (state.currentPage - 1) * ITEMS_PER_PAGE;
+  const end = start + ITEMS_PER_PAGE;
+  
+  if (animate) {
+    container.style.opacity = '0.5';
+    
+    setTimeout(() => {
+      state.images.forEach((img, idx) => {
+        if (idx >= start && idx < end) {
+          img.classList.add('visible');
+        } else {
+          img.classList.remove('visible');
+        }
+      });
+      
+      container.style.opacity = '1';
+    }, 150);
+  } else {
+    state.images.forEach((img, idx) => {
+      if (idx >= start && idx < end) {
+        img.classList.add('visible');
+      } else {
+        img.classList.remove('visible');
+      }
+    });
+  }
+  
+  const pageInfo = document.getElementById(`page_info_${sectionId}`);
+  if (pageInfo) {
+    pageInfo.textContent = `${state.currentPage} / ${state.totalPages}`;
+  }
+  
+  const prevBtn = document.querySelector(`.prev-btn[data-section="${sectionId}"]`);
+  const nextBtn = document.querySelector(`.next-btn[data-section="${sectionId}"]`);
+  if (prevBtn) prevBtn.disabled = state.currentPage === 1;
+  if (nextBtn) nextBtn.disabled = state.currentPage === state.totalPages;
+}
+
+function updateDeployPage(sectionId, animate = true) {
+  const state = sectionStates[sectionId];
+  if (!state) return;
+  
+  const currentCategory = state.currentCategory;
+  const categoryState = state[currentCategory];
+  const container = document.getElementById(`thumbs_${sectionId}_${currentCategory}`);
+  
+  if (!container || !categoryState) return;
+  
+  const start = (categoryState.currentPage - 1) * ITEMS_PER_PAGE;
+  const end = start + ITEMS_PER_PAGE;
+  
+  if (animate) {
+    container.style.opacity = '0.5';
+    
+    setTimeout(() => {
+      categoryState.images.forEach((img, idx) => {
+        if (idx >= start && idx < end) {
+          img.classList.add('visible');
+        } else {
+          img.classList.remove('visible');
+        }
+      });
+      
+      container.style.opacity = '1';
+    }, 150);
+  } else {
+    categoryState.images.forEach((img, idx) => {
+      if (idx >= start && idx < end) {
+        img.classList.add('visible');
+      } else {
+        img.classList.remove('visible');
+      }
+    });
+  }
+  
+  const pageInfo = document.getElementById(`page_info_${sectionId}`);
+  if (pageInfo) {
+    pageInfo.textContent = `${categoryState.currentPage} / ${categoryState.totalPages}`;
+  }
+  
+  const prevBtn = document.querySelector(`.prev-btn[data-section="${sectionId}"]`);
+  const nextBtn = document.querySelector(`.next-btn[data-section="${sectionId}"]`);
+  if (prevBtn) prevBtn.disabled = categoryState.currentPage === 1;
+  if (nextBtn) nextBtn.disabled = categoryState.currentPage === categoryState.totalPages;
+}
+
+function switchVideo(video, newSrc) {
+  if (!video || !newSrc) return;
+  
+  if (video.src.endsWith(newSrc)) {
+    return;
+  }
+  
+  const videoId = video.id;
+  const loadingOverlay = document.getElementById(`loading_${videoId.replace('video_', '')}`);
+  
+  if (loadingOverlay) {
+    loadingOverlay.style.display = 'flex';
+  }
+  
+  video.classList.add('loading');
+  video.pause();
+  
+  const tempVideo = document.createElement('video');
+  tempVideo.preload = 'metadata';
+  tempVideo.src = newSrc;
+  
+  tempVideo.addEventListener('loadedmetadata', () => {
+    video.style.opacity = '0.3';
+    
+    setTimeout(() => {
+      video.src = newSrc;
+      video.load();
+      
+      video.addEventListener('canplay', function onCanPlay() {
+        video.style.opacity = '1';
+        video.classList.remove('loading');
+        
+        if (loadingOverlay) {
+          loadingOverlay.style.display = 'none';
+        }
+        
+        video.play().catch(e => console.log('Autoplay blocked'));
+        video.removeEventListener('canplay', onCanPlay);
+      }, { once: true });
+    }, 100);
+  }, { once: true });
+  
+  tempVideo.addEventListener('error', () => {
+    video.style.opacity = '1';
+    video.classList.remove('loading');
+    
+    if (loadingOverlay) {
+      loadingOverlay.style.display = 'none';
+    }
+    
+    
+    console.error('Video load failed:', newSrc);
+  }, { once: true });
+}
+
+function updateFolderName(sectionId, videoPath) {
+  const videoNameElement = document.getElementById(`video_name_${sectionId}`);
+  if (!videoNameElement) return;
+  
+  const pathParts = videoPath.split('/');
+  if (pathParts.length > 0) {
+    const fileName = pathParts[pathParts.length - 1];
+    const decodedFileName = decodeURIComponent(fileName);
+    const nameWithoutExt = decodedFileName.replace(/\.mp4$/i, '');
+    const nameText = videoNameElement.querySelector('.video-name-text');
+    if (nameText) {
+      nameText.textContent = nameWithoutExt;
+    }
+  }
+}
+
+function updateVideoText(sectionId, text) {
+  const videoTextElement = document.getElementById(`video_text_${sectionId}`);
+  if (!videoTextElement) return;
+  
+  const textContent = videoTextElement.querySelector('.video-text-content');
+  if (textContent) {
+    textContent.innerHTML = text || '';
+  }
+}
+
+let previewTimeout;
+const hoverPreview = document.getElementById('hoverPreview');
+const hoverPreviewImage = document.getElementById('hoverPreviewImage');
+const hoverPreviewInfo = document.getElementById('hoverPreviewInfo');
+
+function showHoverPreview(img, event) {
+  clearTimeout(previewTimeout);
+  
+  previewTimeout = setTimeout(() => {
+    hoverPreviewImage.src = img.src;
+    
+    const videoText = img.dataset.text;
+    if (videoText && videoText.trim()) {
+      hoverPreviewInfo.innerHTML = videoText;
+      hoverPreviewInfo.style.display = 'block';
+    } else if (SHOW_FILENAME) {
+      hoverPreviewInfo.textContent = img.alt || 'Video thumbnail';
+      hoverPreviewInfo.style.display = 'block';
+    } else {
+      hoverPreviewInfo.style.display = 'none';
+    }
+    
+    const imgRect = img.getBoundingClientRect();
+    const x = imgRect.left + imgRect.width / 2;
+    const y = imgRect.top - 20;
+    
+    hoverPreview.style.left = x + 'px';
+    hoverPreview.style.top = y + 'px';
+    hoverPreview.classList.add('active');
+  }, 300);
+}
+
+function hideHoverPreview() {
+  clearTimeout(previewTimeout);
+  hoverPreview.classList.remove('active');
+}
+
+function updatePreviewPosition(img, event) {
+  if (hoverPreview.classList.contains('active')) {
+    const imgRect = img.getBoundingClientRect();
+    const x = imgRect.left + imgRect.width / 2;
+    const y = imgRect.top - 20;
+    hoverPreview.style.left = x + 'px';
+    hoverPreview.style.top = y + 'px';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const carouselsMultiple = bulmaCarousel.attach('.results-carousel:not(#sequential-carousel)', {
+    slidesToScroll: 1,
+    slidesToShow: 3,
+    infinite: true,
+    autoplay: false,
+    navigation: true,
+    navigationKeys: true,
+    pagination: true
+  });
+  
+  const sequentialCarousel = bulmaCarousel.attach('#sequential-carousel', {
+    slidesToScroll: 1,
+    slidesToShow: 2,
+    infinite: true,
+    autoplay: false,
+    navigation: true,
+    navigationKeys: true,
+    pagination: true
+  });
+  
+  ['data', 'pretrain'].forEach(sectionId => {
+    initPagination(sectionId);
+  });
+  
+  const deploySelect = document.getElementById('deploy_category_select');
+  if (deploySelect) {
+    const initialCategory = deploySelect.value;
+    const sectionId = deploySelect.dataset.section;
+    const subcatSwitcher = document.getElementById(`deploy_subcategory_${sectionId}`);
+    const hasSubcategories = ['General_pick_place', 'Functional_grasping', 'Pouring'].includes(initialCategory);
+    
+    if (subcatSwitcher) {
+      subcatSwitcher.style.display = hasSubcategories ? 'flex' : 'none';
+      
+      if (hasSubcategories) {
+        const subcatBtns = document.querySelectorAll(`.subcategory-btn[data-section="${sectionId}"]`);
+        subcatBtns.forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.subcategory === 'seen');
+        });
+      }
+    }
+    
+  document.querySelectorAll('.deploy-video-grid video').forEach(video => {
+      video.addEventListener('error', (e) => {
+        console.error('Video load failed:', video.src, e);
+      });
+      
+      video.addEventListener('loadedmetadata', () => {
+        console.log('Video loaded successfully:', video.src);
+      });
+    });
+
+  attachVideoClickHandlers();
+  tryAutoplayVisibleVideos();
+  }
+
+  if (deploySelect) {
+    deploySelect.addEventListener('change', (e) => {
+      const selectedCategory = e.target.value;
+      const sectionId = e.target.dataset.section;
+      
+      const subcatSwitcher = document.getElementById(`deploy_subcategory_${sectionId}`);
+      const hasSubcategories = ['General_pick_place', 'Functional_grasping', 'Pouring'].includes(selectedCategory);
+      
+      if (subcatSwitcher) {
+        subcatSwitcher.style.display = hasSubcategories ? 'flex' : 'none';
+      }
+      
+      const allGrids = document.querySelectorAll('.deploy-video-grid');
+      allGrids.forEach(g => g.classList.remove('active'));
+      
+  if (hasSubcategories) {
+        const grid = document.querySelector(`.deploy-video-grid[data-category="${selectedCategory}"][data-subcategory="seen"]`);
+        if (grid) {
+          grid.classList.add('active');
+          
+          const subcatBtns = document.querySelectorAll(`.subcategory-btn[data-section="${sectionId}"]`);
+          subcatBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.subcategory === 'seen');
+          });
+          attachVideoClickHandlers();
+          tryAutoplayVisibleVideos();
+        }
+      } else {
+        const grid = document.querySelector(`.deploy-video-grid[data-category="${selectedCategory}"]:not([data-subcategory])`);
+        if (grid) {
+          grid.classList.add('active');
+          attachVideoClickHandlers();
+          tryAutoplayVisibleVideos();
+        }
+      }
+    });
+  }
+
+  document.querySelectorAll('.subcategory-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const subcategory = btn.dataset.subcategory;
+      const sectionId = btn.dataset.section;
+      const deploySelectBtn = document.getElementById('deploy_category_select');
+      
+      if (!deploySelectBtn) return;
+      
+      const currentCategory = deploySelectBtn.value;
+      
+      const allBtns = document.querySelectorAll(`.subcategory-btn[data-section="${sectionId}"]`);
+      allBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      const allGrids = document.querySelectorAll('.deploy-video-grid');
+      allGrids.forEach(g => g.classList.remove('active'));
+      
+      const grid = document.querySelector(`.deploy-video-grid[data-category="${currentCategory}"][data-subcategory="${subcategory}"]`);
+      if (grid) {
+        grid.classList.add('active');
+        attachVideoClickHandlers();
+        tryAutoplayVisibleVideos();
+      }
+    });
+  });
+
+  document.querySelectorAll('.category-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const category = btn.dataset.category;
+    const sectionId = btn.dataset.section;
+    const state = sectionStates[sectionId];
+    
+    if (!state || state.currentCategory === category) return;
+    
+    const allBtns = document.querySelectorAll(`.category-btn[data-section="${sectionId}"]`);
+    allBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    const container1 = document.getElementById(`thumbs_${sectionId}_category1`);
+    const container2 = document.getElementById(`thumbs_${sectionId}_category2`);
+    
+    const videoWrapper = document.querySelector(`#video_${sectionId}`).closest('.video-wrapper');
+    if (videoWrapper && sectionId === 'pretrain') {
+      if (category === 'category1') {
+        videoWrapper.style.minHeight = '290px';
+      } else if (category === 'category2') {
+        videoWrapper.style.minHeight = '400px';
+      }
+    }
+    
+    if (category === 'category1') {
+      container1.classList.add('active');
+      container2.classList.remove('active');
+    } else {
+      container1.classList.remove('active');
+      container2.classList.add('active');
+    }
+    
+    state.currentCategory = category;
+    
+    updateDeployPage(sectionId, false);
+    
+    const categoryState = state[category];
+    if (categoryState && categoryState.images.length > 0) {
+      const firstVisibleImg = categoryState.images.find(img => img.classList.contains('visible'));
+      
+      if (firstVisibleImg) {
+        const videoSrc = firstVisibleImg.dataset.video;
+        const videoText = firstVisibleImg.dataset.text || '';
+        const targetId = firstVisibleImg.dataset.target;
+        const video = document.getElementById(targetId);
+        
+        if (video && videoSrc) {
+          switchVideo(video, videoSrc);
+          
+          updateFolderName(sectionId, videoSrc);
+          updateVideoText(sectionId, videoText);
+          
+          const siblings = document.querySelectorAll(`[data-target="${targetId}"]`);
+          siblings.forEach(s => s.classList.remove('selected'));
+          firstVisibleImg.classList.add('selected');
+        }
+      }
+    }
+  });
+});
+
+  document.querySelectorAll('.robot-category-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const category = btn.dataset.robotCategory;
+      
+      const allBtns = document.querySelectorAll('.robot-category-btn');
+      allBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      const seenContent = document.getElementById('robot_seen_content');
+      const unseenContent = document.getElementById('robot_unseen_content');
+      
+      if (category === 'seen') {
+        seenContent.classList.add('active');
+        unseenContent.classList.remove('active');
+      } else if (category === 'unseen') {
+        seenContent.classList.remove('active');
+        unseenContent.classList.add('active');
+        
+        // Reset all unseen task videos to start and replay
+        const unseenVideos = unseenContent.querySelectorAll('video');
+        unseenVideos.forEach(video => {
+          video.currentTime = 0;
+          video.play().catch(e => console.log('Video play failed:', e));
+        });
+      }
+    });
+  });
+
+if (deploySelect) {
+  deploySelect.addEventListener('change', (e) => {
+    const selectedCategory = e.target.value;
+    const sectionId = e.target.dataset.section;
+    
+    const subcatSwitcher = document.getElementById(`deploy_subcategory_${sectionId}`);
+    const hasSubcategories = ['General_pick_place', 'Functional_grasping', 'Pouring'].includes(selectedCategory);
+    
+    if (subcatSwitcher) {
+      subcatSwitcher.style.display = hasSubcategories ? 'flex' : 'none';
+    }
+    
+    const allContainers = document.querySelectorAll('.deploy-content');
+    allContainers.forEach(c => c.classList.remove('active'));
+    
+    if (hasSubcategories) {
+      const container = document.getElementById(`thumbs_${sectionId}_${selectedCategory}_seen`);
+      if (container) {
+        container.classList.add('active');
+        
+        const subcatBtns = document.querySelectorAll(`.subcategory-btn[data-section="${sectionId}"]`);
+        subcatBtns.forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.subcategory === 'seen');
+        });
+        
+        const firstImg = container.querySelector('img');
+        if (firstImg) {
+          const video = document.getElementById(`video_${sectionId}`);
+          if (video) {
+            switchVideo(video, firstImg.dataset.video);
+            updateFolderName(sectionId, firstImg.dataset.video);
+            
+            allContainers.forEach(c => {
+              c.querySelectorAll('img').forEach(img => img.classList.remove('selected'));
+            });
+            firstImg.classList.add('selected');
+          }
+        }
+      }
+    } else {
+      const container = document.getElementById(`thumbs_${sectionId}_${selectedCategory}`);
+      if (container) {
+        container.classList.add('active');
+        
+        const firstImg = container.querySelector('img');
+        if (firstImg) {
+          const video = document.getElementById(`video_${sectionId}`);
+          if (video) {
+            switchVideo(video, firstImg.dataset.video);
+            updateFolderName(sectionId, firstImg.dataset.video);
+            
+            allContainers.forEach(c => {
+              c.querySelectorAll('img').forEach(img => img.classList.remove('selected'));
+            });
+            firstImg.classList.add('selected');
+          }
+        }
+      }
+    }
+  });
+}
+
+  document.querySelectorAll('.subcategory-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const subcategory = btn.dataset.subcategory;
+      const sectionId = btn.dataset.section;
+      const deploySelectBtn = document.getElementById('deploy_category_select');
+      
+      if (!deploySelectBtn) return;
+      
+      const currentCategory = deploySelectBtn.value;
+      
+      const allBtns = document.querySelectorAll(`.subcategory-btn[data-section="${sectionId}"]`);
+      allBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      const allContainers = document.querySelectorAll('.deploy-content');
+      allContainers.forEach(c => c.classList.remove('active'));
+      
+      const container = document.getElementById(`thumbs_${sectionId}_${currentCategory}_${subcategory}`);
+      if (container) {
+        container.classList.add('active');
+        
+        const firstImg = container.querySelector('img');
+        if (firstImg) {
+          const video = document.getElementById(`video_${sectionId}`);
+          if (video) {
+            switchVideo(video, firstImg.dataset.video);
+            updateFolderName(sectionId, firstImg.dataset.video);
+            
+            allContainers.forEach(c => {
+              c.querySelectorAll('img').forEach(img => img.classList.remove('selected'));
+            });
+            firstImg.classList.add('selected');
+          }
+        }
+      }
+    });
+  });
+  
+  document.querySelectorAll('.prev-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sectionId = btn.dataset.section;
+      const state = sectionStates[sectionId];
+      
+      if (!state) return;
+      
+      if (state.category1 !== undefined) {
+        const categoryState = state[state.currentCategory];
+        if (categoryState && categoryState.currentPage > 1) {
+          categoryState.currentPage--;
+          updateDeployPage(sectionId, true);
+        }
+      } else {
+        if (state.currentPage > 1) {
+          state.currentPage--;
+          updatePage(sectionId, true);
+        }
+      }
+    });
+  });
+  
+  document.querySelectorAll('.next-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sectionId = btn.dataset.section;
+      const state = sectionStates[sectionId];
+      
+      if (!state) return;
+      
+      if (state.category1 !== undefined) {
+        const categoryState = state[state.currentCategory];
+        if (categoryState && categoryState.currentPage < categoryState.totalPages) {
+          categoryState.currentPage++;
+          updateDeployPage(sectionId, true);
+        }
+      } else {
+        if (state.currentPage < state.totalPages) {
+          state.currentPage++;
+          updatePage(sectionId, true);
+        }
+      }
+    });
+  });
+  
+  document.querySelectorAll('.thumb-container img').forEach(img => {
+    img.addEventListener('click', () => {
+      const videoSrc = img.dataset.video;
+      const videoText = img.dataset.text || '';
+      const targetId = img.dataset.target;
+      const video = document.getElementById(targetId);
+      
+      if (video && videoSrc) {
+        switchVideo(video, videoSrc);
+        video.play().catch(() => {});
+        
+        const sectionId = targetId.replace('video_', '');
+        updateFolderName(sectionId, videoSrc);
+
+        updateVideoText(sectionId, videoText);
+        
+  const siblings = document.querySelectorAll(`[data-target="${targetId}"]`);
+        siblings.forEach(s => s.classList.remove('selected'));
+        img.classList.add('selected');
+        
+        video.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+    
+    img.addEventListener('mouseenter', (e) => showHoverPreview(img, e));
+    img.addEventListener('mousemove', (e) => updatePreviewPosition(img, e));
+    img.addEventListener('mouseleave', hideHoverPreview);
+  });
+});
+</script>
+
+</body>
+
+</html>
