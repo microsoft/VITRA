@@ -206,10 +206,13 @@
 <section class="section" style="background-color:#f8f6fb;padding:3rem 0;">
   <div class="container is-max-desktop">
     <h2 class="title is-3 section-title" style="margin-top: 0.5em;margin-bottom:1.5rem;text-align:left;">Transforming Human Hand Video to VLA Data</h2>
-    <p>
-        Existing robotic manipulation V-L-A data typically comprise simple, short-horizon tasks (<em>e.g.,</em> <em>"pick up the sponge on table"</em>, <em>"wipe the stove with cloth"</em> ), which can be composed to long-horizon tasks by a high-level planner.
-        Each data episode comprises a language instruction, a video frame sequence, and frame-aligned 3D action chunks of the end-effector in the robot or camera coordinate system. 
-        Our approach analyzes an unscripted human video and generates V-L-A data in such format, treating the two human hands as the end-effector.
+    <p style="text-align: justify;">
+      Real-life human videos contain abundant examples of everyday actions and interactions across diverse environments. However, these videos are typically <strong><em>unstructured</em></strong> : they are unscripted and unsegmented, 
+      vary in length and task granularity, include irrelevant or noisy actions, and lack language instructions and 3D action labels.
+      In contrast, existing robotic manipulation V-L-A data typically consist of simple, short-horizon tasks (<em>e.g.,</em> <em>"pick up the sponge on table"</em>, <em>"wipe the stove with cloth"</em> ), each of which comprises a language instruction, a 
+      video frame sequence, and frame-aligned 3D action chunks of the end-effector in the robot or camera coordinate system. 
+      We develop a framework that analyzes unscripted human videos and converts them into VLA-formatted data, treating the two human hands as end-effectors 
+      and thereby effectively leveraging the potential of human videos for generalizable VLA pretraining.
     </p>
     <!-- <video id="teaser" autoplay muted loop playsinline style="width: 100%; max-width: 3200px; height: auto; border-radius: 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); margin: 20px auto; display: block;"> -->
 
@@ -219,7 +222,7 @@
     </video>
       <br>
     <h4 class="title is-4 section-title" style="margin-bottom:1.5rem;text-align:left;font-size:1.3rem !important;">Visualization of our hand V-L-A data</h4>
-    </p>
+    <p style="text-align: justify;">
     The left part in each case visualizes the reconstructed 3D hands for individual frames. The middle part shows the hand action trajectory from the current frame to the end of the episode, with a color gradient from purple to yellow indicating the temporal progression throughout the episode. The rightmost part depicts the hand's 3D trajectory projected into the camera coordinate system at the first frame.
     </p>
     <br>
@@ -325,7 +328,7 @@
 <section class="section" style="background-color:#ffffff;padding-top:0rem;padding-bottom:1rem;">
   <div class="container is-max-desktop">
     <h2 class="title is-3 section-title" style="margin-top: 50px;margin-bottom:20px;">Diversity Analysis</h2>
-    <p>
+    <p style="text-align: justify;">
         To investigate data diversity, we conduct a detailed analysis of the visual observations and language instructions in our hand V-L-A dataset. We compare the word frequency of language instructions 
         across different datasets (including <em>ours</em></em>, <em><a href="https://arxiv.org/abs/2505.11709" target="_blank">Egodex</a></em>, <em><a href="https://huggingface.co/datasets/agibot-world/AgiBotWorld-Beta" target="_blank">Agibot World beta</a></em>, <em><a href="https://arxiv.org/abs/2403.12945" target="_blank">DROID</a></em>, <em><a href="https://arxiv.org/abs/2310.08864" target="_blank">OXE</a></em> ), as well as the diversity of DINO features of images.
     </p>
@@ -344,7 +347,7 @@
 <section class="section" style="background-color:#ffffff;padding-top:0rem;padding-bottom:1rem;">
   <div class="container is-max-desktop">
     <h2 class="title is-3 section-title" style="margin-top: 20px;margin-bottom:20px;">Scaling Behavior</h2>
-    <p>
+    <p style="text-align: justify;">
         We investigate how the scale of pretraining data influences human hand action
         prediction performance and the performance on real robot. We compare the model trained on the full pretrained dataset with those trained on sub-sampled datasets at different ratios.
     </p>
@@ -363,7 +366,7 @@
 <section class="section" style="background-color:#fafcff;padding:3rem 0;">
   <div class="container is-max-desktop">
     <h2 class="title is-3 section-title" style="margin-bottom:1.5rem;text-align:left;">Zero-shot Human Hand Action Prediction in Unseen Environments</h2>
-    <p>
+    <p style="text-align: justify;">
     We evaluate the performance of our pretrained VLA model on human hand action prediction in completely unseen environments.
     Several visualization examples are presented, where the model infers based on single egocentric images captured from our real-life environments that are not included in the training data.
     In each video, the hand executes only one complete action chunk. 
@@ -480,7 +483,7 @@
 <section class="section" style="background-color:#f8f6fb;padding:3rem 0;">
   <div class="container is-max-desktop">
     <h2 class="title is-3 section-title" style="margin-bottom:1.5rem;text-align:left;">Real-World Robot Dexterous Manipulation</h2>
-        <p>
+    <p style="text-align: justify;">
      After pretraining, the model can be fine-tuned on small-scale robot data for deployment. We consider the human hand
      action space as a superset of that of the robot hand and align the robot's action space with the human hand's.
     </p>
@@ -661,7 +664,7 @@
     <h2 class="title is-3 section-title" style="margin-bottom:1.5rem;text-align:left;">Quantitative Experiments</h2>
 
     <h3 class="title is-4" style="margin-top: 30px;margin-bottom:20px;font-size:1.3rem !important;">Comparison with prior arts and ablations</h3>
-    <p>
+    <p style="text-align: justify;">
     We evaluate the performance of our VLA model fine-tuned on a small set of real robot trajectories for dexterous manipulation tasks. We compare our approach against: (1) <strong><em><a href="https://arxiv.org/pdf/2412.14803" target="_blank">VPP</a></em></strong>, (2) <strong><em><a href="https://arxiv.org/abs/2410.24164" target="_blank">&pi;<sub>0</a></em></strong> , (3) a model without our V-L-A data pretraining, (4) a model pretrained on our dataset using <strong><em><a href="https://arxiv.org/abs/2410.11758" target="_blank">LAPA</a></em></strong>, and (5) a model pretrained on <strong><em><a href="https://arxiv.org/abs/2310.08864" target="_blank">OXE</a></em></strong>.
 
     </p>
@@ -2227,5 +2230,6 @@ if (deploySelect) {
 </script>
 
 </body>
+
 
 </html>
