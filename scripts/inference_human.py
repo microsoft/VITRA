@@ -264,12 +264,7 @@ def main():
     fov = torch.tensor([fov_x, fov_y], dtype=torch.float32).unsqueeze(0)     # input your camera FOV here
 
     image = np.array(image)
-    # Save the (resized) image to disk next to the output video path
-    save_dir = Path(args.video_path).parent
-    save_dir.mkdir(parents=True, exist_ok=True)
-    save_path = "/home/t-qixiuli/repo/VITRA/examples/1_resized.png"
-    Image.fromarray(image).save(str(save_path))
-    print(f"Saved resized image to: {save_path}")
+
     # Use instruction from command-line argument
     instruction = args.instruction
 
