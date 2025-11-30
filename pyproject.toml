@@ -1,0 +1,75 @@
+
+[build-system]
+requires = ["setuptools>=57.5.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vitra"
+version = "0.0.1"
+description = "Scalable Vision-Language-Action Model Pretraining for Robotic Manipulation with Real-Life Human Activity Video"
+authors = [
+    {name = "Qixiu Li", email="liqx23@mails.tsinghua.edu.cn"},
+    {name = "Yu Deng", email="dengyu@microsoft.com"},
+    {name = "Yaobo Liang", email="yalia@microsoft.com"},
+    {name = "Lei Zhou", email="v-leizhou@microsoft.com"},
+]
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies=[
+    "torch==2.3.0",
+    "torchvision==0.18.0",
+    "torchaudio==2.3.0",
+    "PyYAML==6.0.2",
+    "hydra-colorlog>=1.2.0",
+    "hydra-core>=1.1.1",
+    "deepspeed==0.16.5",
+    "tensorboard>=2.13.0",
+    "tensorboardX>=2.6.2",
+    "tqdm>=4.65.0",
+    "transformers==4.47.1",
+    "diffusers>=0.31.0",
+    "wandb>=0.19.0",
+    "numpy<2.0",
+    "sentence-transformers==2.2.2",
+    "open_clip_torch==2.20.0",
+    "datasets==2.12.0",
+    "draccus==0.8.0",
+    "einops",
+    "huggingface_hub",
+    "json-numpy",
+    "jsonlines",
+    "matplotlib",
+    "peft==0.11.1",
+    "protobuf",
+    "rich",
+    "sentencepiece==0.1.99",
+    "timm==0.9.10",
+    "tokenizers>=0.21",
+    "decord",
+    "scikit-image",
+    "brotli",
+    "imageio-ffmpeg",
+    "imageio",
+    "ffmpeg-python",
+    "opencv-python",
+    "pympler",
+    "ultralytics",
+    "utils3d @ git+https://github.com/EasternJournalist/utils3d.git@d790d33#egg=utils3d"
+]
+
+[project.urls]
+"Homepage" = "https://microsoft.github.io/VITRA/"
+"Bug Tracker" = "https://github.com/microsoft/VITRA/issues"
+
+[tool.setuptools.packages.find]
+exclude = ["bash*", "imgs*", "eval", "tools*", "scripts*", "tests*"]
+
+[tool.wheel]
+exclude = ["bash*", "imgs*", "eval", "tools*", "scripts*", "tests*"]

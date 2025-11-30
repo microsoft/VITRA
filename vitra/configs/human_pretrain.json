@@ -1,0 +1,70 @@
+{
+    "vla_name": "VITRA_Paligemma",
+    "task_name": "pretrain",
+    "model": "vitra_paligemma2",
+    "fwd_pred_next_n": 16,
+    "seed": 42,
+    "batch_size": 64,
+    "output_root": "/data/vla_checkpoint/vitra_vla_3b/checkpoints",
+    "log_root": "/data/vla_checkpoint/vitra_vla_3b/logs",
+    "cache_root": "/data/vla_checkpoint/vitra_vla_3b/cache/",
+    "model_load_path": null,
+    "resume": true,
+    "wandb_project": "vitra_paligemma2_humanpretrain",
+    "wandb_entity": "",
+    "save_steps": 5000,
+    "total_batch_size": 512,
+    "use_bf16": true,
+    "use_fov": true,
+    "untied_cognition_token": true,
+    "use_state": "DiT",
+    "loss_type": "human",
+    "train_setup": {
+        "freeze_option": "freeze_vision_encoder"
+    },
+    "state_encoder": {
+        "state_dim": 212
+    },
+    "action_model": {
+        "model_type": "DiT-B",
+        "token_size": 2304,
+        "action_dim": 192,
+        "hidden_size": 1024
+    },
+    "vlm": {
+        "type": "PaliGemmaForConditionalGeneration",
+        "name": "paligemma",
+        "pretrained_model_name_or_path": "google/paligemma2-3b-mix-224"
+    },
+    "trainer": {
+        "sharding_strategy": "shard-grad-op",
+        "strategy": "fsdp_paligemma_with_checkpointing",
+        "lr_scheduler_type": "backbone-freeze-warmup",
+        "gradient_clip_val": 1.0,
+        "learning_rate": 1e-05,
+        "weight_decay": 0.1,
+        "max_epochs": 100000,
+        "max_steps": 2000000,
+        "reduce_in_full_precision": true,
+        "enable_mixed_precision_training": false,
+        "enable_gradient_checkpointing": true,
+        "action_model_learning_rate": 1e-4,
+        "llm_freeze_step": 5000,
+        "warmup_ratio": null
+    },
+    "train_dataset": {
+        "data_root_dir": "/data/VITRA_1M",
+        "augmentation": true,
+        "set_none_ratio": 0.0,
+        "data_mix": "magic_mix",
+        "num_workers": 18,
+        "prefetch_factor": null,
+        "flip_augmentation": 1.0,
+        "action_type": "angle",
+        "use_rel": false,
+        "clip_len": null,
+        "normalization": true,
+        "state_mask_prob": 0.1
+    },
+    "repeated_diffusion_steps": 8
+}

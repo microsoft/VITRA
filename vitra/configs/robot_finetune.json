@@ -1,0 +1,73 @@
+{
+    "vla_name": "VITRA_Paligemma",
+    "task_name": "Pretrain",
+    "model": "vitra_paligemma2",
+    "fwd_pred_next_n": 16,
+    "seed": 42,
+    "batch_size": 32,
+    "total_batch_size": 256,
+    "output_root": "/data/vla_checkpoint/vitra_robo_finetune/checkpoints",
+    "log_root": "/data/vla_checkpoint/vitra_robo_finetune/logs",
+    "cache_root": "/data/vla_checkpoint/vitra_robo_finetune/cache",
+    "pretrain_path": "./checkpoints/vitra-vla-3b.pt",
+    "model_load_path": null,
+    "resume": false,
+    "wandb_project": "vitra_paligemma2_robotfinetune",
+    "wandb_entity": "",
+    "save_steps": 5000,
+    "use_bf16": true,
+    "use_fov": true,
+    "untied_cognition_token": true,
+    "use_state": "DiT",
+    "loss_type": "robot",
+    "train_setup": {
+        "freeze_option": "freeze_vision_encoder"
+    },
+    "state_encoder":
+    {
+        "state_dim": 212
+    },
+    "action_model": {
+        "model_type": "DiT-B",
+        "token_size": 2304,
+        "action_dim": 192,
+        "hidden_size": 1024
+    },
+    "vlm": {
+        "type": "PaliGemmaForConditionalGeneration",
+        "name": "paligemma",
+        "pretrained_model_name_or_path": "google/paligemma2-3b-mix-224"
+    },
+    "trainer": {
+        "sharding_strategy": "shard-grad-op",
+        "strategy": "fsdp_paligemma_with_checkpointing",
+        "lr_scheduler_type": "backbone-freeze-warmup",
+        "learning_rate": 1e-5,
+        "gradient_clip_val": 1.0,
+        "weight_decay": 1e-1,
+        "max_epochs": 100000,
+        "max_steps": 2000000,
+        "reduce_in_full_precision": true,
+        "enable_mixed_precision_training": false,
+        "enable_gradient_checkpointing": true,
+        "action_model_learning_rate": 1e-5,
+        "llm_freeze_step": 0,
+        "warmup_ratio": null,
+        "optimizer_betas": [0.9, 0.95]
+    },
+    "train_dataset": {
+        "data_root_dir": "/data/TeleData",
+        "augmentation": true,
+        "set_none_ratio": 0.0,
+        "data_mix": "robo_dataset",
+        "num_workers": 16,
+        "prefetch_factor": null,
+        "flip_augmentation": 1.0,
+        "action_type": "angle",
+        "use_rel": false,
+        "clip_len": null,
+        "normalization": true,
+        "state_mask_prob": 0.1
+    },
+    "repeated_diffusion_steps": 2
+}

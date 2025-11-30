@@ -1,0 +1,6 @@
+[submodule "thirdparty/MoGe"]
+	path = thirdparty/MoGe
+	url = https://github.com/microsoft/MoGe.git
+[submodule "thirdparty/HaWoR"]
+	path = thirdparty/HaWoR
+	url = https://github.com/YuDeng/HaWoR.git
