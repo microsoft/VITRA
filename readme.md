@@ -326,22 +326,24 @@ def transform_trajectory(self, trajectory):
 
 The dictionary returned by `__getitem__` contains multiple fields representing the robot state, actions, and observations. Here, we use the **XHand** configuration as an example for illustration:
 
-- **Left Hand**: 6-DoF EEF pose + 12 joint angles
-- **Right Hand**: 6-DoF EEF pose + 12 joint angles  
+- **Left Hand**: 6-DoF EEF pose + 12 joint angles = 18-DoF
+- **Right Hand**: 6-DoF EEF pose + 12 joint angles = 18-DoF
+- **The ordering of dimensions in the state or action**: [`left_eef_trans`, `left_eef_euler_rotation`, `left_hand_joint`, `right_eef_trans`, `right_eef_euler_rotation`, `right_hand_joint`]
 
+</br>
 
+| Key                    | Type                     | Shape             | Description                                                                                               |
+|------------------------|--------------------------|-------------------|-----------------------------------------------------------------------------------------------------------|
+| **instruction**        | `str`                    | —                 | Natural language description of the task. <br> e.g., `"Left hand: None. Right hand: {Right hand prompt}"` |
+| **image_list**         | `np.ndarray (uint8)`     | `(1, H, W, C)`    | RGB image sequence. <br>• `C=3` (channels) <br>• `H, W` = height & width                                  |
+| **image_mask**         | `np.ndarray (bool)`      | `(1,)`            | Indicates which frames are valid (`1=valid`, `0=padded`).                                                 |
+| **action_list**        | `np.ndarray (float32)`   | `(T, 36)`         | Sequence of robot actions. (an action chunking) <br>• `T` = length of an action chunking                                                         |
+| **action_mask**        | `np.ndarray (bool)`      | `(T, 2)`          | Indicates which time steps contain valid left-hand or right-hand actions. `action_mask[:, 0]` corresponds to the left hand, and `action_mask[:, 1]` corresponds to the right hand.                                                      |
+| **current_state**      | `np.ndarray (float32)`   | `(36,)`           | Robot state at the current time step.                                                                     |
+| **current_state_mask** | `np.ndarray (float32)`   | `(2,)`            | Indicates which hand's state is valid. `current_state_mask[0]` corresponds to the left hand, and `current_state_mask[1]` corresponds to the right hand.                                           |
+| **fov**                | `np.ndarray (float32)`   | `(2,)`            | Camera field of view. `[fov_x, fov_y]`                                                                                    |
+| **intrinsics**         | `np.ndarray (float32)`   | `(3, 3)`          | Camera intrinsic matrix. Not used during training or model inference.                                     |
 
-| Key                    | Type                     | Shape                           | Description                                                                                                                          |
-| ---------------------- | ------------------------ | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| **instruction**        | `str`                    | —                               | Natural language description of the task. e.g., "Left hand: None. Right hand: {Right hand prompt}"                                                                               |
-| **image_list**         | `np.ndarray, uint8`          | `(1, H, W, 3)`               | RGB images sequence. <br> - `T`: time steps <br> - `C=3`: channels <br> - `H,W`: height and width |
-| **image_mask**         | `np.ndarray, bool`           | `(1,)`              | Indicates which frames are valid (1=valid, 0=padded)         
-| **action_list**        | `np.ndarray, float32`           | `(T, 36)`                        | Sequence of robot actions.           |                                                                        |
-| **action_mask**        | `np.ndarray, bool`           | `(T,)`                          | Indicates which actions are valid                                                                                                    |
-| **current_state**      | `np.ndarray, float32`           | `(36,)`                          | Robot state at current time step.          |
-| **current_state_mask** | `np.ndarray, float32`           | `(36,)`                          | Mask indicating valid state dimensions (1=valid, 0=masked)                                                                           |
-| **fov**                | `np.ndarray, float32`           | `(2,)` | Camera FOV                                         |
-| **intrinsics**         | `np.ndarray, float32` | `(3, 3)`                               | Camera intrinsic parameters, not used in training or model inference.                              |
 
 
 
