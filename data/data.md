@@ -20,7 +20,7 @@ Our data preprocessing and visualization rely on several dependencies that need 
 ### Python Libraries
 [PyTorch3D](https://github.com/facebookresearch/pytorch3d?tab=readme-ov-file) is required for visualization. You can install it according to the official guide, or simply run the command below:
 ```bash
-conda install pytorch3d -c pytorch3d
+pip install --no-build-isolation git+https://github.com/facebookresearch/pytorch3d.git@stable#egg=pytorch3d  
 ```
 [FFmpeg](https://github.com/FFmpeg/FFmpeg) is also required for video processing:
 ```bash
@@ -30,7 +30,8 @@ pip install ffmpeg-python
 
 Other Python dependencies can be installed using the following command:
 ```bash
-pip install imageio projectaria_tools smplx 
+pip install projectaria_tools smplx
+pip install --no-build-isolation git+https://github.com/mattloper/chumpy#egg=chumpy
 ```
 ### MANO Hand Model
 
