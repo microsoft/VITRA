@@ -13,7 +13,7 @@ class Config:
     """
     def __init__(self, args=None):
         # --- Paths (Overridden by CLI arguments) ---
-        self.HAWOR_MODEL_PATH = getattr(args, 'hawor_model_path', './weights/hawor/hawor/checkpoints/hawor.ckpt')
+        self.HAWOR_MODEL_PATH = getattr(args, 'hawor_model_path', './weights/hawor/checkpoints/hawor.ckpt')
         self.DETECTOR_PATH = getattr(args, 'detector_path', './weights/hawor/external/detector.pt')
         self.MOGE_MODEL_PATH = getattr(args, 'moge_model_path', 'Ruicheng/moge-2-vitl')
         self.MANO_PATH = getattr(args, 'mano_path', './weights/mano')

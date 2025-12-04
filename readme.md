@@ -30,13 +30,83 @@
 ---
 
 ## 🚩 New & Updates
+*   **[2025-12-05]** 🚀 Release the code for performing zero-shot inference using a single image.
 *   **[2025-11-30]** 🚀 Our code, pretrained models, and datasets are now open-sourced.
 *   **[2025-10-24]** 🚀 **VITRA** paper is released on arXiv.
 
 ---
+## 🤗 Pretrained Models and Datesets
+
+Our pretrained model and datasets are available on the huggingface hub:
+<table>
+  <thead>
+    <tr>
+      <th>Hugging Face Model</th>
+      <th>#Params</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://huggingface.co/VITRA-VLA/VITRA-VLA-3B" target="_blank"><code>VITRA-VLA-3B</code><a></td>
+      <td style="font-size: 0.92em;">3B</td>
+      <td style="font-size: 0.92em;">Base VLA model pretrained on Human Hand Data.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+**Note: Our base VLA model is finetuned from [Paligemma2](https://huggingface.co/google/paligemma2-3b-mix-224). if you do not have access to [Paligemma2](https://huggingface.co/google/paligemma2-3b-mix-224), please request permission on the [official website](https://huggingface.co/google/paligemma2-3b-mix-224).**
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th rowspan="2">Hugging Face Dataset</th>
+      <th colspan="2" style="text-align: center;">Sub Datasets</th>
+    </tr>
+    <tr>
+      <th>Dataset Name</th>
+      <th>Number of Episodes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="6"><a href="https://huggingface.co/datasets/VITRA-VLA/VITRA-1M" target="_blank"><code>VITRA-1M</code></a></td>
+      <td><code>ego4d_cooking_and_cleaning</code></td>
+      <td>454,244</td>
+    </tr>
+    <tr>
+      <td><code>ego4d_other</code></td>
+      <td>494,439</td>
+    </tr>
+    <tr>
+      <td><code>epic</code></td>
+      <td>154,464</td>
+    </tr>
+    <tr>
+      <td><code>egoexo4d</code></td>
+      <td>67,053</td>
+    </tr>
+    <tr>
+      <td><code>ssv2</code></td>
+      <td>52,718</td>
+    </tr>
+    <tr>
+      <td><strong>Total</strong></td>
+      <td><strong>1,222,918</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+**Note: See [`data/data.md`](data/data.md) for detailed information about our datasets.**
 
 ## 📑 Table of Contents
 - [1. Installation](#1-installation)
+  - [1.1 Training / Inference Requirements](#11-training--inference-requirements)
+  - [1.2 Visualization Requirements](#12-visualization-requirements)
 - [2. Inference with Human Hand Image](#2-inference-with-human-hand-image)
 - [3. Fine-tuning with a Custom Robot Dataset](#3-fine-tuning-with-a-custom-robot-dataset)
   - [3.1 Data Preparation](#31-data-preparation)
@@ -57,8 +127,9 @@
 ---
 
 ## 1. Installation
+### 1.1 Training / Inference Requirements
+We recommend using `conda` to manage the environment. We require PyTorch >= 2.3.0 and CUDA >= 12.1 (It may run with lower versions, but we have not tested it). If the environment is used solely for training, it is recommended to use a higher version of PyTorch to achieve improved training speed.
 
-We recommend using `conda` to manage the environment. We require PyTorch >= 2.3.0 and CUDA >= 12.1 (It may run with lower versions, but we have not tested it).
 
 ```bash
 # Clone the repository
@@ -73,8 +144,6 @@ conda activate vitra
 pip install -e .
 ```
 
-If you want to run **dataset visualization** or **visualize** the results after inference, please refer to the **Prerequisites** section in [`data/data.md`](data/data.md) and install the additional required dependencies.
-
 <details>
 <summary>Click to view detailed system requirements</summary>
 
@@ -84,65 +153,79 @@ If you want to run **dataset visualization** or **visualize** the results after 
 *   **GPU**: Minimum 16GB VRAM for inference, A100/H100 recommended for training.
 </details>
 
+### 1.2 Visualization Requirements
+If you want to **visualize** the results after inference, run **dataset visualization**, or perform zero-shot human hand action prediction from a single image, please follow the instructions below.
+
+**Submodules Installation**
+
+Please clone the submodules to perform hand pose estimation.
+```bash
+git submodule update --init --recursive
+```
+
+**Libraries Installation**
+
+Please install the following additional modules for visualization using the commands below:
+
+```bash
+pip install -e .[visulization] --no-build-isolation
+```
+
+<details>
+<summary>Click here if you encounter issues when installing Installing <a href="https://github.com/facebookresearch/pytorch3d?tab=readme-ov-file">PyTorch3D</a> </summary>
+
+*   If you encounter issues when installing [PyTorch3D](https://github.com/facebookresearch/pytorch3d?tab=readme-ov-file), please follow the installation instructions provided in the [PyTorch3D](https://github.com/facebookresearch/pytorch3d?tab=readme-ov-file) repository or try installing it separately using:
+
+    ```bash
+    pip install --no-build-isolation git+https://github.com/facebookresearch/pytorch3d.git@stable#egg=pytorch3d
+    ```
+</details>
+
+
+If [FFmpeg](https://github.com/FFmpeg/FFmpeg) is not installed on your system, please install it first.
+```bash
+sudo apt install ffmpeg
+```
+
+**MANO Hand Model**
+
+Our reconstructed hand labels are based on the MANO hand model. **We only require the right hand model.** The model parameters can be downloaded from the [official website](https://mano.is.tue.mpg.de/index.html) and organized in the following structure:
+```
+weights/
+└── mano/
+    ├── MANO_RIGHT.pkl
+    └── mano_mean_params.npz
+```
+Please download the model weights of [HaWoR](https://github.com/ThunderVVV/HaWoR) for hand pose estimation:
+
+```bash
+wget https://huggingface.co/spaces/rolpotamias/WiLoR/resolve/main/pretrained_models/detector.pt -P ./weights/hawor/external/
+wget https://huggingface.co/ThunderVVV/HaWoR/resolve/main/hawor/checkpoints/hawor.ckpt -P ./weights/hawor/checkpoints/
+```
+
 ---
 
 ## 2. Inference with Human Hand Image
-
-You can use our pretrained model to predict actions (the 6D wrist motion and MANO pose of hands) directly from **egocentric human hand images**.
-
-To predict human actions from pre-captured images, camera FOV, and hand state, and to render the results as a video, please refer to the `scripts/inference_human.py` file. Here is an example:
-
+You can use our pretrained model to perform zero-shot 3D human hand action prediction directly from an **egocentric human hand image (landscape view)** based on instructions. To predict human actions from pre-captured images, please run [`scripts/run_human_inference.sh`](scripts/run_human_inference.sh). Here is a simple example:
 ```bash
-python scripts/inference_human.py \
-    --config VITRA-VLA-3B/configs/config.json \
-    --image_path ./examples/hand_prediction/image_1.jpg \
-    --hand_path ./examples/hand_prediction/state_1.npy \
-    --use_left \
+python scripts/inference_human_prediction.py \
+    --config VITRA-VLA/VITRA-VLA-3B \
+    --image_path ./examples/0002.jpg \
+    --sample_times 4 \
+    --save_state_local \
+    --use_right \
     --video_path ./example_human_inf.mp4 \
-    --model_path /VITRA-VLA-3B/checkpoints/vitra-vla-3b.pt \
-    --statistics_path VITRA-VLA-3B/statistics/dataset_statistics.json \
-    --mano_model_path ./weight/mano \
-    --instruction "Left: Put the trash into the garbage. Right: None."
+    --mano_path ./weights/mano \
+    --instruction "Left hand: None. Right hand: Pick up the picture of Michael Jackson." \
 ```
+All example images are captured on mobile phones in **rooms that do not appear anywhere in the V-L-A dataset**. They also include entirely **unseen concepts**, such as photos of celebrities.
 
-
-
-This example assumes that both **`hand_state`** and **camera `fov_x`** are stored in the **Hand State File**.
-
-This example assumes a camera setup where **`fx ≈ fy`**. In this workflow, **`hand_state`** is obtained from **HaWoR**, which estimates hand pose from a **single RGB image**.
-
+Users can capture images with their own devices and directly test the model using the recorded images.
 > **Note:**  
-> For higher-quality inference results, capture images with the camera positioned close to **human eye height**, aligning with natural egocentric viewpoints.  
-> Extremely unusual or distorted hand poses/positions in the image may lead to inference failure.
+> For best inference quality, it is recommended to capture **landscape view** images from a camera height close to that of a **human head** to match natural egocentric viewpoints. Highly unusual or distorted hand poses/positions may cause inference failures.
 
-**Hand State File Format**
 
-The hand state is stored as a `.npy` file containing a Python dictionary with the following structure:
-
-- **Format:** `.npy`
-- **Content:** dictionary with MANO-based hand pose parameters and camera FOV.
-- **Structure:**
-    ```python
-    {
-        'left': {
-            0: {
-                'hand_pose': np.ndarray,      # [15, 3, 3] rotation matrices for MANO joints
-                'global_orient': np.ndarray,  # [3, 3] global rotation matrix
-                'transl': np.ndarray,         # [3] root translation in camera coordinates
-                'beta': np.ndarray            # [10] MANO shape parameters
-            }
-        },
-        'right': {                           # Same structure as 'left'
-            0: {
-                ...
-            }
-        },
-        'fov_x': float                       # Horizontal field of view (in degrees)
-    }
-    ```
-
-<!-- TODO: Estimating FOV and hand state from a single image -->
-Below is the **minimum usage** for predicting human actions. 
+Below is the **minimum usage example** for predicting human actions. 
 
 
 ```python
@@ -151,18 +234,20 @@ import torch
 import numpy as np
 from PIL import Image
 from vitra.models import VITRA_Paligemma, load_model
-from vitra.utils.data_utils import resize_short_side_to_target
+from vitra.utils.data_utils import resize_short_side_to_target, load_normalizer
 from vitra.datasets.human_dataset import pad_state_human, pad_action
-from vitra.utils.data_utils import load_normalizer
+from vitra.utils.config_utils import load_config
 from vitra.datasets.dataset_utils import (
     ActionFeature,
     StateFeature,
 )
 
 # Load configs
-configs = json.load(open('configs/config.json'))
-pretrained_path = 'checkpoints/vitra-vla-3b.pt'
-statistics_path = 'statistics/dataset_statistics.json'
+configs = load_config('VITRA-VLA/VITRA-VLA-3B')
+
+# Override config if provided
+pretrained_path = 'VITRA-VLA/VITRA-VLA-3B'
+statistics_path = 'VITRA-VLA/VITRA-VLA-3B'
 configs['model_load_path'] = pretrained_path
 configs['statistics_path'] = statistics_path
 
@@ -246,19 +331,12 @@ unnorm_action = normalizer.unnormalize_action(norm_action)
 print("Predicted Action:", unnorm_action)
 ```
 
-<!-- ### Interactive Demo
-Launch a local Gradio demo to visualize the action predictions:
-```bash
-python scripts/demo.py --model_path vitra-org/vitra-3b-base
-``` -->
-**Note:** When using the vitra-paligemma2 model, please log in to your Hugging Face account and request access to the [Paligemma-2 model](https://huggingface.co/google/paligemma2-3b-mix-224).
-
 ---
 
 ## 3. Fine-tuning with a Custom Robot Dataset
 
 
-VITRA models serve as starting points for robot-specific fine-tuning (e.g., on Xhand or your custom robot).
+Our VITRA model serve as starting points for robot-specific fine-tuning (e.g., on Xhand or your custom robot).
 
 ### 3.1 Data Preparation
 

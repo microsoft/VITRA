@@ -15,7 +15,7 @@ The contents of this folder are as follows:
 
 ---
 ## 1. Prerequisites
-Our data preprocessing and visualization rely on several dependencies that need to be prepared in advance.
+Our data preprocessing and visualization rely on several dependencies that need to be prepared in advance. If you have already completed the installation steps in **1.2 Visualization Requirements** of the [`readme.md`](../readme.md), you can skip this section.
 
 ### Python Libraries
 [PyTorch3D](https://github.com/facebookresearch/pytorch3d?tab=readme-ov-file) is required for visualization. You can install it according to the official guide, or simply run the command below:

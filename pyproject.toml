@@ -61,7 +61,17 @@ dependencies=[
     "opencv-python",
     "pympler",
     "ultralytics",
+    "pytorch-lightning",
+    "yacs",
     "utils3d @ git+https://github.com/EasternJournalist/utils3d.git@d790d33#egg=utils3d"
+]
+
+[project.optional-dependencies]
+visulization = [
+    "smplx",
+    "projectaria_tools",
+    "chumpy @ git+https://github.com/mattloper/chumpy.git@master",
+    "pytorch3d @git+https://github.com/facebookresearch/pytorch3d.git@stable#egg=pytorch3d"
 ]
 
 [project.urls]

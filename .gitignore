@@ -171,6 +171,7 @@ cython_debug/
 # **/*.json
 **/*.ttf
 **/*.zip
+**/**/*.pt
 demo/
 *pth
 *upload*
@@ -182,7 +183,11 @@ outputs/
 ckpts/
 logs/
 # datasets/
-weights/
+weights/hawor/checkpoints
+weights/hawor/external
+weights/external/detector.pt
+
+#
 benchmark*/
 # configs/
 

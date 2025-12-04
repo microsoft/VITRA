@@ -1,0 +1,140 @@
+task_name: train
+tags:
+- dev
+train: true
+auto_resume: true
+test: false
+ckpt_path: null
+seed: null
+DATASETS:
+  SUPPRESS_KP_CONF_THRESH: 0.3
+  FILTER_NUM_KP: 4
+  FILTER_NUM_KP_THRESH: 0.0
+  FILTER_REPROJ_THRESH: 31000
+  SUPPRESS_BETAS_THRESH: 3.0
+  SUPPRESS_BAD_POSES: false
+  POSES_BETAS_SIMULTANEOUS: true
+  FILTER_NO_POSES: false
+  TRAIN:
+    MULTI_SET: true
+    HOT3D_TRAIN:
+      WEIGHT: 1.0
+      ROOT: hot3d_trainset_export
+      PKL: train_set_new.pkl
+    ARCTIC_TRAIN:
+      WEIGHT: 1.0
+      ROOT: arctic_trainset_export
+      PKL: train_set_new.pkl
+    DEXYCB_TRAIN:
+      WEIGHT: 1.0
+      ROOT: dex_ycb_trainset_export
+      PKL: train_set_new.pkl
+    HO3D_TRAIN:
+      WEIGHT: 1.0
+      ROOT: ho3d_trainset_export
+      PKL: train_set_new.pkl
+  VAL:
+    HOT3D_TEST:
+      WEIGHT: 1.0
+  BETAS_REG: true
+  CONFIG:
+    SCALE_FACTOR: 0.3
+    ROT_FACTOR: 30
+    TRANS_FACTOR: 0.02
+    COLOR_SCALE: 0.2
+    ROT_AUG_RATE: 0.6
+    TRANS_AUG_RATE: 0.5
+    DO_FLIP: false
+    FLIP_AUG_RATE: 0.0
+    EXTREME_CROP_AUG_RATE: 0.0
+    EXTREME_CROP_AUG_LEVEL: 1
+trainer:
+  _target_: pytorch_lightning.Trainer
+  default_root_dir: 
+  accelerator: gpu
+  devices: 4
+  deterministic: false
+  num_sanity_val_steps: 0
+  log_every_n_steps: 1000
+  val_check_interval: 0
+  precision: 16
+  max_steps: 250000
+  limit_val_batches: 0
+paths:
+  root_dir: 
+  data_dir: 
+  log_dir: logs/
+  output_dir: 
+  work_dir: 
+extras:
+  ignore_warnings: false
+  enforce_tags: true
+  print_config: true
+exp_name: 
+MANO:
+  DATA_DIR: weights/mano
+  MODEL_PATH: weights/mano
+  GENDER: neutral
+  NUM_HAND_JOINTS: 15
+  MEAN_PARAMS: weights/mano/mano_mean_params.npz
+  CREATE_BODY_POSE: false
+EXTRA:
+  FOCAL_LENGTH: 5000
+  NUM_LOG_IMAGES: 4
+  NUM_LOG_SAMPLES_PER_IMAGE: 8
+  PELVIS_IND: 0
+GENERAL:
+  TOTAL_STEPS: 250000
+  LOG_STEPS: 1000
+  VAL_STEPS: 0
+  CHECKPOINT_STEPS: 1000
+  CHECKPOINT_SAVE_TOP_K: 1
+  NUM_WORKERS: 25
+  PREFETCH_FACTOR: 2
+TRAIN:
+  LR: 1.0e-05
+  WEIGHT_DECAY: 0.0001
+  BATCH_SIZE: 8
+  LOSS_REDUCTION: mean
+  NUM_TRAIN_SAMPLES: 2
+  NUM_TEST_SAMPLES: 64
+  POSE_2D_NOISE_RATIO: 0.01
+  SMPL_PARAM_NOISE_RATIO: 0.005
+MODEL:
+  IMAGE_SIZE: 256
+  IMAGE_MEAN:
+  - 0.485
+  - 0.456
+  - 0.406
+  IMAGE_STD:
+  - 0.229
+  - 0.224
+  - 0.225
+  BACKBONE:
+    TYPE: vit
+    TORCH_COMPILE: 0
+    PRETRAINED_WEIGHTS: 
+  MANO_HEAD:
+    TYPE: transformer_decoder
+    IN_CHANNELS: 2048
+    TRANSFORMER_DECODER:
+      depth: 6
+      heads: 8
+      mlp_dim: 1024
+      dim_head: 64
+      dropout: 0.0
+      emb_dropout: 0.0
+      norm: layer
+      context_dim: 1280
+  ST_MODULE: true
+  MOTION_MODULE: true
+  ST_HDIM: 512
+  MOTION_HDIM: 384
+  ST_NLAYER: 6
+  MOTION_NLAYER: 6
+LOSS_WEIGHTS:
+  KEYPOINTS_3D: 0.05
+  KEYPOINTS_2D: 0.01
+  GLOBAL_ORIENT: 0.001
+  HAND_POSE: 0.001
+  BETAS: 0.0005

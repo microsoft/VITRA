@@ -2,9 +2,6 @@
 import sys
 import os
 
-import sys
-import os
-
 # Adjust system path to include the vitra root directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
 vitra_root = os.path.dirname(current_dir)

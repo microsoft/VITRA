@@ -10,6 +10,7 @@ from .video_utils import (
     save_to_video,
     add_overlay_text
 )
+from typing import Optional, List, Tuple
 from libs.models.mano_wrapper import MANO
 from .render_utils import Renderer
 
@@ -285,7 +286,7 @@ class HandVisualizer:
             save_to_video(final_save_frames, f'{self.config.SAVE_PATH}/{episode_name}.mp4', fps=self.config.FPS)
             print(f'\nSuccessfully saved episode to {self.config.SAVE_PATH}/{episode_name}.mp4')
 
-def find_caption_index(frame_index: int, intervals: list[tuple[int, int]]) -> int | None:
+def find_caption_index(frame_index: int, intervals: list[tuple[int, int]]) -> Optional[int]:
     """Finds the interval index for a given frame index."""
     for idx, (start, end) in enumerate(intervals):
         if start <= frame_index <= end:

@@ -14,6 +14,8 @@ import PIL.Image as Image
 from scipy.spatial.transform import Rotation as R
 
 import json
+import os
+from huggingface_hub import hf_hub_download
 
 # HuggingFace Default / LLaMa-2 IGNORE_INDEX (for labels)
 IGNORE_INDEX = -100
@@ -367,12 +369,6 @@ def resize_short_side_to_target(image, target=224):
     Returns:
         Resized PIL Image with correct orientation
     """
-    # Handle EXIF orientation if present (fixes image rotation issues)
-    try:
-        from PIL import ImageOps
-        image = ImageOps.exif_transpose(image)
-    except Exception:
-        pass  # If EXIF handling fails, continue with original image
     
     w, h = image.size
 
@@ -394,6 +390,22 @@ def resize_short_side_to_target(image, target=224):
 
 def load_normalizer(configs):
     stats_path = configs.get("statistics_path", None)
+   # Check if stats_path is a Hugging Face repo (format: "username/repo-name" or "username/repo-name:filename")
+    if stats_path and "/" in stats_path and not os.path.exists(stats_path):
+        if ":" in stats_path:
+            # Format: "username/repo-name:statistics.json"
+            repo_id, filename = stats_path.split(":", 1)
+            print(f"Loading statistics from Hugging Face Hub: {repo_id}/{filename}")
+        else:
+            # Format: "username/repo-name" - default to "statistics/statistics.json"
+            repo_id = stats_path
+            filename = "statistics/dataset_statistics.json"
+            print(f"Loading statistics from Hugging Face Hub: {repo_id}/{filename}")
+        stats_path = hf_hub_download(
+            repo_id=repo_id,
+            filename=filename,
+        )
+        
     # Load dataset statistics
     data_statistics = read_dataset_statistics(stats_path)
     gaussian_normalizer = GaussianNormalizer(data_statistics)
