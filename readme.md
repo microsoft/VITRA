@@ -364,6 +364,8 @@ To adapt the dataset loader to your own robot data, you should create a custom i
 The following methods typically need to be overridden to match the **human-data pretraining format**:
 
 ```python
+def __init__(...):
+    # dataset initialization
 def __len__(self):
     # return the number of frames
     ...
@@ -372,22 +374,6 @@ def __getitem__(self, idx):
     """
     Returns a sample dictionary
     """
-    ...
-    return {
-        "instruction": instruction,
-        "image_list": image_list,
-        "image_mask": image_mask,
-        "action_list": action_list,
-        "action_mask": action_mask,
-        "current_state": current_state,
-        "current_state_mask": current_state_mask,
-        "fov": fov,
-        "intrinsics": self.intrinsics,
-    }
-
-def transform_trajectory(self, trajectory):
-    # apply coordinate alignment, eef transformation,
-    # xhand-to-human-hand joint mapping, etc.
     ...
     return {
         "instruction": instruction,
