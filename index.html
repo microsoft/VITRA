@@ -479,6 +479,71 @@
   </div>
 </section>
 
+<!-- New Section: General Visual Understanding Capabilities -->
+<section class="section" style="background-color:#ffffff;padding:3rem 0;">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 section-title" style="margin-bottom:1.5rem;text-align:left;">General Visual Understanding Capabilities</h2>
+    <p style="text-align: justify;">
+    Our model demonstrates the ability to <strong><em> transfer the knowledge of a VLM directly into the 3D physical world</em></strong>. In particular, our hand V-L-A model largely preserves the VLM’s broad visual understanding <strong><em>without any specialized finetuning procedures</em></strong> (e.g., co-training, LoRA, discrete prediction, or feature alignment). As a result, our model can directly transfer these general visual understanding capabilities into action generation. 
+    <br>
+    To evaluate this property, we design a task in which the model is prompted to generate actions, and we interpret the direction of the generated hand movement as a multiple-choice answer. This setup allows us to assess its ability to recognize and distinguish a wide range of visual concepts that <strong><em>never appear in our hand V-L-A data</em></strong>. The evaluation includes celebrities, landmarks, emojis, text (OCR), geometric shapes, and objects of various sizes. The following examples illustrate the model’s performance across these diverse visual recognition tasks.
+  </p>
+    <br>
+    <br>
+    <div class="category-switcher" style="margin-bottom:1.5rem;">
+      <button class="category-btn active" data-category="category1" data-section="visual">
+        Celebrities
+      </button>
+      <button class="category-btn" data-category="category2" data-section="visual">
+        Landmarks
+      </button>
+      <button class="category-btn" data-category="category3" data-section="visual">
+        Emojis
+      </button>
+      <button class="category-btn" data-category="category4" data-section="visual">
+        OCR
+      </button>
+      <button class="category-btn" data-category="category5" data-section="visual">
+        Shapes
+      </button>
+      <button class="category-btn" data-category="category6" data-section="visual">
+        Sizes
+      </button>
+    </div>
+
+    <!-- Instruction Selector -->
+    <div class="visual-instruction-selector" style="margin-top:4rem;margin-bottom:1.5rem;">
+      <div class="visual-instruction-bar">
+        <span class="instruction-prefix">Pick up the picture of</span>
+        <select id="visual_instruction_select" class="instruction-select" data-section="visual">
+          <!-- Options will be populated based on active category -->
+        </select>
+      </div>
+    </div>
+
+    <div class="video-wrapper" style="position: relative; padding: 0 70px; overflow: visible;">
+      <button class="visual-pagination-btn visual-prev-btn" id="visual_prev_btn" onclick="changeVisualPage(-1)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <div class="video-loading-overlay" id="loading_visual" style="display: none; left: 70px; right: 70px; width: auto; top: 0; bottom: 0; height: auto;">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Video Loading...</div>
+      </div>
+      <video id="video_visual" controls autoplay muted playsinline loop>
+        <source src="Video/general_visual/celebrity/Pick_up_the_picture_of_Audrey_Hepburn.mp4" type="video/mp4">
+      </video>
+      <button class="visual-pagination-btn visual-next-btn" id="visual_next_btn" onclick="changeVisualPage(1)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+      <div class="visual-page-indicator" id="visual_page_indicator"></div>
+    </div>
+  </div>
+</section>
+
 
 <section class="section" style="background-color:#f8f6fb;padding:3rem 0;">
   <div class="container is-max-desktop">
@@ -735,6 +800,10 @@
   justify-content: center;
   gap: 15px;
   margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .category-btn {
@@ -751,6 +820,8 @@
   box-shadow: 0 2px 10px rgba(102, 126, 234, 0.1);
   width: 220px;
   text-align: center;
+  min-width: 180px;
+  flex: 0 1 auto;
 }
 
 .category-btn:hover {
@@ -812,7 +883,7 @@
   animation: sparkle 1.5s ease-in-out infinite;
 }
 
-.category-btn[data-category="category2"]:not(.active) {
+.category-btn[data-category="category2"][data-section="pretrain"]:not(.active) {
   animation: pulseAttention 2s ease-in-out infinite;
   position: relative;
 }
@@ -913,6 +984,75 @@
 .deploy-select:focus {
   border-color: #764ba2;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+/* Visual Instruction Selector */
+.visual-instruction-selector {
+  text-align: center;
+}
+
+.visual-instruction-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #f0f4ff 0%, #e8eef7 100%);
+  border: 2px solid #8b9dc3;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(139, 157, 195, 0.15);
+  min-width: 500px;
+  max-width: 90%;
+  transition: all 0.3s ease;
+}
+
+.visual-instruction-bar:hover {
+  box-shadow: 0 4px 12px rgba(139, 157, 195, 0.25);
+  border-color: #7a8db8;
+}
+
+.instruction-prefix {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #5a6b8c;
+  white-space: nowrap;
+  font-family: 'Poppins', sans-serif;
+}
+
+.instruction-select {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: 2px solid #b8c5db;
+  border-radius: 6px;
+  background: white;
+  color: #3a4a6b;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  min-width: 200px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b9dc3' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 35px;
+}
+
+.instruction-select:hover {
+  border-color: #7a8db8;
+  box-shadow: 0 2px 6px rgba(139, 157, 195, 0.2);
+}
+
+.instruction-select:focus {
+  border-color: #7a8db8;
+  box-shadow: 0 0 0 3px rgba(139, 157, 195, 0.2);
+}
+
+.instruction-select option {
+  padding: 10px;
+  font-size: 1rem;
+  color: #3a4a6b;
 }
 
 .deploy-subcategory-switcher {
@@ -1080,6 +1220,11 @@ section:has(#video_data) .video-wrapper {
 }
 
 section:has(#video_pretrain) .video-wrapper {
+  max-width: 520px;
+  min-height: 290px;
+}
+
+section:has(#video_visual) .video-wrapper {
   max-width: 520px;
   min-height: 290px;
 }
@@ -1283,6 +1428,24 @@ section:has(#video_pretrain) .video-wrapper {
     margin-bottom: 1rem !important;
   }
   
+  .visual-instruction-bar {
+    min-width: 350px;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 15px;
+  }
+  
+  .instruction-prefix {
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .instruction-select {
+    font-size: 1rem;
+    min-width: unset;
+    width: 100%;
+  }
+  
   .robot-category-switcher {
     flex-direction: column;
     align-items: center;
@@ -1314,6 +1477,10 @@ section:has(#video_pretrain) .video-wrapper {
   }
   
   section:has(#video_pretrain) .video-wrapper {
+    min-height: 240px;
+  }
+  
+  section:has(#video_visual) .video-wrapper {
     min-height: 240px;
   }
   
@@ -1412,6 +1579,21 @@ section:has(#video_pretrain) .video-wrapper {
     max-width: 260px;
   }
   
+  .visual-instruction-bar {
+    min-width: 280px;
+    padding: 10px 12px;
+  }
+  
+  .instruction-prefix {
+    font-size: 0.9rem;
+  }
+  
+  .instruction-select {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+    padding-right: 30px;
+  }
+  
   .robot-category-btn {
     padding: 8px 16px;
     font-size: 0.95rem;
@@ -1428,6 +1610,10 @@ section:has(#video_pretrain) .video-wrapper {
   }
   
   section:has(#video_pretrain) .video-wrapper {
+    min-height: 200px;
+  }
+  
+  section:has(#video_visual) .video-wrapper {
     min-height: 200px;
   }
 
@@ -1507,6 +1693,109 @@ section:has(#video_pretrain) .video-wrapper {
     max-width: 100% !important;
   }
 }
+
+/* Visual pagination buttons */
+.visual-pagination-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.visual-pagination-btn:hover:not(:disabled) {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+}
+
+.visual-pagination-btn:active:not(:disabled) {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.visual-pagination-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: linear-gradient(135deg, #999 0%, #666 100%);
+}
+
+.visual-pagination-btn svg {
+  stroke: white;
+  transition: stroke 0.3s ease;
+}
+
+.visual-prev-btn {
+  left: -10px;
+}
+
+.visual-next-btn {
+  right: -10px;
+}
+
+@media (max-width: 768px) {
+  .visual-pagination-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .visual-prev-btn {
+    left: -50px;
+  }
+  
+  .visual-next-btn {
+    right: -50px;
+  }
+  
+  .visual-pagination-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Visual page indicator (pagination dots) */
+.visual-page-indicator {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 20;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.visual-page-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.visual-page-dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.2);
+}
+
+.visual-page-dot.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 24px;
+  border-radius: 5px;
+}
 </style>
 
 <div class="hover-preview" id="hoverPreview">
@@ -1516,8 +1805,160 @@ section:has(#video_pretrain) .video-wrapper {
 
 <script>
 const SHOW_FILENAME = true;
-const ITEMS_PER_PAGE = 8;
 const sectionStates = {};
+
+// Visual Understanding Section Data with pagination support
+const visualInstructionData = {
+  category1: [
+    [
+      { text: "Pick up the picture of Audrey Hepburn", video: "Video/general_visual/celebrity/Pick_up_the_picture_of_Audrey_Hepburn.mp4" },
+      { text: "Pick up the picture of Scarlett", video: "Video/general_visual/celebrity/Pick_up_the_picture_of_Scarlett.mp4" },
+      { text: "Pick up the picture of Leonardo Dicaprio", video: "Video/general_visual/celebrity/Pick_up_the_picture_of_Leonardo_Dicaprio.mp4" }
+    ],
+    [
+      { text: "Pick up the picture of Tom Cruise", video: "Video/general_visual/celebrity/Pick_up_the_picture_of_Tom_Cruise.mp4" },
+      { text: "Pick up the picture of Michael Jackson", video: "Video/general_visual/celebrity/Pick_up_the_picture_of_Michael_Jackson.mp4" },
+      { text: "Pick up the picture of Rihanna", video: "Video/general_visual/celebrity/Pick_up_the_picture_of_Rihanna.mp4" }
+    ],
+    [
+      { text: "Pick up the picture of Jackie Chan", video: "Video/general_visual/celebrity/Pick_up_the_picture_of_Jackie_Chan.mp4" },
+      { text: "Pick up the picture of Taylor Swift", video: "Video/general_visual/celebrity/Pick_up_the_picture_of_Taylor_Swift.mp4" },
+      { text: "Pick up the picture of Will Smith", video: "Video/general_visual/celebrity/Pick_up_the_picture_of_Will_Smith.mp4" }
+    ]
+  ],
+  category2: [
+    [
+      { text: "Pick up the picture of the Eiffel Tower", video: "Video/general_visual/landmark/Pick_up_the_picture_of_the_Eiffiel_Tower.mp4" },
+      { text: "Pick up the picture of the Statue of Liberty", video: "Video/general_visual/landmark/Pick_up_the_picture_of_the_Statue_of_Liberty.mp4" },
+      { text: "Pick up the picture of the Great Wall", video: "Video/general_visual/landmark/Pick_up_the_picture_of_the_Great_Wall_.mp4" }
+    ],
+    [
+      { text: "Pick up the picture of the Big Ben", video: "Video/general_visual/landmark/Pick_up_the_picture_of_the_Big_Ben.mp4" },
+      { text: "Pick up the picture of the Colosseum", video: "Video/general_visual/landmark/Pick_up_the_picture_of_the_Colosseum.mp4" },
+      { text: "Pick up the picture of the Pyramids of Giza", video: "Video/general_visual/landmark/Pick_up_the_picture_of_the_Pyramids_of_Giza.mp4" }
+    ],
+    [
+      { text: "Pick up the picture of the Golden Gate Bridge", video: "Video/general_visual/landmark/Pick_up_the_picture_of_the_Golden_Gate_Bridge.mp4" },
+      { text: "Pick up the picture of the Leaning Tower of Pisa", video: "Video/general_visual/landmark/Pick_up_the_picture_of_the_Leaning_Tower_of_Pisa.mp4" },
+      { text: "Pick up the picture of the Great Wall", video: "Video/general_visual/landmark/Pick_up_the_picture_of_the_Great_Wall.mp4" }
+    ]
+  ],
+  category3: [
+    [
+      { text: "Pick up the picture of the alien face", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_alien_face.mp4" },
+      { text: "Pick up the picture of the snow icon", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_snow_icon.mp4" },
+      { text: "Pick up the picture of the jack-o-lantern", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_jack-o-lantern.mp4" }
+    ],
+    [
+      { text: "Pick up the picture of the ballon", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_ballon.mp4" },
+      { text: "Pick up the picture of the fire icon", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_fire_icon.mp4" },
+      { text: "Pick up the picture of the clown", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_clown.mp4" }
+    ],
+    [
+      { text: "Pick up the picture of the cloud with snow", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_cloud_with_snow.mp4" },
+      { text: "Pick up the picture of the duck", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_duck.mp4" },
+      { text: "Pick up the picture of the tiger face", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_tiger_face.mp4" }
+    ],
+    [
+      { text: "Pick up the picture of the coconut tree", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_coconut_tree.mp4" },
+      { text: "Pick up the picture of the seat", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_seat.mp4" },
+      { text: "Pick up the picture of the face", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_face.mp4" }
+    ],
+    [
+      { text: "Pick up the picture of the fire truck", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_fire_truck.mp4" },
+      { text: "Pick up the picture of the squid", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_squid.mp4" },
+      { text: "Pick up the picture of the lizard", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_lizard.mp4" }
+    ],
+    [
+      { text: "Pick up the picture of the thumbs up icon", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_thumbs_up_icon.mp4" },
+      { text: "Pick up the picture of the eyes", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_eyes.mp4" },
+      { text: "Pick up the picture of the two people", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_two_people.mp4" }    
+    ],
+    [
+      { text: "Pick up the picture of the mouth", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_mouth.mp4" },
+      { text: "Pick up the picture of the tooth", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_tooth.mp4" },
+      { text: "Pick up the picture of the ok hand", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_ok_hand.mp4" }    
+    ],
+    [
+      { text: "Pick up the picture of the crocodile", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_crocodile.mp4" },
+      { text: "Pick up the picture of the crab", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_crab.mp4" },
+      { text: "Pick up the picture of the minibus", video: "Video/general_visual/emoji/Pick_up_the_picture_of_the_minibus.mp4" }    
+    ]
+  ],
+  category4: [
+    [
+      { text: "Pick up the picture of 'Cat'", video: "Video/general_visual/ocr/Pick_up_the_picture_of_'Cat'.mp4" },
+      { text: "Pick up the picture of 'Cut'", video: "Video/general_visual/ocr/Pick_up_the_picture_of_'Cut'.mp4" },
+      { text: "Pick up the picture of 'Rat'", video: "Video/general_visual/ocr/Pick_up_the_picture_of_'Rat'.mp4" },
+    ],
+    [
+      { text: "Pick up the picture of '264'", video: "Video/general_visual/ocr/Pick_up_the_picture_of_'264'.mp4" },
+      { text: "Pick up the picture of '265'", video: "Video/general_visual/ocr/Pick_up_the_picture_of_'265'.mp4" },
+    ],
+    [
+      { text: "Pick up the picture of 'MICROSOFT'", video: "Video/general_visual/ocr/Pick_up_the_picture_of_'MICROSOFT'.mp4" },
+      { text: "Pick up the picture of 'TSINGHUA'", video: "Video/general_visual/ocr/Pick_up_the_picture_of_'TSINGHUA'.mp4" },
+    ],
+    [
+      { text: "Pick up the picture of 'No'", video: "Video/general_visual/ocr/Pick_up_the_picture_of_'No'.mp4" },
+      { text: "Pick up the picture of 'Yes'", video: "Video/general_visual/ocr/Pick_up_the_picture_of_'Yes'.mp4" },
+    ]
+  ],
+  category5: [
+    [
+      { text: "Pick up the picture of the circle", video: "Video/general_visual/shape/Pick_up_the_picture_of_the_circle2.mp4" },
+      { text: "Pick up the picture of the triangle", video: "Video/general_visual/shape/Pick_up_the_picture_of_the_triangle2.mp4" },
+      { text: "Pick up the picture of the pentagram", video: "Video/general_visual/shape/Pick_up_the_picture_of_the_pentagram2.mp4" }
+    ],
+    [
+      { text: "Pick up the picture of the cross", video: "Video/general_visual/shape/Pick_up_the_picture_of_the_cross.mp4" },
+      { text: "Pick up the picture of the heart", video: "Video/general_visual/shape/Pick_up_the_picture_of_the_heart.mp4" },
+      { text: "Pick up the picture of the square", video: "Video/general_visual/shape/Pick_up_the_picture_of_the_square.mp4" }
+    ],
+    [
+      { text: "Pick up the picture of the pentagram", video: "Video/general_visual/shape/Pick_up_the_picture_of_the_pentagram3.mp4" },
+      { text: "Pick up the picture of the heart", video: "Video/general_visual/shape/Pick_up_the_picture_of_the_heart3.mp4" },
+      { text: "Pick up the picture of the cross", video: "Video/general_visual/shape/Pick_up_the_picture_of_the_cross3.mp4" }
+    ]
+  ],
+  category6: [
+    [
+      { text: "Pick up the picture of the bigger circle", video: "Video/general_visual/size/Pick_up_the_picture_of_the_bigger_circle.mp4" },
+      { text: "Pick up the picture of the smaller circle", video: "Video/general_visual/size/Pick_up_the_picture_of_the_smaller_circle.mp4" },
+    ],
+    [
+      { text: "Pick up the picture of the bigger gray cross", video: "Video/general_visual/size/Pick_up_the_picture_of_the_bigger_gray_cross.mp4" },
+      { text: "Pick up the picture of the smaller gray cross", video: "Video/general_visual/size/Pick_up_the_picture_of_the_smaller_gray_cross.mp4" },
+    ],
+    [
+      { text: "Pick up the picture of the bigger green square", video: "Video/general_visual/size/Pick_up_the_picture_of_the_bigger_green_square.mp4" },
+      { text: "Pick up the picture of the smaller green square", video: "Video/general_visual/size/Pick_up_the_picture_of_the_smaller_green_square.mp4" },
+    ],
+    [
+      { text: "Pick up the picture of the bigger orange triangle", video: "Video/general_visual/size/Pick_up_the_picture_of_the_bigger_orange_triangle.mp4" },
+      { text: "Pick up the picture of the smaller orange triangle", video: "Video/general_visual/size/Pick_up_the_picture_of_the_smaller_orange_triangle.mp4" },
+    ],
+    [
+      { text: "Pick up the picture of the bigger red heart", video: "Video/general_visual/size/Pick_up_the_picture_of_the_bigger_red_heart.mp4" },
+      { text: "Pick up the picture of the smaller red heart", video: "Video/general_visual/size/Pick_up_the_picture_of_the_smaller_red_heart.mp4" },
+    ],
+    [
+      { text: "Pick up the picture of the bigger purple pentagram", video: "Video/general_visual/size/Pick_up_the_picture_of_the_bigger_purple_pentagram.mp4" },
+      { text: "Pick up the picture of the smaller purple pentagram", video: "Video/general_visual/size/Pick_up_the_picture_of_the_smaller_purple_pentagram.mp4" },
+    ]
+  ]
+};
+
+// Pagination state for visual section
+const visualPaginationState = {
+  category1: 0,
+  category2: 0,
+  category3: 0,
+  category4: 0,
+  category5: 0,
+  category6: 0
+};
+
 function tryAutoplayVisibleVideos() {
   document.querySelectorAll('.deploy-video-grid.active video').forEach(v => {
     v.play().catch(() => {});
@@ -1559,6 +2000,7 @@ function initPagination(sectionId) {
     return;
   }
   
+  const ITEMS_PER_PAGE = 8;
   const images = Array.from(container.querySelectorAll('img'));
   const totalPages = Math.ceil(images.length / ITEMS_PER_PAGE);
   
@@ -1572,6 +2014,7 @@ function initPagination(sectionId) {
 }
 
 function initDeployMultiPagination(sectionId) {
+  const ITEMS_PER_PAGE = 8;
   const allContainers = document.querySelectorAll('.deploy-content');
   allContainers.forEach(container => {
     const images = Array.from(container.querySelectorAll('img'));
@@ -1590,6 +2033,7 @@ function initDeployCategoryPagination(sectionId) {
   const images1 = container1 ? Array.from(container1.querySelectorAll('img')) : [];
   const images2 = container2 ? Array.from(container2.querySelectorAll('img')) : [];
   
+  const ITEMS_PER_PAGE = 8;
   const totalPages1 = Math.ceil(images1.length / ITEMS_PER_PAGE);
   const totalPages2 = Math.ceil(images2.length / ITEMS_PER_PAGE);
   
@@ -1629,6 +2073,7 @@ function updatePage(sectionId, animate = true) {
     return;
   }
   
+  const ITEMS_PER_PAGE = 8;
   const container = document.getElementById(`thumbs_${sectionId}`);
   const start = (state.currentPage - 1) * ITEMS_PER_PAGE;
   const end = start + ITEMS_PER_PAGE;
@@ -1678,6 +2123,7 @@ function updateDeployPage(sectionId, animate = true) {
   
   if (!container || !categoryState) return;
   
+  const ITEMS_PER_PAGE = 8;
   const start = (categoryState.currentPage - 1) * ITEMS_PER_PAGE;
   const end = start + ITEMS_PER_PAGE;
   
@@ -1869,6 +2315,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initPagination(sectionId);
   });
   
+  // Initialize Visual Understanding Section
+  initVisualSection();
+  
   const deploySelect = document.getElementById('deploy_category_select');
   if (deploySelect) {
     const initialCategory = deploySelect.value;
@@ -1965,10 +2414,242 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Visual Section Functions
+  function initVisualSection() {
+    const visualSelect = document.getElementById('visual_instruction_select');
+    if (!visualSelect) return;
+    
+    // Set initial category to category1
+    let currentCategory = 'category1';
+    updateVisualSelect(currentCategory);
+    updatePaginationButtons(currentCategory);
+    updatePageIndicator(currentCategory);
+    
+    // Load first video
+    if (visualInstructionData[currentCategory] && visualInstructionData[currentCategory].length > 0) {
+      const firstPage = visualInstructionData[currentCategory][0];
+      if (firstPage && firstPage.length > 0) {
+        loadVisualVideo(firstPage[0].video);
+      }
+    }
+    
+    // Add event listener for select change
+    visualSelect.addEventListener('change', (e) => {
+      const selectedIndex = e.target.selectedIndex;
+      const category = document.querySelector('.category-btn[data-section="visual"].active').dataset.category;
+      const currentPage = visualPaginationState[category];
+      const items = visualInstructionData[category][currentPage];
+      
+      if (items && items[selectedIndex]) {
+        loadVisualVideo(items[selectedIndex].video);
+      }
+    });
+  }
+  
+  function updatePageIndicator(category) {
+    const indicator = document.getElementById('visual_page_indicator');
+    if (!indicator) return;
+    
+    const pages = visualInstructionData[category] || [];
+    const currentPage = visualPaginationState[category];
+    
+    // Clear existing dots
+    indicator.innerHTML = '';
+    
+    // Create dots for each page
+    pages.forEach((page, index) => {
+      const dot = document.createElement('div');
+      dot.className = 'visual-page-dot';
+      if (index === currentPage) {
+        dot.classList.add('active');
+      }
+      
+      // Click handler for dots
+      dot.addEventListener('click', () => {
+        if (index !== currentPage) {
+          const direction = index > currentPage ? 1 : -1;
+          const steps = Math.abs(index - currentPage);
+          
+          // Jump to the clicked page
+          visualPaginationState[category] = index;
+          updateVisualSelect(category);
+          updatePaginationButtons(category);
+          updatePageIndicator(category);
+          
+          const newPageItems = pages[index];
+          if (newPageItems && newPageItems.length > 0) {
+            loadVisualVideo(newPageItems[0].video);
+          }
+        }
+      });
+      
+      indicator.appendChild(dot);
+    });
+    
+    // Hide indicator if only one page
+    indicator.style.display = pages.length > 1 ? 'flex' : 'none';
+  }
+  
+  function updateVisualSelect(category) {
+    const visualSelect = document.getElementById('visual_instruction_select');
+    if (!visualSelect) return;
+    
+    const currentPage = visualPaginationState[category] || 0;
+    const pages = visualInstructionData[category] || [];
+    const items = pages[currentPage] || [];
+    
+    // Clear existing options
+    visualSelect.innerHTML = '';
+    
+    // Add new options (only the noun part)
+    items.forEach((item, index) => {
+      const option = document.createElement('option');
+      option.value = index;
+      // Extract only the noun part after "Pick up the picture of " or "Pick up the picture with " or "Pick up the card with " etc.
+      let text = item.text;
+      text = text.replace('Pick up the picture of ', '');
+      text = text.replace('Pick up the picture with ', '');
+      text = text.replace('Pick up the card with ', '');
+      text = text.replace('Pick up the ', '');
+      option.textContent = text;
+      visualSelect.appendChild(option);
+    });
+    
+    // Set first option as selected
+    if (items.length > 0) {
+      visualSelect.selectedIndex = 0;
+    }
+  }
+  
+  function updatePaginationButtons(category) {
+    const prevBtn = document.getElementById('visual_prev_btn');
+    const nextBtn = document.getElementById('visual_next_btn');
+    
+    if (!prevBtn || !nextBtn) return;
+    
+    const currentPage = visualPaginationState[category];
+    const totalPages = (visualInstructionData[category] || []).length;
+    
+    // Disable/enable buttons based on current page
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = currentPage >= totalPages - 1;
+  }
+  
+  window.changeVisualPage = function(direction) {
+    const activeBtn = document.querySelector('.category-btn[data-section="visual"].active');
+    if (!activeBtn) return;
+    
+    const category = activeBtn.dataset.category;
+    const pages = visualInstructionData[category] || [];
+    let currentPage = visualPaginationState[category];
+    
+    // Calculate new page
+    const newPage = currentPage + direction;
+    
+    // Check bounds
+    if (newPage < 0 || newPage >= pages.length) return;
+    
+    // Update state
+    visualPaginationState[category] = newPage;
+    
+    // Update dropdown with new page items
+    updateVisualSelect(category);
+    
+    // Update pagination buttons
+    updatePaginationButtons(category);
+    
+    // Update page indicator
+    updatePageIndicator(category);
+    
+    // Load first video of new page
+    const newPageItems = pages[newPage];
+    if (newPageItems && newPageItems.length > 0) {
+      loadVisualVideo(newPageItems[0].video);
+    }
+  }
+  
+  function loadVisualVideo(videoSrc) {
+    const video = document.getElementById('video_visual');
+    if (!video || !videoSrc) return;
+    
+    const loadingOverlay = document.getElementById('loading_visual');
+    
+    if (loadingOverlay) {
+      loadingOverlay.style.display = 'flex';
+    }
+    
+    video.classList.add('loading');
+    video.pause();
+    
+    const tempVideo = document.createElement('video');
+    tempVideo.preload = 'metadata';
+    tempVideo.src = videoSrc;
+    
+    tempVideo.addEventListener('loadedmetadata', () => {
+      video.style.opacity = '0.3';
+      
+      setTimeout(() => {
+        video.src = videoSrc;
+        video.load();
+        
+        video.addEventListener('canplay', function onCanPlay() {
+          video.style.opacity = '1';
+          video.classList.remove('loading');
+          
+          if (loadingOverlay) {
+            loadingOverlay.style.display = 'none';
+          }
+          
+          video.play().catch(e => console.log('Autoplay blocked'));
+          video.removeEventListener('canplay', onCanPlay);
+        }, { once: true });
+      }, 100);
+    }, { once: true });
+    
+    tempVideo.addEventListener('error', () => {
+      video.style.opacity = '1';
+      video.classList.remove('loading');
+      
+      if (loadingOverlay) {
+        loadingOverlay.style.display = 'none';
+      }
+      
+      console.error('Video load failed:', videoSrc);
+    }, { once: true });
+  }
+
   document.querySelectorAll('.category-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const category = btn.dataset.category;
     const sectionId = btn.dataset.section;
+    
+    // Handle visual section differently
+    if (sectionId === 'visual') {
+      const allBtns = document.querySelectorAll(`.category-btn[data-section="${sectionId}"]`);
+      allBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Reset to first page when switching categories
+      visualPaginationState[category] = 0;
+      
+      // Update select dropdown with new category options
+      updateVisualSelect(category);
+      
+      // Update pagination buttons
+      updatePaginationButtons(category);
+      
+      // Update page indicator
+      updatePageIndicator(category);
+      
+      // Load first video of the new category
+      const pages = visualInstructionData[category];
+      if (pages && pages.length > 0 && pages[0] && pages[0].length > 0) {
+        loadVisualVideo(pages[0][0].video);
+      }
+      
+      return;
+    }
+    
     const state = sectionStates[sectionId];
     
     if (!state || state.currentCategory === category) return;
