@@ -35,7 +35,7 @@ pip install --no-build-isolation git+https://github.com/mattloper/chumpy#egg=chu
 ```
 ### MANO Hand Model
 
-Our reconstructed hand labels are based on the MANO hand model. **We only require the right hand model.** The model parameters can be downloaded from the [official website](https://mano.is.tue.mpg.de/index.html) and organized in the following structure:
+Our reconstructed hand labels are based on the MANO hand model. **We only require the right hand model.** The model parameters can be downloaded from the [official website](https://mano.is.tue.mpg.de/index.html) and organized in the following structure ([mano_mean_params.npz](weights/mano/mano_mean_params.npz) is already included in our repo):
 ```
 weights/
 └── mano/

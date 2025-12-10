@@ -617,7 +617,7 @@ Data_root/
 
 To further accelerate training, we recommend the following optional preprocessing steps:
 
-1. Resize all processed videos to 224×224 for faster decoding and memory savings.  
+1. Resize all processed videos so that the shorter side is 224 for faster decoding and reduced memory usage (preserve the aspect ratio during resizing).
 2. Split long videos into shorter clips of at most 2000 frames each.  
    Name the clips using the format: `{video_name}_part{part_index}.mp4`, where `part_index` starts from **1**.
 3. In `configs/human_pretrain.json`, set:
