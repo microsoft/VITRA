@@ -212,7 +212,7 @@ episode_info (dict)                                 # Metadata for a single V-L-
 │   ├── 'global_orient_camspace': np.ndarray        # (Tx3x3) Hand wrist rotations from MANO's canonical space to camera space
 │   ├── 'global_orient_worldspace': np.ndarray      # (Tx3x3) Hand wrist rotations from MANO's canonical space to world space
 │   ├── 'hand_pose': np.ndarray                     # (Tx15x3x3) Local hand joints rotations (based on the MANO_RIGHT model)
-│   ├── 'transl_camspace': np.ndarray               # (Tx3) Hand wrist translation in camera space
+│   ├── 'transl_camspace': np.ndarray               # (Tx3) Deprecated
 │   ├── 'transl_worldspace': np.ndarray             # (Tx3) Hand wrist translation in world space
 │   ├── 'kept_frames': list[int]                    # (T) 0–1 mask of valid left-hand reconstruction frames
 │   ├── 'joints_camspace': np.ndarray               # (Tx21x3) 3D hand joint positions in camera space
