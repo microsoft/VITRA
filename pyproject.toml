@@ -33,7 +33,7 @@ dependencies=[
     "tensorboard>=2.13.0",
     "tensorboardX>=2.6.2",
     "tqdm>=4.65.0",
-    "transformers==4.47.1",
+    "transformers==4.53.0",
     "diffusers>=0.31.0",
     "wandb>=0.19.0",
     "numpy<2.0",
