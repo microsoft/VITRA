@@ -10,6 +10,7 @@
     <a href='https://microsoft.github.io/VITRA/'><img src='https://img.shields.io/badge/Project_Page-Website-green?logo=googlechrome&logoColor=white' alt='Project Page'></a>
     <a href='https://huggingface.co/VITRA-VLA/VITRA-VLA-3B'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue'></a>
     <a href='https://huggingface.co/datasets/VITRA-VLA/VITRA-1M'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Data-yellow'></a>
+    <a href='https://huggingface.co/datasets/microsoft/VITRA-TeleData'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-TeleData-yellow'></a>
     <a href='LICENSE'><img src='https://img.shields.io/badge/License-MIT-orange' alt='License'></a>
 </p>
 
@@ -30,6 +31,7 @@
 ---
 
 ## 🚩 New & Updates
+*   **[2026-02-09]** 🚀 Release the finetuning dataset collected by teleoperation.
 *   **[2025-12-05]** 🚀 Release the code for performing zero-shot inference using a single image.
 *   **[2025-11-30]** 🚀 Our code, pretrained models, and datasets are now open-sourced.
 *   **[2025-10-24]** 🚀 **VITRA** paper is released on arXiv.
@@ -103,6 +105,7 @@ Our pretrained model and datasets are available on the huggingface hub:
 
 **Note: See [`data/data.md`](data/data.md) for detailed information about our datasets.**
 
+Our finetuning dataset collected by teleoperation can be downloaded from https://huggingface.co/datasets/microsoft/VITRA-TeleData. See [`data/teleoperate_data.md`](data/teleoperate_data.md) for detailed information about the data.
 ## 📑 Table of Contents
 - [1. Installation](#1-installation)
   - [1.1 Training / Inference Requirements](#11-training--inference-requirements)
