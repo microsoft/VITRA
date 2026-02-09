@@ -105,7 +105,7 @@ Our pretrained model and datasets are available on the huggingface hub:
 
 **Note: See [`data/data.md`](data/data.md) for detailed information about our datasets.**
 
-Our finetuning dataset collected by teleoperation can be downloaded from https://huggingface.co/datasets/microsoft/VITRA-TeleData. See [`data/teleoperate_data.md`](data/teleoperate_data.md) for detailed information about the data.
+Our finetuning dataset collected by teleoperation can be downloaded from https://huggingface.co/datasets/microsoft/VITRA-TeleData. See [`data/teleoperate_data.md`](data/teleoperate_data.md) for detailed information about the data (For the best formula visualization, we recommend previewing the teleoperate_data.md locally with VS Code Markdown).
 ## 📑 Table of Contents
 - [1. Installation](#1-installation)
   - [1.1 Training / Inference Requirements](#11-training--inference-requirements)
