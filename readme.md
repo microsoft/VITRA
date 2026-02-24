@@ -124,6 +124,7 @@ Our finetuning dataset collected by teleoperation can be downloaded from https:/
   - [6.2 Compute Dataset Statistics](#62-compute-dataset-statistics)
   - [6.3 Modify Configuration](#63-modify-configuration)
   - [6.4 Run Scripts](#64-run-scripts)
+- [Contact](#contact)
 - [Citation](#citation)
 
 
@@ -653,7 +654,10 @@ bash scripts/run_human_pretrain.sh
 ```
 
 
----
+
+## Contact
+
+For any questions or suggestions, please contact [Qixiu Li](mailto:liqx23@mails.tsinghua.edu.cn), [Yu Deng](mailto:dengyu@microsoft.com) or [Jiaolong Yang](mailto:jiaoyan@microsoft.com). You can also raise questions or suggestions through an issue.
 
 ## Citation
 
