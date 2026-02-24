@@ -123,6 +123,12 @@
 
               <span class="author-block"><sup>1</sup>Tsinghua University&nbsp;</span>
               <span class="author-block"><sup>2</sup>Microsoft Research Asia&nbsp;</span>
+              <p style="margin-top:0.9rem;margin-bottom:0.2rem;font-family:'Poppins','Google Sans','Noto Sans',sans-serif;font-size:1.22rem;font-weight:700;letter-spacing:0.08em;text-align:center;background:linear-gradient(90deg,#d97706 0%,#dc2626 50%,#7c3aed 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                ICRA 2026
+              </p>
+              <p style="margin-top:0.9rem;margin-bottom:0;font-family:'Poppins','Google Sans','Noto Sans',sans-serif;font-size:1.08rem;font-weight:600;letter-spacing:0.03em;text-align:center;background:linear-gradient(90deg,#0f766e 0%,#2563eb 45%,#7c3aed 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">
+                Paper Disclosure Date: Oct 24, 2025
+              </p>
             </div>
 
             <div class="column has-text-centered">
@@ -479,11 +485,14 @@
   </div>
 </section>
 
-<!-- New Section: General Visual Understanding Capabilities -->
+<!-- New Section: Visual Understanding Capabilities -->
 <section class="section" style="background-color:#ffffff;padding:3rem 0;">
   <div class="container is-max-desktop">
     <h2 class="title is-3 section-title" style="margin-bottom:1.5rem;text-align:left;">General Visual Understanding Capabilities</h2>
     <p style="text-align: justify;">
+    <!-- Surprisingly, our hand VLA model largely preserves the VLM’s broad visual understanding <strong><em>without any specialized finetuning procedures</em></strong> (e.g., co-training, LoRA, discrete prediction, feature alignment).
+    We evaluate its ability to recognize a wide range of visual concepts <strong><em>never observed in our hand V-L-A data</em></strong>, including celebrities, landmarks, emojis, text (OCR), geometric shapes, and objects of varying sizes.
+    The following examples illustrate the model’s performance across these diverse visual recognition tasks. -->
     Our model demonstrates the ability to <strong><em> transfer the knowledge of a VLM directly into the 3D physical world</em></strong>. In particular, our hand V-L-A model largely preserves the VLM’s broad visual understanding <strong><em>without any specialized finetuning procedures</em></strong> (e.g., co-training, LoRA, discrete prediction, or feature alignment). As a result, our model can directly transfer these general visual understanding capabilities into action generation. 
     <br>
     To evaluate this property, we design a task in which the model is prompted to generate actions, and we interpret the direction of the generated hand movement as a multiple-choice answer. This setup allows us to assess its ability to recognize and distinguish a wide range of visual concepts that <strong><em>never appear in our hand V-L-A data</em></strong>. The evaluation includes celebrities, landmarks, emojis, text (OCR), geometric shapes, and objects of various sizes. The following examples illustrate the model’s performance across these diverse visual recognition tasks.
@@ -766,18 +775,58 @@
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="columns is-centered">
+  <!-- Footer -->
+  <footer class="footer" style="background: linear-gradient(135deg, #f5f7fa 0%, #cdd6e2 100%); padding: 3rem 1.5rem 2rem;">
+    <div class="container is-max-desktop">
+      <div class="columns">
+        <!-- Project Info -->
         <div class="column is-8">
-          <div class="content">
-            <p> Website adapted from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> under a <a
-                href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0
-                International</a>
-            </p>
-
-          </div>
+          <h3 class="title is-5" style="color: #667eea; font-family: 'Courier New', monospace;">
+            <span style="font-size: 120%;">V</span>ITRA
+          </h3>
+          <p class="subtitle is-6" style="color: #5a6b8c; margin-bottom: 1.5rem;">
+            Scalable Vision-Language-Action Model Pretraining for Robotic Manipulation
+          </p>
+          <p style="color: #6b7c98; font-size: 0.9rem; line-height: 1.6;">
+            A novel approach for pretraining robotic manipulation VLA models using real-life human hand activity videos.
+          </p>
         </div>
+<!-- #fafcff -->
+        <!-- Contact & Legal -->
+        <div class="column is-4">
+          <h4 class="title is-6" style="color: #667eea; margin-bottom: 1rem;">Contact & Legal</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 0.5rem;">
+              <a href="https://github.com/microsoft/VITRA/issues" style="color: #6b7c98; text-decoration: none; font-size: 0.9rem;" target="_blank">
+                Contact Us on GitHub
+              </a>
+            </li>
+            <li style="margin-bottom: 0.5rem;">
+              <a href="https://go.microsoft.com/fwlink/?LinkId=521839" style="color: #6b7c98; text-decoration: none; font-size: 0.9rem;" target="_blank">
+                Privacy & Cookies
+              </a>
+            </li>
+            <li style="margin-bottom: 0.5rem;">
+              <a href="https://go.microsoft.com/fwlink/?LinkID=246338" style="color: #6b7c98; text-decoration: none; font-size: 0.9rem;" target="_blank">
+                Terms of Use
+              </a>
+            </li>
+            <li style="margin-bottom: 0.5rem;">
+              <a href="https://go.microsoft.com/fwlink/?linkid=2196228" style="color: #6b7c98; text-decoration: none; font-size: 0.9rem;" target="_blank">
+                Trademarks
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <hr style="background-color: rgba(102, 126, 234, 0.2); margin: 2rem 0 1.5rem;">
+
+      <!-- Bottom Bar -->
+      <div class="content has-text-centered" style="margin-bottom: 0;">
+        <p style="color: #6b7c98; font-size: 0.85rem; margin-bottom: 0.5rem;">
+          © 2025 Microsoft
+        </p>
       </div>
     </div>
   </footer>
