@@ -7,8 +7,10 @@ Handles loading, processing, and normalization of robot state and action traject
 
 import json
 import os
+from functools import lru_cache
 from typing import Optional, Tuple
 
+import h5py
 import numpy as np
 import torch
 from PIL import Image
@@ -23,6 +25,7 @@ from vitra.datasets.dataset_utils import (
     compute_new_intrinsics_resize,
 )
 from vitra.datasets.human_dataset import pad_action
+from vitra.datasets.video_utils import load_video_decord
 from vitra.utils.data_utils import GaussianNormalizer, read_dataset_statistics
 
 
@@ -47,11 +50,11 @@ XHAND_HUMAN_MAPPING = [
 class RoboDatasetCore(object):
     """
     Core dataset class for robot manipulation data.
-    
+
     Handles loading and processing of robot teleoperation trajectories,
     including state/action sequences, images, and camera parameters.
     """
-    
+
     def __init__(
         self,
         root_dir: str,
@@ -62,76 +65,194 @@ class RoboDatasetCore(object):
         image_future_window_size: int = 0,
         load_images: bool = True
     ):
-        """
-        Initialize robot dataset core.
-        
-        Args:
-            root_dir: Root directory containing robot data
-            statistics_path: Path to normalization statistics JSON file
-            action_past_window_size: Number of past action frames to include
-            action_future_window_size: Number of future action frames to predict
-            image_past_window_size: Number of past image frames to include
-            image_future_window_size: Number of future image frames to include
-            load_images: Whether to load image data
-        """
         self.root = root_dir
         self.action_past_window_size = action_past_window_size
         self.action_future_window_size = action_future_window_size
         self.image_past_window_size = image_past_window_size
         self.image_future_window_size = image_future_window_size
         self.load_images = load_images
-        
+
         # Load normalization statistics if provided
-        if statistics_path is not None:
+        if statistics_path is not None and os.path.exists(statistics_path):
             self.data_statistics = read_dataset_statistics(statistics_path)
         else:
             self.data_statistics = None
-        
-        # TODO: Implement data loading
-        # - Load instruction JSON
-        # - Build sample index
-        
-        raise NotImplementedError("Data loading logic needs to be implemented")
+
+        # Discover all episode h5 files
+        self.episode_ids = sorted([
+            f[:-3] for f in os.listdir(root_dir)
+            if f.endswith('.h5')
+        ])
+
+        # Build a flat sample index: list of (episode_idx, frame_idx)
+        # so each sample corresponds to one frame in one episode
+        self.samples = []
+        self.episode_lengths = []
+        for ep_idx, ep_id in enumerate(self.episode_ids):
+            h5_path = os.path.join(self.root, ep_id + '.h5')
+            with h5py.File(h5_path, 'r') as f:
+                T = int(f['meta/frame_count'][()])
+            self.episode_lengths.append(T)
+            for frame_idx in range(T):
+                self.samples.append((ep_idx, frame_idx))
 
     def __len__(self) -> int:
-        """Return the total number of samples in the dataset."""
         return len(self.samples)
 
     def set_global_data_statistics(self, global_data_statistics: dict):
-        """
-        Set global normalization statistics and initialize normalizer.
-        
-        Args:
-            global_data_statistics: Dictionary containing mean/std for state/action
-        """
         self.global_data_statistics = global_data_statistics
         if not hasattr(self, 'gaussian_normalizer'):
             self.gaussian_normalizer = GaussianNormalizer(self.global_data_statistics)
 
+    @staticmethod
+    @lru_cache(maxsize=64)
+    def _load_h5_data(h5_path: str):
+        """Load and cache all numerical data from an h5 episode file."""
+        data = {}
+        with h5py.File(h5_path, 'r') as f:
+            # Meta
+            data['instruction'] = f['meta/instruction'][()].decode('utf-8') if isinstance(f['meta/instruction'][()], bytes) else str(f['meta/instruction'][()])
+            data['frame_count'] = int(f['meta/frame_count'][()])
+            data['has_left'] = bool(f['meta/has_left'][()])
+            data['has_right'] = bool(f['meta/has_right'][()])
+
+            # Observation
+            data['intrinsics'] = f['observation/camera/intrinsics'][()].astype(np.float64)
+
+            # State - EEF poses in camera frame and hand joints
+            data['left_hand_mount_pose_in_cam'] = f['state/left_hand_mount_pose_in_cam'][()].astype(np.float32)
+            data['right_hand_mount_pose_in_cam'] = f['state/right_hand_mount_pose_in_cam'][()].astype(np.float32)
+            data['left_hand_joint'] = f['state/left_hand_joint'][()].astype(np.float32)
+            data['right_hand_joint'] = f['state/right_hand_joint'][()].astype(np.float32)
+
+            # Action - target joint positions
+            data['action_left_arm_joint'] = f['action/left_arm_joint'][()].astype(np.float32)
+            data['action_right_arm_joint'] = f['action/right_arm_joint'][()].astype(np.float32)
+            data['action_left_hand_joint'] = f['action/left_hand_joint'][()].astype(np.float32)
+            data['action_right_hand_joint'] = f['action/right_hand_joint'][()].astype(np.float32)
+
+            # Masks
+            data['mask_left_arm'] = f['mask/left_arm'][()].astype(bool)
+            data['mask_right_arm'] = f['mask/right_arm'][()].astype(bool)
+            data['mask_left_hand'] = f['mask/left_hand'][()].astype(bool)
+            data['mask_right_hand'] = f['mask/right_hand'][()].astype(bool)
+        return data
+
     def __getitem__(self, idx: int) -> dict:
-        """
-        Get a single sample from the dataset.
-        
-        Args:
-            idx: Sample index
-            
-        Returns:
-            Dictionary containing:
-                - image_list: List of RGB images
-                - action_list: Action sequence array
-                - current_state: Current robot state
-                - action_mask: Mask indicating valid actions
-                - current_state_mask: Mask indicating valid state dimensions
-                - fov: Field of view (horizontal, vertical)
-                - intrinsics: Camera intrinsic matrix
-                - instruction: Text instruction
-        """
-        # TODO: Implement data loading for single sample
-        # - Load image(s)
-        # - Load state and action sequences
-        # - Apply augmentation if needed
-        # - Compute FOV from intrinsics
-        raise NotImplementedError("Sample loading logic needs to be implemented")
+        ep_idx, frame_idx = self.samples[idx]
+        ep_id = self.episode_ids[ep_idx]
+        h5_path = os.path.join(self.root, ep_id + '.h5')
+
+        data = self._load_h5_data(h5_path)
+        T = data['frame_count']
+
+        # ---- Build action window indices ----
+        # Window: [frame_idx - past, ..., frame_idx, ..., frame_idx + future]
+        # We need future frames for the action chunk
+        past = self.action_past_window_size
+        future = self.action_future_window_size
+        win_indices = np.arange(-past, future + 1) + frame_idx  # (W,)
+        oob = (win_indices < 0) | (win_indices >= T)
+        win_indices_clipped = np.clip(win_indices, 0, T - 1)
+        W = len(win_indices)
+        anchor = past  # index of current frame within window
+
+        # ---- Build state at current frame ----
+        # State format: [left_eef(6), left_hand_joint(Nh), right_eef(6), right_hand_joint(Nh)]
+        left_eef = data['left_hand_mount_pose_in_cam'][frame_idx]   # (6,)
+        right_eef = data['right_hand_mount_pose_in_cam'][frame_idx] # (6,)
+        left_hand_j = data['left_hand_joint'][frame_idx]            # (Nh,)
+        right_hand_j = data['right_hand_joint'][frame_idx]          # (Nh,)
+
+        left_state = np.concatenate([left_eef, left_hand_j])    # (6+Nh,)
+        right_state = np.concatenate([right_eef, right_hand_j]) # (6+Nh,)
+        current_state = np.concatenate([left_state, right_state]).astype(np.float32)
+
+        # State mask: per-hand validity at current frame
+        has_left = data['has_left'] and data['mask_left_hand'][frame_idx]
+        has_right = data['has_right'] and data['mask_right_hand'][frame_idx]
+        current_state_mask = np.array([has_left, has_right], dtype=np.float32)
+
+        # ---- Build action sequence ----
+        # Action format per frame: [left_eef(6), left_hand_joint(Nh), right_eef(6), right_hand_joint(Nh)]
+        # EEF action = pose at the NEXT frame (matching human dataset convention
+        # where actions represent the target state at t+1).
+        # Hand joint action = commanded target from action/ group (already targets t+1).
+        next_indices = np.clip(win_indices + 1, 0, T - 1)
+        next_oob = (win_indices + 1 < 0) | (win_indices + 1 >= T)
+        left_eef_win = data['left_hand_mount_pose_in_cam'][next_indices]   # (W, 6)
+        right_eef_win = data['right_hand_mount_pose_in_cam'][next_indices] # (W, 6)
+        left_hand_act = data['action_left_hand_joint'][win_indices_clipped]       # (W, Nh)
+        right_hand_act = data['action_right_hand_joint'][win_indices_clipped]     # (W, Nh)
+
+        action_list = np.concatenate([
+            left_eef_win, left_hand_act,
+            right_eef_win, right_hand_act
+        ], axis=1).astype(np.float32)  # (W, 36)
+
+        # Action mask: per-frame, per-hand validity
+        # Both the current frame AND next frame must be valid for a valid action
+        left_valid = data['mask_left_hand'][win_indices_clipped] & data['mask_left_hand'][next_indices] & ~oob & ~next_oob
+        right_valid = data['mask_right_hand'][win_indices_clipped] & data['mask_right_hand'][next_indices] & ~oob & ~next_oob
+        action_mask = np.stack([left_valid, right_valid], axis=1)  # (W, 2)
+
+        # Zero out invalid actions
+        Nh = left_hand_act.shape[1]
+        half_dim = 6 + Nh  # dims per hand in action
+        for i in range(W):
+            if not action_mask[i, 0]:
+                action_list[i, :half_dim] = 0.0
+            if not action_mask[i, 1]:
+                action_list[i, half_dim:] = 0.0
+
+        # ---- Load image ----
+        if self.load_images:
+            mp4_path = os.path.join(self.root, ep_id + '.mp4')
+            imgs, _ = load_video_decord(mp4_path, frame_index=[frame_idx])
+            image_list = np.stack(imgs, axis=0)  # (1, H, W, 3)
+            image_mask = np.array([True])
+        else:
+            image_list = None
+            image_mask = None
+
+        # ---- Intrinsics and FOV ----
+        intrinsics = data['intrinsics'].astype(np.float32)
+        if image_list is not None:
+            H, W_img = image_list.shape[1], image_list.shape[2]
+            intrinsics = compute_new_intrinsics_resize(intrinsics, (H, W_img)).astype(np.float32)
+        else:
+            H = int(2 * intrinsics[1, 2])
+            W_img = int(2 * intrinsics[0, 2])
+
+        fov = calculate_fov(H, W_img, intrinsics)
+
+        # ---- Instruction ----
+        raw_instruction = data['instruction']
+        if has_left and has_right:
+            instruction = f"Left hand: {raw_instruction} Right hand: {raw_instruction}"
+        elif has_right:
+            instruction = f"Left hand: None. Right hand: {raw_instruction}"
+        elif has_left:
+            instruction = f"Left hand: {raw_instruction} Right hand: None."
+        else:
+            instruction = f"Left hand: None. Right hand: None."
+
+        result_dict = dict(
+            instruction=instruction,
+            action_list=action_list,          # (W, 36) float32
+            action_mask=action_mask,           # (W, 2) bool
+            current_state=current_state,       # (36,) float32
+            current_state_mask=current_state_mask,  # (2,) float32
+            fov=fov,                           # (2,) float32
+            intrinsics=intrinsics,             # (3, 3) float32
+        )
+
+        if image_list is not None:
+            result_dict['image_list'] = image_list   # (1, H, W, 3) uint8
+        if image_mask is not None:
+            result_dict['image_mask'] = image_mask   # (1,) bool
+
+        return result_dict
 
     def transform_trajectory(
         self,
