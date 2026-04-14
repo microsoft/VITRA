@@ -67,7 +67,7 @@ dependencies=[
 ]
 
 [project.optional-dependencies]
-visulization = [
+visualization = [
     "smplx",
     "projectaria_tools",
     "chumpy @ git+https://github.com/mattloper/chumpy.git@master",

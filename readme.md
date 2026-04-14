@@ -172,7 +172,7 @@ git submodule update --init --recursive
 Please install the following additional modules for visualization using the commands below:
 
 ```bash
-pip install -e .[visulization] --no-build-isolation
+pip install -e .[visualization] --no-build-isolation
 ```
 
 <details>
