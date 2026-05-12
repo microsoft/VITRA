@@ -213,7 +213,7 @@ wget https://huggingface.co/ThunderVVV/HaWoR/resolve/main/hawor/checkpoints/hawo
 You can use our pretrained model to perform zero-shot 3D human hand action prediction directly from an **egocentric human hand image (landscape view)** based on instructions. To predict human actions from pre-captured images, please run [`scripts/run_human_inference.sh`](scripts/run_human_inference.sh). Here is a simple example:
 ```bash
 python scripts/inference_human_prediction.py \
-    --config VITRA-VLA/VITRA-VLA-3B \
+    --config_path VITRA-VLA/VITRA-VLA-3B \
     --image_path ./examples/0002.jpg \
     --sample_times 4 \
     --save_state_local \
