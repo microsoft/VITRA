@@ -264,7 +264,7 @@ normalizer = load_normalizer(configs)
 image_path = "your_image.jpg"
 image = Image.open(image_path)
 image = resize_short_side_to_target(image, target=224)
-fov = torch.tensor([[np.deg2rad(60.0), np.deg2rad(60.0)]])      # input your camera FOV here [fov_x, fov_y]
+fov = torch.tensor([[np.deg2rad(60.0), np.deg2rad(60.0)]], dtype=torch.float32)      # input your camera FOV here [fov_x, fov_y]
 
 image = np.array(image)
 
@@ -283,7 +283,7 @@ instruction = "Left hand: None. Right hand: Pick up the phone on the table."
 #       * [3:6]    global_orient:   Global rotation as Euler angles (xyz, in radians)
 #       * [6:51]   hand_pose:       45 joint angles as Euler angles (15 joints × 3 axes, in radians)
 #   - beta_right [10]:      Right hand MANO shape parameters
-state = np.zeros((normalizer.state_mean.shape[0],))             # Input your hand state here
+state = np.zeros((normalizer.state_mean.shape[0],), dtype=np.float32)             # Input your hand state here
 # Only use right hand state as an example.
 # state_mask[0] indicates whether to use left hand state, 
 # state_mask[1] indicates whether to use right hand state.
@@ -474,7 +474,7 @@ normalizer = load_normalizer(configs)
 image_path = "your_image.jpg"
 image = Image.open(image_path)
 image = resize_short_side_to_target(image, target=224)
-fov = torch.tensor([[np.deg2rad(60.0), np.deg2rad(60.0)]])      # input your camera FOV here [fov_x, fov_y]
+fov = torch.tensor([[np.deg2rad(60.0), np.deg2rad(60.0)]], dtype=torch.float32)      # input your camera FOV here [fov_x, fov_y]
 
 image = np.array(image)
 
@@ -491,7 +491,7 @@ instruction = "Left hand: None. Right hand: Pour the contents of the bottle into
 #       * [18:21]  transl:          Wrist translation in camera space (x, y, z in meters)
 #       * [21:24]  global_orient:   Wrist rotation as Euler angles (xyz, in radians)
 #       * [24:36]  hand_pose:       XHand joint angles (12 joints, in radians)
-state = np.zeros((normalizer.state_mean.shape[0],))             # Input your hand state here
+state = np.zeros((normalizer.state_mean.shape[0],), dtype=np.float32)             # Input your hand state here
 # Only use right hand state as an example.
 # state_mask[0] indicates whether to use left hand state, 
 # state_mask[1] indicates whether to use right hand state.
