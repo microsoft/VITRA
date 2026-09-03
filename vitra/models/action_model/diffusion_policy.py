@@ -1,9 +1,11 @@
-from vitra.models.action_model.dit import DiT
-from vitra.models.action_model import create_diffusion
-from . import gaussian_diffusion as gd
-from vitra.datasets.dataset_utils import ActionFeature
 import torch
 from torch import nn
+from vitra.datasets.dataset_utils import ActionFeature
+from vitra.models.action_model import create_diffusion
+from vitra.models.action_model.dit import DiT
+
+from . import gaussian_diffusion as gd
+
 
 def DiT_T(**kwargs):
     return DiT(depth=3, hidden_size=256, num_heads=4, **kwargs)
@@ -42,9 +44,10 @@ class DiffusionPolicy(nn.Module):
                                         diffusion_steps=self.diffusion_steps, 
                                         sigma_small=True, 
                                         learn_sigma = False
-                                        ) 
+        )
         #self.diffusion = create_diffusion(timestep_respacing="", noise_schedule = 'linear', diffusion_steps=100, sigma_small=True, learn_sigma = False)
         self.ddim_diffusion = None
+        self._ddim_steps = None
         if self.diffusion.model_var_type in [gd.ModelVarType.LEARNED, gd.ModelVarType.LEARNED_RANGE]:
             learn_sigma = True
         else:
@@ -112,7 +115,7 @@ class DiffusionPolicy(nn.Module):
         else:
             loss = sum(
                 component_losses[k] * component_counts[k]
-                for k in component_counts.keys()
+                for k in component_counts
             ) / total_count
 
         # Return loss with detailed component losses for logging
@@ -120,6 +123,44 @@ class DiffusionPolicy(nn.Module):
             "loss": loss,
             **component_losses,  # Unpack all component losses
         }
+
+    def _forward_with_action_mask(
+        self,
+        x,
+        timestep,
+        z,
+        x_mask,
+        state=None,
+        state_mask=None,
+    ):
+        """Run the action network with the same mask conditioning used in training.
+
+        ``DiT.forward`` expects the noisy action and its validity mask concatenated
+        along the feature dimension.  The classifier-free guidance path performs
+        this preparation internally, but the regular path is called directly by
+        the diffusion sampler.  Keeping the preparation here makes both samplers
+        observe identical inputs and prevents padded action dimensions from
+        leaking into valid dimensions during denoising.
+        """
+        if x_mask is None:
+            raise ValueError("x_mask is required for masked action sampling")
+        if x.shape != x_mask.shape:
+            raise ValueError(
+                "action and mask shapes must match, got "
+                f"{tuple(x.shape)} and {tuple(x_mask.shape)}"
+            )
+
+        mask = x_mask.to(device=x.device, dtype=x.dtype)
+        masked_x = torch.cat((x * mask, mask), dim=-1)
+
+        # Match the dtype conversion used by ``forward_with_cfg`` when the
+        # action head is loaded in bfloat16/float16.
+        try:
+            model_dtype = next(self.net.parameters()).dtype
+        except StopIteration:
+            model_dtype = masked_x.dtype
+        masked_x = masked_x.to(model_dtype)
+        return self.net(masked_x, timestep, z, state, state_mask)
     
     # Given condition and noise, sample x using reverse diffusion process
     def sample(self, 
@@ -135,7 +176,22 @@ class DiffusionPolicy(nn.Module):
         noise = torch.randn(action_features.shape[0], self.future_action_window_size+1, 
                 self.in_channels,  device=action_features.device)   #[B, T, D]
 
+        if action_masks is None:
+            raise ValueError("action_masks is required for action sampling")
         x_mask = action_masks.to(action_features.device)
+        expected_shape = noise.shape
+        if tuple(x_mask.shape) != tuple(expected_shape):
+            raise ValueError(
+                "action_masks must have shape "
+                f"{tuple(expected_shape)}, got {tuple(x_mask.shape)}"
+            )
+        mask_for_noise = x_mask.to(dtype=noise.dtype)
+        noise = noise * mask_for_noise
+
+        # ``z`` is shared by both sampling modes.  In particular, the regular
+        # (non-CFG) path must not rely on the variable created only in the CFG
+        # branch below.
+        z = action_features
 
         using_cfg = cfg_scale > 1.0
         if using_cfg:
@@ -144,26 +200,38 @@ class DiffusionPolicy(nn.Module):
             uncondition = uncondition.unsqueeze(0)  #[1, D]
             uncondition = uncondition.expand(B, 1, -1) #[B, 1, D]
             z = torch.cat([action_features, uncondition], 0)
-            cfg_scale = cfg_scale
 
             if self.use_state == 'DiT':
-                model_kwargs = dict(
-                    z=z, x_mask=x_mask, 
-                    cfg_scale=cfg_scale, state=current_state, 
-                    state_mask=current_state_mask
-                )
+                model_kwargs = {
+                    "z": z,
+                    "x_mask": x_mask,
+                    "cfg_scale": cfg_scale,
+                    "state": current_state,
+                    "state_mask": current_state_mask,
+                }
             else:
-                model_kwargs = dict(z=z, x_mask=x_mask, cfg_scale=cfg_scale)
+                model_kwargs = {"z": z, "x_mask": x_mask, "cfg_scale": cfg_scale}
             sample_fn = self.net.forward_with_cfg
         else:
+            # The regular DiT forward does not accept ``x_mask`` and expects the
+            # mask concatenated to the noisy action.  The adapter mirrors the
+            # preprocessing in ``forward_with_cfg`` while retaining state args.
             if self.use_state == 'DiT':
-                model_kwargs = dict(z=z, x_mask=x_mask, state=current_state, state_mask=current_state_mask)
+                model_kwargs = {
+                    "z": z,
+                    "x_mask": x_mask,
+                    "state": current_state,
+                    "state_mask": current_state_mask,
+                }
             else:
-                model_kwargs = dict(z=z, x_mask=x_mask)
-            sample_fn = self.net.forward
+                model_kwargs = {"z": z, "x_mask": x_mask}
+            sample_fn = self._forward_with_action_mask
 
         if use_ddim and num_ddim_steps is not None:
-            if self.ddim_diffusion is None:
+            if (
+                self.ddim_diffusion is None
+                or getattr(self, "_ddim_steps", None) != num_ddim_steps
+            ):
                 self.create_ddim(ddim_step=num_ddim_steps)
             samples = self.ddim_diffusion.ddim_sample_loop(
                 sample_fn, 
@@ -176,7 +244,7 @@ class DiffusionPolicy(nn.Module):
                 eta=0.0
             )
         else:
-            samples = self.ddim_diffusion.diffusion.p_sample_loop(
+            samples = self.diffusion.p_sample_loop(
                 sample_fn, 
                 noise.shape, 
                 noise, 
@@ -187,10 +255,14 @@ class DiffusionPolicy(nn.Module):
             )
         if using_cfg:
             samples, _ = samples.chunk(2, dim=0)  # Remove null class samples
-        return samples
+        # Keep padded/inactive action dimensions neutral even when a sampler
+        # performs stochastic updates after the final model evaluation.
+        return samples * mask_for_noise
 
     # Create DDIM sampler
     def create_ddim(self, ddim_step=10):
+        if not isinstance(ddim_step, int) or isinstance(ddim_step, bool) or ddim_step < 1:
+            raise ValueError(f"ddim_step must be a positive integer, got {ddim_step!r}")
         self.ddim_diffusion = create_diffusion(
             timestep_respacing="ddim"+str(ddim_step), 
             noise_schedule = 'squaredcos_cap_v2', 
@@ -198,4 +270,5 @@ class DiffusionPolicy(nn.Module):
             sigma_small=True, 
             learn_sigma = False
         )
+        self._ddim_steps = ddim_step
         return self.ddim_diffusion
